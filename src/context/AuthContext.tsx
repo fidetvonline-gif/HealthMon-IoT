@@ -34,16 +34,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const cached = localStorage.getItem(USERS_STORAGE_KEY);
       if (cached) {
         const parsed: UserProfile[] = JSON.parse(cached);
-        return parsed.map((u) =>
-          u.id === 'usr-student-001' || u.full_name === 'John Doe'
-            ? {
-                ...u,
-                full_name: 'Alma Brown',
-                email: 'alma.brown@student.uni.edu',
-                emergency_contact_name: 'Eleanor Brown (Mother)',
-              }
-            : u
-        );
+        return parsed.map((u) => {
+          if (u.id === 'usr-student-001' || u.full_name === 'John Doe') {
+            return {
+              ...u,
+              full_name: 'Alma Brown',
+              email: 'alma.brown@student.uni.edu',
+              emergency_contact_name: 'Eleanor Brown (Mother)',
+            };
+          }
+          if (u.id === 'usr-admin-001' || u.role === 'ADMIN' || u.full_name.includes('Marcus Vance')) {
+            return {
+              ...u,
+              full_name: 'Alma Brown',
+              email: 'alma.brown@admin.uni.edu',
+            };
+          }
+          return u;
+        });
       }
       return INITIAL_USERS;
     } catch {
@@ -63,6 +71,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               full_name: 'Alma Brown',
               email: 'alma.brown@student.uni.edu',
               emergency_contact_name: 'Eleanor Brown (Mother)',
+            };
+          }
+          if (found.id === 'usr-admin-001' || found.role === 'ADMIN' || found.full_name.includes('Marcus Vance')) {
+            return {
+              ...found,
+              full_name: 'Alma Brown',
+              email: 'alma.brown@admin.uni.edu',
             };
           }
           return found;

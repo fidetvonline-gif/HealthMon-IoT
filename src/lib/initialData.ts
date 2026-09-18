@@ -11,7 +11,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Normal resting adult heart rate range (60 - 100 BPM). Values below 60 indicate bradycardia; above 100 indicate tachycardia.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Administrator (University Health Centre)',
+    updated_by: 'Alma Brown (System Administrator)',
   },
   {
     id: 'thresh-2',
@@ -23,7 +23,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Normal oxygen saturation (95% - 100%). Readings below 95% indicate possible mild hypoxemia, below 90% severe hypoxemia.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Administrator (University Health Centre)',
+    updated_by: 'Alma Brown (System Administrator)',
   },
   {
     id: 'thresh-3',
@@ -35,7 +35,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Normal physiological human body temperature (36.5°C - 37.5°C). Readings above 37.8°C trigger fever warning.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Administrator (University Health Centre)',
+    updated_by: 'Alma Brown (System Administrator)',
   },
   {
     id: 'thresh-4',
@@ -47,7 +47,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Detects high-acceleration shock vector from 6-axis accelerometer followed by sudden stillness.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Administrator (University Health Centre)',
+    updated_by: 'Alma Brown (System Administrator)',
   },
 ];
 
@@ -126,8 +126,8 @@ export const INITIAL_USERS: UserProfile[] = [
   // Admin
   {
     id: 'usr-admin-001',
-    full_name: 'Engr. Marcus Vance (Admin)',
-    email: 'marcus.vance@admin.uni.edu',
+    full_name: 'Alma Brown',
+    email: 'alma.brown@admin.uni.edu',
     phone: '+234 808 999 3344',
     role: 'ADMIN',
     department: 'IoT & Systems Infrastructure Unit',

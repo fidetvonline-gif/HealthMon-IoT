@@ -3,7 +3,6 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { HealthDataProvider, useHealthData } from './context/HealthDataContext';
 import { Header } from './components/common/Header';
 import { Sidebar } from './components/common/Sidebar';
-import { DefenseScenarioBanner } from './components/common/DefenseScenarioBanner';
 import { ESP32HardwareSimulatorModal } from './components/iot/ESP32HardwareSimulatorModal';
 import { ESP32FirmwareModal } from './components/iot/ESP32FirmwareModal';
 
@@ -95,9 +94,6 @@ const MainApp: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col font-sans text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
-      {/* 12-Step Defense Walkthrough Banner */}
-      <DefenseScenarioBanner />
-
       {/* Global Header */}
       <Header
         onOpenSimulator={() => setIsSimulatorOpen(true)}
@@ -222,7 +218,7 @@ const MainApp: React.FC = () => {
       <footer className="border-t border-slate-200 bg-white py-4 px-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>
-            HealthMon IoT • Final Year Engineering Defense System • ESP32-S3 Physiological Monitor
+            HealthMon IoT • Student Health Monitoring & Abnormal Condition Detection System • ESP32-S3
           </span>
           <span className="font-mono text-[11px] text-slate-400">
             MAX30102 (PPG/SpO₂) • MLX90614 (IR Temp) • MPU6050 (IMU) • SSD1306 (OLED)
