@@ -1,0 +1,6 @@
+{
+  "name": "HealthMon IoT",
+  "description": "IoT-Based Student Health Monitoring & Abnormal Physiological Condition Detection System with real-time vitals, ESP32-S3 sensor integration, and healthcare alert response.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
