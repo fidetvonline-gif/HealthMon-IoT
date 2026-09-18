@@ -5,6 +5,7 @@ import { Header } from './components/common/Header';
 import { Sidebar } from './components/common/Sidebar';
 import { ESP32HardwareSimulatorModal } from './components/iot/ESP32HardwareSimulatorModal';
 import { ESP32FirmwareModal } from './components/iot/ESP32FirmwareModal';
+import { OfflineIndicator } from './components/pwa/OfflineIndicator';
 
 // Pages
 import { StudentDashboard } from './pages/student/StudentDashboard';
@@ -237,6 +238,9 @@ const MainApp: React.FC = () => {
         isOpen={isFirmwareOpen}
         onClose={() => setIsFirmwareOpen(false)}
       />
+
+      {/* PWA Offline Mode Network Indicator */}
+      <OfflineIndicator />
     </div>
   );
 };

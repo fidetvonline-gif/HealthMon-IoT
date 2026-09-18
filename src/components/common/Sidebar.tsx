@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
+import { PWAInstallButton } from '../pwa/PWAInstallButton';
 
 interface SidebarProps {
   activeTab: string;
@@ -127,6 +128,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
 
       {/* Footer / Sign out */}
       <div className="pt-4 border-t border-slate-100 space-y-2">
+        {/* PWA In-App Install */}
+        <PWAInstallButton variant="sidebar" />
+
         <div className="px-3 py-2 rounded-xl bg-slate-50 text-[11px] text-slate-500">
           <div className="flex items-center justify-between font-medium">
             <span>Supabase Sync</span>

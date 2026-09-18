@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
+import { PWAInstallButton } from '../pwa/PWAInstallButton';
 
 interface HeaderProps {
   onOpenSimulator: () => void;
@@ -76,6 +77,9 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Action Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* In-App PWA Install Action */}
+          <PWAInstallButton variant="header" />
+
           {/* Open Hardware Simulator Button */}
           <button
             type="button"
