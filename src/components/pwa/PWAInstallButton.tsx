@@ -40,7 +40,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
           className={`flex items-center gap-2.5 w-full px-3 py-2 text-xs font-semibold rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-all active:scale-98 ${className}`}
         >
           <Download className="w-4 h-4 shrink-0" />
-          <span>{installing ? 'Installing...' : 'Install HealthMon App'}</span>
+          <span>{installing ? 'Installing...' : 'Install VitaTrack App'}</span>
         </button>
       );
     }
@@ -51,7 +51,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
         onClick={handleInstallClick}
         disabled={installing}
         className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-colors active:scale-98 ${className}`}
-        title="Install HealthMon IoT as a native app on your desktop or mobile home screen"
+        title="Install VitaTrack IoT as a native app on your desktop or mobile home screen"
       >
         <Download className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">{installing ? 'Installing...' : 'Install App'}</span>
@@ -103,7 +103,7 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
                 </div>
                 <div className="flex items-start gap-2.5">
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-[11px] font-bold text-blue-700">3</span>
-                  <span>Tap <strong>Add</strong> in the top-right corner to launch HealthMon as a standalone application.</span>
+                  <span>Tap <strong>Add</strong> in the top-right corner to launch VitaTrack as a standalone application.</span>
                 </div>
               </div>
 
@@ -128,10 +128,10 @@ export const PWAInstallButton: React.FC<PWAInstallButtonProps> = ({
       type="button"
       onClick={() => {
         // Provide helpful browser native instruction if deferred prompt is pending
-        alert?.('To install HealthMon IoT, tap your browser menu (⋮ or Share) and select "Install app" or "Add to Home Screen".');
+        alert?.('To install VitaTrack IoT, tap your browser menu (⋮ or Share) and select "Install app" or "Add to Home Screen".');
       }}
       className={`hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-slate-200 transition-colors ${className}`}
-      title="Install HealthMon App"
+      title="Install VitaTrack App"
     >
       <Download className="w-3.5 h-3.5 text-slate-500" />
       <span>Install App</span>

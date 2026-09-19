@@ -14,8 +14,8 @@ export default defineConfig(() => {
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'icon.svg'],
         manifest: {
           id: '/',
-          name: 'HealthMon IoT',
-          short_name: 'HealthMon',
+          name: 'VitaTrack IoT',
+          short_name: 'VitaTrack',
           description: 'IoT-Based Student Health Monitoring & Abnormal Physiological Condition Detection System with real-time vitals.',
           theme_color: '#0f172a',
           background_color: '#f8fafc',

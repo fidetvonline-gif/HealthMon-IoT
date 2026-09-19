@@ -12,7 +12,7 @@ export const ESP32FirmwareModal: React.FC<ESP32FirmwareModalProps> = ({ isOpen, 
   if (!isOpen) return null;
 
   const firmwareCode = `/**
- * HealthMon IoT — ESP32-S3 Firmware Code
+ * VitaTrack IoT — ESP32-S3 Firmware Code
  * University Student Health Monitoring & Abnormal Condition Detection
  *
  * Sensors:

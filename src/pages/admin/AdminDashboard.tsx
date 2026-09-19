@@ -45,7 +45,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <ShieldCheck className="h-3.5 w-3.5 text-purple-400" />
             <span>Root System Operations • Full Privilege</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">HealthMon IoT Administration</h1>
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">VitaTrack IoT Administration</h1>
           <p className="mt-1 text-xs sm:text-sm text-slate-300">
             Hardware fleet orchestration, clinical threshold calibration, role-based access & system telemetry logs.
           </p>
@@ -141,7 +141,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="lg:col-span-7 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h3 className="text-sm font-bold text-slate-900">HealthMon IoT Subsystem Status</h3>
+              <h3 className="text-sm font-bold text-slate-900">VitaTrack IoT Subsystem Status</h3>
               <p className="text-xs text-slate-500">Real-time status of microcontrollers, database and message channels</p>
             </div>
             <span className="rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5">

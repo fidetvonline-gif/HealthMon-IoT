@@ -177,7 +177,7 @@ export const AdminUsersPage: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 p-4 backdrop-blur-xs">
           <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200 space-y-4 text-xs">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-sm font-extrabold text-slate-900">Enroll New HealthMon User</h3>
+              <h3 className="text-sm font-extrabold text-slate-900">Enroll New VitaTrack User</h3>
               <button
                 type="button"
                 onClick={() => setIsAddingUser(false)}

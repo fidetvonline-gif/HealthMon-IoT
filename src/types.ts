@@ -1,6 +1,7 @@
 export type UserRole = 'STUDENT' | 'HEALTHCARE' | 'ADMIN';
 
 export type ActivityType = 
+  | 'Resting'
   | 'Sitting' 
   | 'Standing' 
   | 'Walking' 

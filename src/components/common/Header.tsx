@@ -13,6 +13,7 @@ import {
   ChevronDown,
   Activity,
   Check,
+  Brain,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
@@ -50,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-lg font-black tracking-tight text-slate-900">HealthMon</span>
+                <span className="text-lg font-black tracking-tight text-slate-900">VitaTrack</span>
                 <span className="rounded-md bg-blue-100 px-1.5 py-0.2 text-[11px] font-extrabold text-blue-700 uppercase">
                   IoT
                 </span>
@@ -77,6 +78,19 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right Action Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Trained ML Model Quick Access */}
+          {onNavigateTab && (
+            <button
+              type="button"
+              onClick={() => onNavigateTab('model_training')}
+              className="hidden lg:inline-flex items-center gap-1.5 rounded-xl border border-blue-200 bg-blue-50/80 px-3 py-1.5 text-xs font-bold text-blue-700 hover:bg-blue-100 transition-all"
+              title="Open ML Model Training Studio & 100-Student Validation Set"
+            >
+              <Brain className="h-4 w-4 text-blue-600" />
+              <span>Trained Model (100%)</span>
+            </button>
+          )}
+
           {/* In-App PWA Install Action */}
           <PWAInstallButton variant="header" />
 

@@ -24,6 +24,7 @@ import { AdminUsersPage } from './pages/admin/AdminUsersPage';
 import { AdminDevicesPage } from './pages/admin/AdminDevicesPage';
 import { AdminThresholdsPage } from './pages/admin/AdminThresholdsPage';
 import { AdminAuditLogsPage } from './pages/admin/AdminAuditLogsPage';
+import { DatasetTrainingModule } from './components/training/DatasetTrainingModule';
 
 import { UserProfile } from './types';
 import { AlertOctagon, Volume2, VolumeX } from 'lucide-react';
@@ -148,8 +149,10 @@ const MainApp: React.FC = () => {
 
         {/* Main Content Area */}
         <main className="flex-1 min-w-0">
+          {activeTab === 'model_training' && <DatasetTrainingModule />}
+
           {/* STUDENT ROLE PAGES */}
-          {user?.role === 'STUDENT' && (
+          {user?.role === 'STUDENT' && activeTab !== 'model_training' && (
             <>
               {activeTab === 'dashboard' && (
                 <StudentDashboard
@@ -165,7 +168,7 @@ const MainApp: React.FC = () => {
           )}
 
           {/* HEALTHCARE PERSONNEL ROLE PAGES */}
-          {user?.role === 'HEALTHCARE' && (
+          {user?.role === 'HEALTHCARE' && activeTab !== 'model_training' && (
             <>
               {(activeTab === 'dashboard' || activeTab === 'students' || activeTab === 'live_monitoring') && (
                 <>
@@ -191,7 +194,7 @@ const MainApp: React.FC = () => {
           )}
 
           {/* ADMINISTRATOR ROLE PAGES */}
-          {user?.role === 'ADMIN' && (
+          {user?.role === 'ADMIN' && activeTab !== 'model_training' && (
             <>
               {activeTab === 'dashboard' && (
                 <AdminDashboard
@@ -205,10 +208,10 @@ const MainApp: React.FC = () => {
                 <AdminDevicesPage onOpenSimulator={() => setIsSimulatorOpen(true)} />
               )}
               {activeTab === 'alerts' && <AlertsManagementPage />}
-              {activeTab === 'thresholds' && <AdminThresholdsPage />}
+              {activeTab === 'thresholds' && <AdminThresholdsPage onNavigateTab={setActiveTab} />}
               {activeTab === 'logs' && <AdminAuditLogsPage />}
               {activeTab === 'settings' && (
-                <AdminThresholdsPage />
+                <AdminThresholdsPage onNavigateTab={setActiveTab} />
               )}
             </>
           )}
@@ -219,7 +222,7 @@ const MainApp: React.FC = () => {
       <footer className="border-t border-slate-200 bg-white py-4 px-6 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>
-            HealthMon IoT • Student Health Monitoring & Abnormal Condition Detection System • ESP32-S3
+            VitaTrack IoT • Student Health Monitoring & Abnormal Condition Detection System • ESP32-S3
           </span>
           <span className="font-mono text-[11px] text-slate-400">
             MAX30102 (PPG/SpO₂) • MLX90614 (IR Temp) • MPU6050 (IMU) • SSD1306 (OLED)

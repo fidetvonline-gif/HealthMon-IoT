@@ -15,6 +15,7 @@ import {
   Stethoscope,
   GraduationCap,
   Shield,
+  Brain,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
@@ -36,6 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
     { id: 'history', label: 'Health History', icon: History },
     { id: 'alerts', label: 'Alerts', icon: AlertTriangle, badge: activeAlertsCount > 0 ? activeAlertsCount : undefined },
     { id: 'device', label: 'My ESP32 Device', icon: Cpu },
+    { id: 'model_training', label: 'Trained Baselines', icon: Brain },
     { id: 'profile', label: 'Profile', icon: User },
   ];
 
@@ -45,6 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
     { id: 'live_monitoring', label: 'Live Monitoring', icon: Radio },
     { id: 'alerts', label: 'Alerts Management', icon: AlertTriangle, badge: activeAlertsCount > 0 ? activeAlertsCount : undefined },
     { id: 'analytics', label: 'Analytics & Reports', icon: BarChart3 },
+    { id: 'model_training', label: 'Dataset & ML Training', icon: Brain },
     { id: 'profile', label: 'Profile', icon: User },
   ];
 
@@ -54,6 +57,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
     { id: 'devices', label: 'Device Management', icon: Cpu },
     { id: 'alerts', label: 'Alert Center', icon: AlertTriangle, badge: activeAlertsCount > 0 ? activeAlertsCount : undefined },
     { id: 'thresholds', label: 'Threshold Settings', icon: Sliders },
+    { id: 'model_training', label: 'Dataset & ML Training', icon: Brain },
     { id: 'logs', label: 'System Logs', icon: FileText },
     { id: 'settings', label: 'Supabase & Config', icon: Settings },
   ];

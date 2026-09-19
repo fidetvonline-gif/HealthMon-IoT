@@ -1,5 +1,5 @@
 -- ==============================================================================
--- HealthMon IoT: Supabase PostgreSQL Schema & Security Policies (RLS)
+-- VitaTrack IoT: Supabase PostgreSQL Schema & Security Policies (RLS)
 -- University Student IoT Health Monitoring & Abnormal Condition Detection System
 -- ==============================================================================
 

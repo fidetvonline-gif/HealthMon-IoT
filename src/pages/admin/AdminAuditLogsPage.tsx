@@ -31,7 +31,7 @@ export const AdminAuditLogsPage: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `HealthMon_AuditLogs_${new Date().toISOString().slice(0, 10)}.log`;
+    link.download = `VitaTrack_AuditLogs_${new Date().toISOString().slice(0, 10)}.log`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

@@ -26,10 +26,19 @@ export function evaluateSensorReading(
   const spo2Thresh = thresholds.find((t) => t.parameter === 'spo2' && t.enabled);
   const tempThresh = thresholds.find((t) => t.parameter === 'temperature' && t.enabled);
 
-  // 1. Check Heart Rate
+  // 1. Check Heart Rate (Activity-Aware Physiological Thresholding)
   if (hrThresh) {
-    if (reading.heart_rate > hrThresh.maximum_value) {
-      const diff = reading.heart_rate - hrThresh.maximum_value;
+    const act = (reading.activity || 'Resting').trim();
+    const isRest = act === 'Resting' || act === 'Sitting';
+    const isWalk = act === 'Walking';
+    const isRun = act === 'Running';
+
+    // In the trained university model: running up to 160 BPM and walking up to 120 BPM are physiological responses
+    const effectiveMax = isRun ? 160 : (isWalk ? 120 : hrThresh.maximum_value);
+    const effectiveMin = isWalk || isRun ? 55 : hrThresh.minimum_value;
+
+    if (reading.heart_rate > effectiveMax) {
+      const diff = reading.heart_rate - effectiveMax;
       const severity: AlertSeverity = diff >= 20 ? 'HIGH' : 'WARNING';
       if (severity === 'HIGH') isAbnormal = true; else isWarning = true;
 
@@ -37,15 +46,15 @@ export function evaluateSensorReading(
         student_id: reading.student_id,
         student_name: reading.student_name,
         reading_id: readingId,
-        alert_type: 'Tachycardia / High Heart Rate',
+        alert_type: isRest ? 'High resting heart rate' : 'Tachycardia / High Heart Rate',
         parameter: 'Heart Rate',
         value: `${reading.heart_rate} BPM`,
-        threshold: `Upper Limit: ${hrThresh.maximum_value} BPM`,
+        threshold: `Upper Limit (${act}): ${effectiveMax} BPM`,
         severity,
-        message: `Heart rate of ${reading.heart_rate} BPM exceeds configured upper limit of ${hrThresh.maximum_value} BPM.`,
+        message: `Heart rate of ${reading.heart_rate} BPM exceeds calibrated ${act.toLowerCase()} threshold of ${effectiveMax} BPM.`,
         status: 'ACTIVE',
       });
-    } else if (reading.heart_rate < hrThresh.minimum_value && reading.heart_rate > 35) {
+    } else if (reading.heart_rate < effectiveMin && reading.heart_rate > 35) {
       const severity: AlertSeverity = reading.heart_rate <= 48 ? 'HIGH' : 'WARNING';
       if (severity === 'HIGH') isAbnormal = true; else isWarning = true;
 
@@ -53,12 +62,12 @@ export function evaluateSensorReading(
         student_id: reading.student_id,
         student_name: reading.student_name,
         reading_id: readingId,
-        alert_type: 'Bradycardia / Low Heart Rate',
+        alert_type: isRest ? 'Low resting heart rate' : 'Bradycardia / Low Heart Rate',
         parameter: 'Heart Rate',
         value: `${reading.heart_rate} BPM`,
-        threshold: `Lower Limit: ${hrThresh.minimum_value} BPM`,
+        threshold: `Lower Limit: ${effectiveMin} BPM`,
         severity,
-        message: `Heart rate of ${reading.heart_rate} BPM dropped below configured lower limit of ${hrThresh.minimum_value} BPM.`,
+        message: `Heart rate of ${reading.heart_rate} BPM dropped below calibrated lower limit of ${effectiveMin} BPM.`,
         status: 'ACTIVE',
       });
     }
@@ -121,18 +130,18 @@ export function evaluateSensorReading(
   }
 
   // 4. Check Activity Fall
-  if (reading.activity === 'Possible Fall') {
+  if (reading.activity === 'Possible Fall' || reading.activity === 'Sudden movement/fall-like event' || reading.activity.toLowerCase().includes('sudden')) {
     isAbnormal = true;
     generatedAlerts.push({
       student_id: reading.student_id,
       student_name: reading.student_name,
       reading_id: readingId,
-      alert_type: 'Sudden Fall Vector Detected',
+      alert_type: 'Sudden/fall-like movement',
       parameter: 'Activity',
-      value: 'Fall Shock Event',
-      threshold: 'MPU6050 Shock > 3.0G + Inactivity',
+      value: 'Fall / Shock Movement',
+      threshold: 'MPU6050 Shock > 3.0G Vector',
       severity: 'CRITICAL',
-      message: 'Sudden fall impact detected by MPU6050 accelerometer, student immobilized.',
+      message: 'Sudden fall or high-impact shock movement detected by MPU6050 accelerometer.',
       status: 'ACTIVE',
     });
   }
