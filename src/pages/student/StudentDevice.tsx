@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Cpu,
   Wifi,
@@ -11,11 +11,14 @@ import {
   ShieldCheck,
   RefreshCw,
   Sliders,
+  Server,
+  Network,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
 import { StatusBadge } from '../../components/common/StatusBadge';
 import { ESP32OledDisplay } from '../../components/iot/ESP32OledDisplay';
+import { ESP32DeviceIPConnector } from '../../components/iot/ESP32DeviceIPConnector';
 
 interface StudentDeviceProps {
   onOpenSimulator: () => void;
@@ -24,6 +27,8 @@ interface StudentDeviceProps {
 export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator }) => {
   const { user } = useAuth();
   const { deviceForStudent, latestReadingForStudent } = useHealthData();
+
+  const [activeTab, setActiveTab] = useState<'specs' | 'ip_connect'>('specs');
 
   const studentId = user?.id || 'usr-student-001';
   const device = deviceForStudent(studentId);
@@ -42,18 +47,33 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
             <span>Connected IoT Wearable Device</span>
           </h2>
           <p className="text-xs text-slate-500">
-            Features 12, 13 & 15 — ESP32-S3 Hardware Health, Battery Level & On-Device Display
+            ESP32-S3 Hardware Health, Battery Level & Direct Wi-Fi IP Telemetry Link (`/api/data`)
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={onOpenSimulator}
-          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 text-white px-4 py-2 text-xs font-bold hover:bg-blue-700 transition-colors shadow-xs"
-        >
-          <Sliders className="h-4 w-4" />
-          <span>Launch Device Test Bench</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveTab(activeTab === 'ip_connect' ? 'specs' : 'ip_connect')}
+            className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition-colors shadow-xs ${
+              activeTab === 'ip_connect'
+                ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+            }`}
+          >
+            <Network className="h-4 w-4" />
+            <span>{activeTab === 'ip_connect' ? 'View Device Specs' : 'Connect Physical ESP32 via IP'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={onOpenSimulator}
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white text-slate-700 px-3.5 py-2 text-xs font-bold hover:bg-slate-50 transition-colors shadow-xs"
+          >
+            <Sliders className="h-4 w-4 text-blue-600" />
+            <span>Test Bench</span>
+          </button>
+        </div>
       </div>
 
       {/* Low Battery Warning Banner if applicable - Section 25 */}
@@ -72,8 +92,50 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
         </div>
       )}
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Tab Switcher for User Friendliness */}
+      <div className="flex border-b border-slate-200 bg-slate-100/70 p-1 rounded-xl">
+        <button
+          type="button"
+          onClick={() => setActiveTab('specs')}
+          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold rounded-lg transition-all ${
+            activeTab === 'specs'
+              ? 'bg-white text-blue-700 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Cpu className="w-4 h-4" />
+          <span>Device Specifications & Sensors</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab('ip_connect')}
+          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-xs font-bold rounded-lg transition-all ${
+            activeTab === 'ip_connect'
+              ? 'bg-white text-emerald-700 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Server className="w-4 h-4" />
+          <span>Physical ESP32-C3 IP Link (GET /api/data)</span>
+        </button>
+      </div>
+
+      {activeTab === 'ip_connect' ? (
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
+          <div className="border-b border-slate-100 pb-3">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <Network className="h-5 w-5 text-emerald-600" />
+              <span>Connect Physical ESP32-C3 Wearable via Local IP Address</span>
+            </h3>
+            <p className="text-xs text-slate-500 mt-1">
+              Enter the local IP address assigned to your ESP32-C3 device over Wi-Fi. VitaTrack will poll <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-800">GET /api/data</code> every 2 seconds to ingest real-time vital signs and fall detection alerts.
+            </p>
+          </div>
+          <ESP32DeviceIPConnector />
+        </div>
+      ) : (
+        /* Main Grid */
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Device Hardware Specification & Telemetry (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
@@ -219,6 +281,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };

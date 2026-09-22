@@ -175,7 +175,7 @@ export const HealthDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       activity: ActivityType;
       battery_level?: number;
     }): HealthReading => {
-      const readingId = `read-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      const readingId = `read-${Date.now()}-${Math.random().toString(36).substring(2, 9)}-${Math.floor(Math.random() * 10000)}`;
       const evaluation = evaluateSensorReading(
         {
           student_id: data.student_id,
@@ -212,7 +212,7 @@ export const HealthDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         evaluation.alerts.forEach((alt) => {
           const alertObj: HealthAlert = {
             ...alt,
-            id: `alt-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+            id: `alt-${Date.now()}-${Math.random().toString(36).substring(2, 9)}-${Math.floor(Math.random() * 10000)}`,
             created_at: new Date().toISOString(),
             reviewed_at: null,
             resolved_at: null,
@@ -224,7 +224,7 @@ export const HealthDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
         // Add log
         const alertLog: DeviceLog = {
-          id: `log-${Date.now()}`,
+          id: `log-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
           device_id: data.device_id,
           event_type: 'ALERT_CREATED',
           message: `🚨 ${createdAlerts[0].severity} Alert: ${createdAlerts[0].alert_type} (${createdAlerts[0].value}) for ${data.student_name || 'Student'}`,
