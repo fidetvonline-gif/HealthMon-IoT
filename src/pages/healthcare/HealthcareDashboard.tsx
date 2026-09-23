@@ -6,16 +6,12 @@ import {
   AlertTriangle,
   AlertOctagon,
   Search,
-  Filter,
   Eye,
   Activity,
   Heart,
   Droplets,
   Thermometer,
   ArrowUpRight,
-  Battery,
-  Clock,
-  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
@@ -34,7 +30,7 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
   onOpenSimulator,
 }) => {
   const { availableUsers } = useAuth();
-  const { devices, readings, alerts, latestReadingForStudent, deviceForStudent } = useHealthData();
+  const { devices, alerts, latestReadingForStudent, deviceForStudent } = useHealthData();
 
   const [searchFilter, setSearchFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
@@ -42,7 +38,7 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
   // Filter only student users
   const students = availableUsers.filter((u) => u.role === 'STUDENT');
 
-  // Compute live counts matching Section 11 format
+  // Compute live counts
   const onlineDevicesCount = devices.filter((d) => d.status === 'ONLINE').length;
 
   // Status mapping for all students
@@ -81,17 +77,17 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Top Banner */}
-      <div className="rounded-3xl bg-slate-900 p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Top Banner - Restrained Professional Style */}
+      <div className="card-panel bg-[#0B1726] text-white p-6 rounded-[8px] border border-[#12263A]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold backdrop-blur-xs mb-3 border border-blue-500/30">
-              <Radio className="h-3.5 w-3.5 text-emerald-400 animate-pulse" />
-              <span>Campus Health Station Active • Real-Time Pulse</span>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#087F8C] text-xs font-semibold mb-2 border border-[#334155]/40">
+              <Radio className="h-3.5 w-3.5 text-[#16805C]" />
+              <span>Campus Healthcare Triage Hub</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">Healthcare Monitoring Hub</h1>
-            <p className="mt-1 text-xs sm:text-sm text-slate-300">
-              Centralized real-time physiological telemetry, threshold detection and alert triage for registered students.
+            <h1 className="text-2xl font-bold tracking-tight text-white">Healthcare Monitoring Station</h1>
+            <p className="mt-1 text-xs text-[#98A2B3]">
+              Centralized telemetry stream, threshold evaluations, and alert triage for campus students.
             </p>
           </div>
 
@@ -99,7 +95,7 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
             <button
               type="button"
               onClick={onOpenSimulator}
-              className="inline-flex items-center gap-2 rounded-2xl bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-md hover:bg-blue-500 transition-all"
+              className="btn-primary text-xs"
             >
               <Radio className="h-4 w-4" />
               <span>Inject IoT Reading</span>
@@ -107,105 +103,104 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
             <button
               type="button"
               onClick={() => onNavigateTab('alerts')}
-              className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-2.5 text-xs font-bold text-white hover:bg-white/20 transition-all border border-white/20"
+              className="btn-secondary text-xs"
             >
               <span>Review Alerts ({activeAlerts.length})</span>
-              <ArrowUpRight className="h-4 w-4" />
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Feature 5: Section 11 Dashboard Statistics */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
+      {/* KPI Metric Blocks */}
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {/* Total Students */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
-            <span>Total Students</span>
-            <Users className="h-4 w-4 text-blue-600" />
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
+            <span>Total Enrolled</span>
+            <Users className="h-4 w-4 text-[#087F8C]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono">
+          <span className="text-2xl font-bold text-[#17202A] font-mono">
             {students.length > 4 ? students.length : 245}
           </span>
-          <p className="text-[10px] text-slate-400 mt-0.5">Enrolled in Monitoring</p>
+          <p className="text-[10px] text-[#98A2B3] mt-0.5">Students</p>
         </div>
 
         {/* Online Devices */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
             <span>Online Devices</span>
-            <Radio className="h-4 w-4 text-emerald-600 animate-pulse" />
+            <Radio className="h-4 w-4 text-[#16805C]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-emerald-700 font-mono">
+          <span className="text-2xl font-bold text-[#16805C] font-mono">
             {onlineDevicesCount > 3 ? onlineDevicesCount : 198}
           </span>
-          <p className="text-[10px] text-slate-400 mt-0.5">Active ESP32-S3 Nodes</p>
+          <p className="text-[10px] text-[#98A2B3] mt-0.5">ESP32 Wearable Nodes</p>
         </div>
 
         {/* Normal */}
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-emerald-800 mb-1">
-            <span>Normal</span>
-            <CheckCircle className="h-4 w-4 text-emerald-600" />
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#16805C] uppercase tracking-wider mb-1">
+            <span>Normal Range</span>
+            <CheckCircle className="h-4 w-4 text-[#16805C]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-emerald-900 font-mono">
+          <span className="text-2xl font-bold text-[#16805C] font-mono">
             {normalCount > 2 ? normalCount : 187}
           </span>
-          <p className="text-[10px] text-emerald-700 mt-0.5">Safe Physiological Range</p>
+          <p className="text-[10px] text-[#667085] mt-0.5">Stable Vitals</p>
         </div>
 
         {/* Warning */}
-        <div className="rounded-2xl border border-amber-200 bg-amber-50/60 p-4 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-amber-800 mb-1">
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#B7791F] uppercase tracking-wider mb-1">
             <span>Warning</span>
-            <AlertTriangle className="h-4 w-4 text-amber-600" />
+            <AlertTriangle className="h-4 w-4 text-[#B7791F]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-amber-900 font-mono">
+          <span className="text-2xl font-bold text-[#B7791F] font-mono">
             {warningCount > 0 ? warningCount : 8}
           </span>
-          <p className="text-[10px] text-amber-700 mt-0.5">Elevated / High Activity</p>
+          <p className="text-[10px] text-[#667085] mt-0.5">Elevated State</p>
         </div>
 
         {/* Abnormal */}
-        <div className="rounded-2xl border border-rose-200 bg-rose-50/60 p-4 shadow-xs col-span-2 sm:col-span-1">
-          <div className="flex items-center justify-between text-xs font-bold text-rose-800 mb-1">
+        <div className="card-panel p-4 rounded-[8px] col-span-2 sm:col-span-1 border-[#C24141]/30 bg-[#C24141]/5">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#C24141] uppercase tracking-wider mb-1">
             <span>Abnormal</span>
-            <AlertOctagon className="h-4 w-4 text-rose-600 animate-pulse" />
+            <AlertOctagon className="h-4 w-4 text-[#C24141]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-rose-900 font-mono">
+          <span className="text-2xl font-bold text-[#C24141] font-mono">
             {abnormalCount > 0 ? abnormalCount : 3}
           </span>
-          <p className="text-[10px] text-rose-700 mt-0.5">Requires Triage Action</p>
+          <p className="text-[10px] text-[#C24141] mt-0.5">Needs Triage</p>
         </div>
       </div>
 
-      {/* Feature 5: Section 12 LIVE STUDENT MONITORING TABLE */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-xs overflow-hidden">
-        {/* Table Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border-b border-slate-100 bg-slate-50/80">
+      {/* Live Student Monitoring Table */}
+      <div className="card-panel rounded-[8px] overflow-hidden">
+        {/* Table Header Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border-b border-[#E2E6EB] bg-[#F1F3F5]">
           <div>
-            <h3 className="text-sm font-extrabold text-slate-900 tracking-wide flex items-center gap-2">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+            <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16805C]" />
               </span>
               <span>LIVE STUDENT MONITORING</span>
             </h3>
-            <p className="text-xs text-slate-500">
-              Supabase Realtime feed: Heart Rate, SpO₂, Temperature, Activity & Abnormal Condition Status
+            <p className="text-xs text-[#667085]">
+              Real-time physiological telemetry feed and condition status
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
             {/* Search Input */}
             <div className="relative">
-              <Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-slate-400" />
+              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#667085]" />
               <input
                 type="text"
-                placeholder="Search student or matric ID..."
+                placeholder="Search student or ID..."
                 value={searchFilter}
                 onChange={(e) => setSearchFilter(e.target.value)}
-                className="rounded-xl border border-slate-300 bg-white pl-8 pr-3 py-1.5 text-xs font-medium text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:outline-hidden"
+                className="form-input pl-8 py-1.5 text-xs max-w-[200px]"
               />
             </div>
 
@@ -213,7 +208,7 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800 focus:border-blue-500 focus:outline-hidden"
+              className="form-select py-1.5 text-xs w-auto"
             >
               <option value="ALL">All Statuses</option>
               <option value="Normal">Normal</option>
@@ -223,25 +218,25 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
           </div>
         </div>
 
-        {/* Section 12 Table Body */}
+        {/* Enterprise Data Table */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-100/70 text-[11px] font-bold uppercase tracking-wider text-slate-600">
-                <th className="py-3.5 px-4">Student</th>
-                <th className="py-3.5 px-4">Device UID</th>
-                <th className="py-3.5 px-4">Heart Rate</th>
-                <th className="py-3.5 px-4">SpO₂</th>
-                <th className="py-3.5 px-4">Temp</th>
-                <th className="py-3.5 px-4">Activity</th>
-                <th className="py-3.5 px-4">Status</th>
-                <th className="py-3.5 px-4 text-right">Action</th>
+              <tr>
+                <th>Student</th>
+                <th>Device UID</th>
+                <th>Heart Rate</th>
+                <th>SpO₂</th>
+                <th>Temp</th>
+                <th>Activity</th>
+                <th>Status</th>
+                <th className="text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
+            <tbody>
               {filteredStudents.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-slate-400">
+                  <td colSpan={8} className="py-8 text-center text-[#98A2B3]">
                     No students found matching current filters.
                   </td>
                 </tr>
@@ -258,80 +253,80 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
                     <tr
                       key={student.id}
                       onClick={() => onSelectStudent(student)}
-                      className={`hover:bg-blue-50/50 cursor-pointer transition-colors ${
-                        isAbnormal ? 'bg-rose-50/30' : isWarning ? 'bg-amber-50/20' : ''
+                      className={`cursor-pointer ${
+                        isAbnormal ? 'bg-[#C24141]/5' : isWarning ? 'bg-[#B7791F]/5' : ''
                       }`}
                     >
-                      <td className="py-3.5 px-4">
-                        <div className="font-bold text-slate-900 text-sm">{student.full_name}</div>
-                        <div className="text-[11px] text-slate-500 font-mono">{student.student_id || 'ID N/A'}</div>
+                      <td>
+                        <div className="font-bold text-[#17202A] text-xs">{student.full_name}</div>
+                        <div className="text-[11px] text-[#667085] font-mono">{student.student_id || 'ID N/A'}</div>
                       </td>
 
-                      <td className="py-3.5 px-4 font-mono text-slate-600">
+                      <td className="font-mono text-[#334155]">
                         <div className="flex items-center gap-1.5">
                           <span
                             className={`h-2 w-2 rounded-full ${
-                              device?.status === 'ONLINE' ? 'bg-emerald-500' : 'bg-slate-300'
+                              device?.status === 'ONLINE' ? 'bg-[#16805C]' : 'bg-[#98A2B3]'
                             }`}
                           />
                           <span>{device?.device_uid || 'Unassigned'}</span>
                         </div>
                       </td>
 
-                      <td className="py-3.5 px-4">
+                      <td>
                         <span
-                          className={`font-mono text-sm font-bold flex items-center gap-1 ${
-                            hr > 100 || hr < 60 ? 'text-rose-600' : 'text-slate-900'
+                          className={`font-mono text-xs font-bold flex items-center gap-1 ${
+                            hr > 100 || hr < 60 ? 'text-[#C24141]' : 'text-[#17202A]'
                           }`}
                         >
-                          <Heart className={`h-3.5 w-3.5 text-rose-500 ${hr > 100 ? 'animate-bounce' : ''}`} />
+                          <Heart className="h-3.5 w-3.5 text-[#C24141]" />
                           {hr} BPM
                         </span>
                       </td>
 
-                      <td className="py-3.5 px-4">
+                      <td>
                         <span
-                          className={`font-mono text-sm font-bold flex items-center gap-1 ${
-                            spo2 < 95 ? 'text-rose-600' : 'text-slate-900'
+                          className={`font-mono text-xs font-bold flex items-center gap-1 ${
+                            spo2 < 95 ? 'text-[#C24141]' : 'text-[#17202A]'
                           }`}
                         >
-                          <Droplets className="h-3.5 w-3.5 text-blue-500" />
+                          <Droplets className="h-3.5 w-3.5 text-[#2764A5]" />
                           {spo2}%
                         </span>
                       </td>
 
-                      <td className="py-3.5 px-4">
+                      <td>
                         <span
-                          className={`font-mono text-sm font-bold flex items-center gap-1 ${
-                            temp > 37.5 ? 'text-rose-600' : 'text-slate-900'
+                          className={`font-mono text-xs font-bold flex items-center gap-1 ${
+                            temp > 37.5 ? 'text-[#C24141]' : 'text-[#17202A]'
                           }`}
                         >
-                          <Thermometer className="h-3.5 w-3.5 text-amber-500" />
+                          <Thermometer className="h-3.5 w-3.5 text-[#B7791F]" />
                           {temp.toFixed(1)}°C
                         </span>
                       </td>
 
-                      <td className="py-3.5 px-4">
-                        <span className="inline-flex items-center gap-1 text-slate-800">
-                          <Activity className="h-3.5 w-3.5 text-slate-400" />
+                      <td>
+                        <span className="inline-flex items-center gap-1 text-[#334155]">
+                          <Activity className="h-3.5 w-3.5 text-[#667085]" />
                           {activity}
                         </span>
                       </td>
 
-                      <td className="py-3.5 px-4">
+                      <td>
                         <StatusBadge status={status} />
                       </td>
 
-                      <td className="py-3.5 px-4 text-right">
+                      <td className="text-right">
                         <button
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             onSelectStudent(student);
                           }}
-                          className="inline-flex items-center gap-1 px-3 py-1 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-xs font-semibold text-slate-700 shadow-xs"
+                          className="btn-secondary text-xs py-1 px-2.5 min-h-[32px]"
                         >
-                          <Eye className="w-3.5 h-3.5 text-blue-600" />
+                          <Eye className="w-3.5 h-3.5 text-[#087F8C]" />
                           <span>Inspect</span>
                         </button>
                       </td>

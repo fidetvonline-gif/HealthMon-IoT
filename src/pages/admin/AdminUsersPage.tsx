@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Users, UserPlus, Search, Shield, GraduationCap, Stethoscope, Check, X } from 'lucide-react';
+import { Users, UserPlus, Search, Shield, GraduationCap, Stethoscope, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
-import { UserProfile, UserRole } from '../../types';
+import { UserRole } from '../../types';
 
 export const AdminUsersPage: React.FC = () => {
-  const { availableUsers, updateProfile } = useAuth();
+  const { availableUsers } = useAuth();
   const { devices } = useHealthData();
 
   const [roleFilter, setRoleFilter] = useState<string>('ALL');
@@ -34,7 +34,6 @@ export const AdminUsersPage: React.FC = () => {
 
   const handleCreateUser = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate user creation
     setIsAddingUser(false);
     setNewName('');
     setNewEmail('');
@@ -44,124 +43,124 @@ export const AdminUsersPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-            <Users className="h-6 w-6 text-blue-600" />
+          <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
+            <Users className="h-5 w-5 text-[#087F8C]" />
             <span>User & Access Management</span>
           </h2>
-          <p className="text-xs text-slate-500">
-            Feature 9 — Manage student accounts, healthcare clinicians and administrative roles
+          <p className="text-xs text-[#667085]">
+            Manage student accounts, healthcare clinicians, and administration roles
           </p>
         </div>
 
         <button
           type="button"
           onClick={() => setIsAddingUser(true)}
-          className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-blue-700 transition-colors"
+          className="btn-primary text-xs"
         >
-          <UserPlus className="h-4 w-4" />
+          <UserPlus className="h-3.5 w-3.5" />
           <span>Register New User</span>
         </button>
       </div>
 
-      {/* Filters and Search */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* Controls */}
+      <div className="card-panel p-4 rounded-[8px] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-[#667085]" />
           <input
             type="text"
-            placeholder="Search by name, email or student matric ID..."
+            placeholder="Search by name, email or student ID..."
             value={searchFilter}
             onChange={(e) => setSearchFilter(e.target.value)}
-            className="w-full rounded-xl border border-slate-300 bg-white pl-9 pr-3 py-2 text-xs font-medium text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:outline-hidden"
+            className="form-input pl-9 text-xs"
           />
         </div>
 
         <select
           value={roleFilter}
           onChange={(e) => setRoleFilter(e.target.value)}
-          className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 focus:border-blue-500 focus:outline-hidden"
+          className="form-select text-xs w-auto"
         >
           <option value="ALL">All Roles ({availableUsers.length})</option>
           <option value="STUDENT">Students Only</option>
-          <option value="HEALTHCARE">Healthcare Personnel Only</option>
-          <option value="ADMIN">System Admins Only</option>
+          <option value="HEALTHCARE">Healthcare Staff Only</option>
+          <option value="ADMIN">Admins Only</option>
         </select>
       </div>
 
-      {/* Users Table */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-xs overflow-hidden">
+      {/* Users Data Table */}
+      <div className="card-panel rounded-[8px] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-100/70 text-[11px] font-bold uppercase tracking-wider text-slate-600">
-                <th className="py-3 px-4">User</th>
-                <th className="py-3 px-4">Role</th>
-                <th className="py-3 px-4">Student ID / Dept</th>
-                <th className="py-3 px-4">Assigned Wearable</th>
-                <th className="py-3 px-4">Emergency Contact</th>
+              <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th>Student ID / Dept</th>
+                <th>Assigned Wearable</th>
+                <th>Emergency Contact</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
+            <tbody>
               {filteredUsers.map((u) => {
                 const assignedDevice = devices.find((d) => d.student_id === u.id);
 
                 return (
-                  <tr key={u.id} className="hover:bg-slate-50">
-                    <td className="py-3.5 px-4">
-                      <div className="font-bold text-slate-900 text-sm">{u.full_name}</div>
-                      <div className="text-[11px] text-slate-500">{u.email}</div>
+                  <tr key={u.id}>
+                    <td>
+                      <div className="font-bold text-[#17202A] text-xs">{u.full_name}</div>
+                      <div className="text-[11px] text-[#667085]">{u.email}</div>
                     </td>
 
-                    <td className="py-3.5 px-4">
+                    <td>
                       {u.role === 'STUDENT' && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2.5 py-0.5 text-[11px] font-bold text-blue-700">
+                        <span className="inline-flex items-center gap-1 rounded-[4px] bg-[#087F8C]/10 px-2 py-0.5 text-[11px] font-semibold text-[#087F8C] border border-[#087F8C]/20">
                           <GraduationCap className="w-3 h-3" /> Student
                         </span>
                       )}
                       {u.role === 'HEALTHCARE' && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700">
-                          <Stethoscope className="w-3 h-3" /> Healthcare Staff
+                        <span className="inline-flex items-center gap-1 rounded-[4px] bg-[#16805C]/10 px-2 py-0.5 text-[11px] font-semibold text-[#16805C] border border-[#16805C]/20">
+                          <Stethoscope className="w-3 h-3" /> Healthcare
                         </span>
                       )}
                       {u.role === 'ADMIN' && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-purple-100 px-2.5 py-0.5 text-[11px] font-bold text-purple-700">
+                        <span className="inline-flex items-center gap-1 rounded-[4px] bg-[#0B1726]/10 px-2 py-0.5 text-[11px] font-semibold text-[#0B1726] border border-[#0B1726]/20">
                           <Shield className="w-3 h-3" /> Admin
                         </span>
                       )}
                     </td>
 
-                    <td className="py-3.5 px-4">
+                    <td>
                       {u.student_id ? (
                         <div>
-                          <span className="font-mono font-bold text-slate-900">{u.student_id}</span>
-                          <div className="text-[11px] text-slate-500">{u.department || 'N/A'}</div>
+                          <span className="font-mono font-bold text-[#17202A] text-xs">{u.student_id}</span>
+                          <div className="text-[11px] text-[#667085]">{u.department || 'N/A'}</div>
                         </div>
                       ) : (
-                        <span className="text-slate-400">Clinical / Staff</span>
+                        <span className="text-[#98A2B3] text-xs">Staff Account</span>
                       )}
                     </td>
 
-                    <td className="py-3.5 px-4">
+                    <td>
                       {assignedDevice ? (
-                        <span className="font-mono text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                        <span className="font-mono text-xs font-bold text-[#087F8C]">
                           {assignedDevice.device_uid}
                         </span>
                       ) : (
-                        <span className="text-slate-400 text-xs">None Assigned</span>
+                        <span className="text-[#98A2B3] text-xs">None Assigned</span>
                       )}
                     </td>
 
-                    <td className="py-3.5 px-4">
+                    <td>
                       {u.emergency_contact_name ? (
                         <div>
-                          <div className="font-semibold text-slate-800">{u.emergency_contact_name}</div>
-                          <div className="text-[11px] text-slate-500 font-mono">{u.emergency_contact_phone}</div>
+                          <div className="font-semibold text-[#17202A] text-xs">{u.emergency_contact_name}</div>
+                          <div className="text-[11px] font-mono text-[#667085]">{u.emergency_contact_phone}</div>
                         </div>
                       ) : (
-                        <span className="text-slate-400">—</span>
+                        <span className="text-[#98A2B3] text-xs">Not Provided</span>
                       )}
                     </td>
                   </tr>
@@ -172,98 +171,93 @@ export const AdminUsersPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Add User Modal */}
+      {/* Modal for adding user */}
       {isAddingUser && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200 space-y-4 text-xs">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="text-sm font-extrabold text-slate-900">Enroll New VitaTrack User</h3>
+        <div className="fixed inset-0 z-50 bg-[#0B1726]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="card-panel bg-white rounded-[8px] max-w-md w-full p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-[#E2E6EB] pb-3">
+              <h3 className="text-sm font-bold text-[#17202A]">Register New Account</h3>
               <button
                 type="button"
                 onClick={() => setIsAddingUser(false)}
-                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100"
+                className="text-[#667085] hover:text-[#17202A]"
               >
-                <X className="h-4 w-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleCreateUser} className="space-y-3">
+            <form onSubmit={handleCreateUser} className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">Full Name</label>
+                <label className="block font-semibold text-[#17202A] mb-1">Full Name</label>
                 <input
                   type="text"
                   required
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
-                  placeholder="e.g. Michael Okon"
-                  className="w-full rounded-xl border border-slate-300 p-2 text-xs"
+                  className="form-input"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">Email Address</label>
+                <label className="block font-semibold text-[#17202A] mb-1">Email Address</label>
                 <input
                   type="email"
                   required
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
-                  placeholder="e.g. michael.okon@uni.edu.ng"
-                  className="w-full rounded-xl border border-slate-300 p-2 text-xs"
+                  className="form-input"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">User Role</label>
+                <label className="block font-semibold text-[#17202A] mb-1">Account Role</label>
                 <select
                   value={newRole}
                   onChange={(e) => setNewRole(e.target.value as UserRole)}
-                  className="w-full rounded-xl border border-slate-300 p-2 text-xs font-semibold"
+                  className="form-select"
                 >
-                  <option value="STUDENT">Student (Health Subject)</option>
-                  <option value="HEALTHCARE">Healthcare Personnel (Nurse / Doctor)</option>
-                  <option value="ADMIN">System Administrator</option>
+                  <option value="STUDENT">Student</option>
+                  <option value="HEALTHCARE">Healthcare Professional</option>
+                  <option value="ADMIN">Administrator</option>
                 </select>
               </div>
 
               {newRole === 'STUDENT' && (
                 <>
                   <div>
-                    <label className="block text-slate-700 font-semibold mb-1">Student Matric ID</label>
+                    <label className="block font-semibold text-[#17202A] mb-1">Student / Matric ID</label>
                     <input
                       type="text"
                       value={newStudentId}
                       onChange={(e) => setNewStudentId(e.target.value)}
-                      placeholder="e.g. UY/ENG/2026/044"
-                      className="w-full rounded-xl border border-slate-300 p-2 text-xs font-mono"
+                      className="form-input font-mono"
                     />
                   </div>
-
                   <div>
-                    <label className="block text-slate-700 font-semibold mb-1">Department</label>
+                    <label className="block font-semibold text-[#17202A] mb-1">Department</label>
                     <input
                       type="text"
                       value={newDept}
                       onChange={(e) => setNewDept(e.target.value)}
-                      placeholder="e.g. Electrical & Electronics Engineering"
-                      className="w-full rounded-xl border border-slate-300 p-2 text-xs"
+                      className="form-input"
                     />
                   </div>
                 </>
               )}
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100">
+              <div className="pt-3 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsAddingUser(false)}
-                  className="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 font-medium"
+                  className="btn-secondary text-xs"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700"
+                  className="btn-primary text-xs"
                 >
-                  Enroll User
+                  Create Account
                 </button>
               </div>
             </form>

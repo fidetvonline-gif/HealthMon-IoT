@@ -10,9 +10,6 @@ import {
   AlertTriangle,
   ArrowUpRight,
   ShieldCheck,
-  Clock,
-  Sparkles,
-  TrendingUp,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
@@ -50,22 +47,19 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
 
   return (
     <div className="space-y-6">
-      {/* Header Banner - Section 9 */}
-      <div className="rounded-3xl bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-        {/* Subtle background glow */}
-        <div className="absolute -right-10 -bottom-10 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Header Banner - Restrained Professional Style */}
+      <div className="card-panel bg-[#0B1726] text-white p-6 rounded-[8px] border border-[#12263A]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-blue-200 text-xs font-semibold backdrop-blur-xs mb-3 border border-white/10">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#087F8C] text-xs font-semibold mb-2 border border-[#334155]/40">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#16805C]" />
               <span>IoT Telemetry Pipeline Active</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Good morning, {user?.full_name?.split(' ')[0] || 'Student'} 👋
+            <h1 className="text-2xl font-bold tracking-tight text-white">
+              Welcome back, {user?.full_name?.split(' ')[0] || 'Student'}
             </h1>
-            <p className="mt-1 text-sm text-blue-100/80">
-              Health monitoring is active. Your ESP32-S3 wearable is streaming physiological parameters.
+            <p className="mt-1 text-xs text-[#98A2B3]">
+              Continuous physiological monitoring is active via your assigned ESP32 wearable.
             </p>
           </div>
 
@@ -73,18 +67,18 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
             <button
               type="button"
               onClick={onOpenSimulator}
-              className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2.5 text-xs font-bold text-slate-900 shadow-md hover:bg-blue-50 transition-all"
+              className="btn-primary text-xs"
             >
-              <Cpu className="h-4 w-4 text-blue-600" />
-              <span>Simulate IoT Device</span>
+              <Cpu className="h-4 w-4" />
+              <span>IoT Test Bench</span>
             </button>
             <button
               type="button"
               onClick={() => onNavigateTab('history')}
-              className="inline-flex items-center gap-2 rounded-2xl bg-white/15 px-4 py-2.5 text-xs font-bold text-white backdrop-blur-xs hover:bg-white/20 transition-all border border-white/20"
+              className="btn-secondary text-xs"
             >
               <span>View History</span>
-              <ArrowUpRight className="h-4 w-4" />
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
@@ -92,21 +86,21 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
 
       {/* Active Alert Banner if student has unresolved abnormal condition */}
       {activeAlert && (
-        <div className="rounded-2xl border-2 border-rose-400 bg-rose-50 p-4 sm:p-5 shadow-sm animate-pulse">
+        <div className="rounded-[8px] border border-[#C24141] bg-[#C24141]/10 p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-600 text-white font-bold shrink-0 shadow-sm">
+              <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#C24141] text-white font-bold shrink-0">
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h4 className="text-sm font-extrabold text-rose-900 uppercase tracking-wide">
-                    🚨 Abnormal Condition Detected ({activeAlert.severity})
+                  <h4 className="text-xs font-bold text-[#C24141] uppercase tracking-wide">
+                    Abnormal Condition Alert ({activeAlert.severity})
                   </h4>
-                  <span className="text-xs text-rose-700 font-semibold">{activeAlert.parameter}</span>
+                  <span className="text-xs text-[#17202A] font-semibold">{activeAlert.parameter}</span>
                 </div>
-                <p className="mt-1 text-xs text-rose-800 font-medium">{activeAlert.message}</p>
-                <div className="mt-2 flex items-center gap-3 text-xs text-rose-700">
+                <p className="mt-1 text-xs text-[#334155] font-medium">{activeAlert.message}</p>
+                <div className="mt-2 flex items-center gap-3 text-[11px] text-[#667085]">
                   <span>
                     Current: <strong>{activeAlert.value}</strong>
                   </span>
@@ -121,7 +115,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
             <button
               type="button"
               onClick={() => onNavigateTab('alerts')}
-              className="rounded-xl bg-rose-600 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-rose-700 shrink-0"
+              className="btn-danger text-xs"
             >
               Review Alert
             </button>
@@ -129,97 +123,97 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
         </div>
       )}
 
-      {/* Section 9: 4 Primary Vitals Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+      {/* 4 Primary Vitals Metrics Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Heart Rate */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:shadow-md transition-shadow relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
             <span className="flex items-center gap-1.5">
-              <Heart className={`h-4 w-4 text-rose-500 ${hr > 100 ? 'animate-bounce' : 'animate-pulse'}`} />
+              <Heart className="h-4 w-4 text-[#C24141]" />
               HEART RATE
             </span>
             <StatusBadge status={hr > 100 || hr < 60 ? 'Abnormal' : 'Normal'} />
           </div>
 
           <div className="flex items-baseline gap-2 mt-2">
-            <span className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-mono">{hr}</span>
-            <span className="text-xs font-semibold text-slate-500">BPM</span>
+            <span className="text-3xl font-bold text-[#17202A] tracking-tight font-mono">{hr}</span>
+            <span className="text-xs font-semibold text-[#667085]">BPM</span>
           </div>
 
-          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Limit: {hrThresh ? `${hrThresh.minimum_value} - ${hrThresh.maximum_value} BPM` : '60 - 100 BPM'}</span>
-            <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> MAX30102
+          <div className="mt-3 pt-2.5 border-t border-[#E2E6EB] flex items-center justify-between text-[11px] text-[#667085]">
+            <span>Threshold: {hrThresh ? `${hrThresh.minimum_value}-${hrThresh.maximum_value} BPM` : '60-100 BPM'}</span>
+            <span className="text-[#16805C] font-semibold flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#16805C]" /> MAX30102
             </span>
           </div>
         </div>
 
         {/* SpO2 */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:shadow-md transition-shadow relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
             <span className="flex items-center gap-1.5">
-              <Droplets className="h-4 w-4 text-blue-500" />
+              <Droplets className="h-4 w-4 text-[#2764A5]" />
               SpO₂ SATURATION
             </span>
             <StatusBadge status={spo2 < 95 ? 'Abnormal' : 'Normal'} />
           </div>
 
           <div className="flex items-baseline gap-2 mt-2">
-            <span className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-mono">{spo2}</span>
-            <span className="text-xs font-semibold text-slate-500">%</span>
+            <span className="text-3xl font-bold text-[#17202A] tracking-tight font-mono">{spo2}</span>
+            <span className="text-xs font-semibold text-[#667085]">%</span>
           </div>
 
-          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Limit: {spo2Thresh ? `>= ${spo2Thresh.minimum_value}%` : '>= 95%'}</span>
-            <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Pulse Ox
+          <div className="mt-3 pt-2.5 border-t border-[#E2E6EB] flex items-center justify-between text-[11px] text-[#667085]">
+            <span>Threshold: {spo2Thresh ? `>= ${spo2Thresh.minimum_value}%` : '>= 95%'}</span>
+            <span className="text-[#16805C] font-semibold flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#16805C]" /> Pulse Ox
             </span>
           </div>
         </div>
 
         {/* Temperature */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:shadow-md transition-shadow relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
             <span className="flex items-center gap-1.5">
-              <Thermometer className="h-4 w-4 text-amber-500" />
+              <Thermometer className="h-4 w-4 text-[#B7791F]" />
               TEMPERATURE
             </span>
             <StatusBadge status={temp > 37.5 || temp < 36.5 ? 'Abnormal' : 'Normal'} />
           </div>
 
           <div className="flex items-baseline gap-2 mt-2">
-            <span className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight font-mono">
+            <span className="text-3xl font-bold text-[#17202A] tracking-tight font-mono">
               {temp.toFixed(1)}
             </span>
-            <span className="text-xs font-semibold text-slate-500">°C</span>
+            <span className="text-xs font-semibold text-[#667085]">°C</span>
           </div>
 
-          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Normal: {tempThresh ? `${tempThresh.minimum_value} - ${tempThresh.maximum_value}°C` : '36.5 - 37.5°C'}</span>
-            <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> MLX90614
+          <div className="mt-3 pt-2.5 border-t border-[#E2E6EB] flex items-center justify-between text-[11px] text-[#667085]">
+            <span>Normal: {tempThresh ? `${tempThresh.minimum_value}-${tempThresh.maximum_value}°C` : '36.5-37.5°C'}</span>
+            <span className="text-[#16805C] font-semibold flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#16805C]" /> MLX90614
             </span>
           </div>
         </div>
 
         {/* Activity & Motion */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:shadow-md transition-shadow relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
             <span className="flex items-center gap-1.5">
-              <Activity className="h-4 w-4 text-purple-500" />
-              PHYSICAL ACTIVITY
+              <Activity className="h-4 w-4 text-[#087F8C]" />
+              ACTIVITY STATE
             </span>
             <StatusBadge status={activity === 'Possible Fall' ? 'Abnormal' : 'Normal'} />
           </div>
 
           <div className="flex items-baseline gap-2 mt-2">
-            <span className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">{activity}</span>
+            <span className="text-2xl font-bold text-[#17202A] tracking-tight">{activity}</span>
           </div>
 
-          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Motion Sensor</span>
-            <span className="text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> MPU6050
+          <div className="mt-3 pt-2.5 border-t border-[#E2E6EB] flex items-center justify-between text-[11px] text-[#667085]">
+            <span>Motion Classifier</span>
+            <span className="text-[#16805C] font-semibold flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#16805C]" /> MPU6050
             </span>
           </div>
         </div>
@@ -228,13 +222,13 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
       {/* Grid: Connected Device + Physical OLED + Live Telemetry Feed */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Device Telemetry & Physical OLED Display (7 cols) */}
-        <div className="lg:col-span-7 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-          <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+        <div className="lg:col-span-7 card-panel p-5 rounded-[8px]">
+          <div className="flex items-center justify-between mb-4 border-b border-[#E2E6EB] pb-3">
             <div>
-              <h3 className="text-base font-extrabold text-slate-900">ESP32-S3 Wearable Monitor</h3>
-              <p className="text-xs text-slate-500">Feature 15 — On-Device OLED Telemetry Simulation</p>
+              <h3 className="text-sm font-bold text-[#17202A]">ESP32 Wearable Device Monitor</h3>
+              <p className="text-xs text-[#667085]">On-Device OLED Telemetry Simulation</p>
             </div>
-            <span className="text-xs text-slate-400 font-mono">Last update: {lastRecorded}</span>
+            <span className="text-xs text-[#667085] font-mono">Updated: {lastRecorded}</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
@@ -244,96 +238,94 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
             </div>
 
             {/* Device Hardware Specs */}
-            <div className="space-y-3 text-xs">
-              <div className="rounded-xl bg-slate-50 p-3 border border-slate-200/80">
-                <div className="flex justify-between items-center text-slate-600 mb-1">
+            <div className="space-y-2.5 text-xs">
+              <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
+                <div className="flex justify-between items-center text-[#334155] mb-1.5">
                   <span className="font-semibold">Device UID:</span>
-                  <span className="font-mono font-bold text-slate-900">{device?.device_uid || 'HM-ESP32-001'}</span>
+                  <span className="font-mono font-bold text-[#17202A]">{device?.device_uid || 'HM-ESP32-001'}</span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600 mb-1">
+                <div className="flex justify-between items-center text-[#334155] mb-1.5">
                   <span className="font-semibold">Status:</span>
                   <StatusBadge status={device?.status || 'ONLINE'} size="sm" pulse />
                 </div>
-                <div className="flex justify-between items-center text-slate-600 mb-1">
-                  <span className="font-semibold">Battery Gauge:</span>
-                  <span className="font-mono font-bold text-slate-900 flex items-center gap-1">
-                    <Battery className="w-3.5 h-3.5 text-blue-600" /> {battery}%
+                <div className="flex justify-between items-center text-[#334155] mb-1.5">
+                  <span className="font-semibold">Battery Level:</span>
+                  <span className="font-mono font-bold text-[#17202A] flex items-center gap-1">
+                    <Battery className="w-3.5 h-3.5 text-[#087F8C]" /> {battery}%
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600 mb-1">
-                  <span className="font-semibold">Wi-Fi RSSI:</span>
-                  <span className="font-mono text-emerald-600 font-bold flex items-center gap-1">
-                    <Wifi className="w-3.5 h-3.5" /> -58 dBm (Strong)
+                <div className="flex justify-between items-center text-[#334155] mb-1.5">
+                  <span className="font-semibold">Wi-Fi Signal:</span>
+                  <span className="font-mono text-[#16805C] font-bold flex items-center gap-1">
+                    <Wifi className="w-3.5 h-3.5" /> -58 dBm
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-slate-600">
+                <div className="flex justify-between items-center text-[#334155]">
                   <span className="font-semibold">Firmware:</span>
-                  <span className="font-mono text-slate-500">v1.2.4-esp32s3</span>
+                  <span className="font-mono text-[#667085]">v1.2.4-esp32s3</span>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-blue-100 bg-blue-50/70 p-3 text-blue-900">
+              <div className="rounded-[6px] border border-[#E2E6EB] bg-[#FFFFFF] p-3 text-[#17202A]">
                 <div className="flex items-center gap-1.5 font-bold text-xs mb-1">
-                  <ShieldCheck className="w-4 h-4 text-blue-600" />
-                  <span>Cloud Data Pipeline</span>
+                  <ShieldCheck className="w-4 h-4 text-[#087F8C]" />
+                  <span>Data Ingestion Pipeline</span>
                 </div>
-                <p className="text-[11px] text-blue-700 leading-relaxed">
-                  Data packets are authenticated and streamed directly to Supabase via Wi-Fi and evaluated in real time
-                  against university health thresholds.
+                <p className="text-[11px] text-[#667085] leading-relaxed">
+                  Telemetry packets are streamed directly via Wi-Fi and evaluated against threshold rules in real time.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right: Physiological Health Summary & Recommendations (5 cols) */}
-        <div className="lg:col-span-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+        {/* Right: Physiological Health Summary & Profile (5 cols) */}
+        <div className="lg:col-span-5 card-panel p-5 rounded-[8px] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
-              <h3 className="text-base font-extrabold text-slate-900">Student Profile & Vitals Status</h3>
+            <div className="flex items-center justify-between mb-4 border-b border-[#E2E6EB] pb-3">
+              <h3 className="text-sm font-bold text-[#17202A]">Student Profile & Vitals</h3>
               <StatusBadge status={status} />
             </div>
 
-            <div className="space-y-3 text-xs">
-              <div className="flex items-center justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-500">Student Name:</span>
-                <span className="font-bold text-slate-900">{user?.full_name}</span>
+            <div className="space-y-2.5 text-xs">
+              <div className="flex items-center justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Student Name:</span>
+                <span className="font-bold text-[#17202A]">{user?.full_name}</span>
               </div>
-              <div className="flex items-center justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-500">Matric / Student ID:</span>
-                <span className="font-mono font-bold text-slate-900">{user?.student_id || 'UY/CS/2026/001'}</span>
+              <div className="flex items-center justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Student ID:</span>
+                <span className="font-mono font-bold text-[#17202A]">{user?.student_id || 'UY/CS/2026/001'}</span>
               </div>
-              <div className="flex items-center justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-500">Faculty / Department:</span>
-                <span className="font-semibold text-slate-800">{user?.department || 'Computer Science'}</span>
+              <div className="flex items-center justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Department:</span>
+                <span className="font-semibold text-[#334155]">{user?.department || 'Computer Science'}</span>
               </div>
-              <div className="flex items-center justify-between py-1.5 border-b border-slate-50">
-                <span className="text-slate-500">Assigned IoT Device:</span>
-                <span className="font-mono text-blue-600 font-bold">{device?.device_uid || 'HM-ESP32-001'}</span>
+              <div className="flex items-center justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Assigned Device:</span>
+                <span className="font-mono text-[#087F8C] font-bold">{device?.device_uid || 'HM-ESP32-001'}</span>
               </div>
-              <div className="flex items-center justify-between py-1.5">
-                <span className="text-slate-500">Campus Clinic Access:</span>
-                <span className="text-emerald-700 font-semibold">Enabled (Dr. Evelyn Adams, RN)</span>
+              <div className="flex items-center justify-between py-1">
+                <span className="text-[#667085]">Clinic Care Access:</span>
+                <span className="text-[#16805C] font-semibold">Dr. Evelyn Adams, RN</span>
               </div>
             </div>
 
-            <div className="mt-4 rounded-xl bg-slate-50 p-3.5 border border-slate-200/80">
-              <span className="font-bold text-xs text-slate-800 block mb-1">
-                Clinical Health Guidance Note:
+            <div className="mt-4 rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
+              <span className="font-bold text-xs text-[#17202A] block mb-1">
+                Clinical Health Note:
               </span>
-              <p className="text-[11px] text-slate-600 leading-relaxed">
-                Normal physiological ranges are monitored continuously. If heart rate exceeds 100 BPM or body temperature
-                surpasses 37.5°C while resting, an alert will be automatically routed to campus medical personnel.
+              <p className="text-[11px] text-[#667085] leading-relaxed">
+                Vital sign thresholds are checked automatically. If readings breach normal ranges, an alert is dispatched to campus medical staff.
               </p>
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-xs text-slate-400">Total Alerts: {studentAlerts.length}</span>
+          <div className="mt-4 pt-3 border-t border-[#E2E6EB] flex items-center justify-between">
+            <span className="text-xs text-[#667085]">Total Alerts: {studentAlerts.length}</span>
             <button
               type="button"
               onClick={() => onNavigateTab('history')}
-              className="text-xs font-bold text-blue-600 hover:text-blue-800"
+              className="text-xs font-semibold text-[#087F8C] hover:underline"
             >
               Explore Full Records →
             </button>

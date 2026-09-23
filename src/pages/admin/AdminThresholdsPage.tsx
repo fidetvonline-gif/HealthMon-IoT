@@ -5,10 +5,8 @@ import {
   Droplets,
   Thermometer,
   Activity,
-  Save,
   RotateCcw,
   CheckCircle,
-  Info,
   Brain,
   Sparkles,
 } from 'lucide-react';
@@ -23,10 +21,8 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
   const { thresholds, updateThreshold, resetToDefaultData } = useHealthData();
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-  // Local state for editing thresholds
   const [localThresholds, setLocalThresholds] = useState<ThresholdConfig[]>(thresholds);
 
-  // Synchronize if thresholds change externally
   React.useEffect(() => {
     setLocalThresholds(thresholds);
   }, [thresholds]);
@@ -57,29 +53,29 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
   const getIcon = (param: string) => {
     switch (param) {
       case 'heart_rate':
-        return <Heart className="h-5 w-5 fill-rose-500 text-rose-500" />;
+        return <Heart className="h-4 w-4 text-[#C24141]" />;
       case 'spo2':
-        return <Droplets className="h-5 w-5 fill-blue-500 text-blue-500" />;
+        return <Droplets className="h-4 w-4 text-[#2764A5]" />;
       case 'temperature':
-        return <Thermometer className="h-5 w-5 text-amber-500" />;
+        return <Thermometer className="h-4 w-4 text-[#B7791F]" />;
       case 'fall_detection':
-        return <Activity className="h-5 w-5 text-purple-500" />;
+        return <Activity className="h-4 w-4 text-[#087F8C]" />;
       default:
-        return <Sliders className="h-5 w-5 text-slate-500" />;
+        return <Sliders className="h-4 w-4 text-[#667085]" />;
     }
   };
 
   return (
     <div className="max-w-4xl space-y-6">
-      {/* Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-            <Sliders className="h-6 w-6 text-purple-600" />
-            <span>Abnormal Condition Threshold Engine (Feature 16 & 17)</span>
+          <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
+            <Sliders className="h-5 w-5 text-[#087F8C]" />
+            <span>Threshold Calibration Rules</span>
           </h2>
-          <p className="text-xs text-slate-500">
-            Medical rule parameters evaluated by backend algorithms for real-time triage and alert generation
+          <p className="text-xs text-[#667085]">
+            Medical parameters evaluated for realtime clinical alerts
           </p>
         </div>
 
@@ -88,9 +84,9 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
             <button
               type="button"
               onClick={() => onNavigateTab('model_training')}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 px-3.5 py-2 text-xs font-semibold text-white shadow-xs"
+              className="btn-primary text-xs"
             >
-              <Brain className="h-4 w-4" />
+              <Brain className="h-3.5 w-3.5" />
               <span>Dataset & Model Training</span>
             </button>
           )}
@@ -102,29 +98,29 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
               setSaveSuccess(true);
               setTimeout(() => setSaveSuccess(false), 2500);
             }}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 shadow-xs"
+            className="btn-secondary text-xs"
           >
-            <RotateCcw className="h-4 w-4 text-slate-500" />
-            <span>Reset Medical Defaults</span>
+            <RotateCcw className="h-3.5 w-3.5 text-[#667085]" />
+            <span>Reset Defaults</span>
           </button>
         </div>
       </div>
 
       {/* Dataset Training Highlight Card */}
-      <div className="rounded-2xl border border-purple-200 bg-gradient-to-r from-purple-50 via-indigo-50 to-blue-50 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="card-panel rounded-[8px] p-4 bg-[#F1F3F5] border border-[#E2E6EB] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-600 text-white shadow-xs">
-            <Brain className="h-5 w-5" />
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] bg-[#0B1726] text-white">
+            <Brain className="h-4 w-4 text-[#087F8C]" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-purple-950 flex items-center gap-2">
-              <span>Trained with University Student Dataset</span>
-              <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold border border-emerald-300">
+            <h4 className="text-xs font-bold text-[#17202A] flex items-center gap-2">
+              <span>Trained with Student Dataset</span>
+              <span className="px-2 py-0.5 rounded-[4px] bg-[#16805C]/10 text-[#16805C] text-[10px] font-bold border border-[#16805C]/20">
                 100% Accuracy (100 Samples)
               </span>
             </h4>
-            <p className="text-[11px] text-purple-800/80">
-              The detection engine applies activity-conditioned heart rate boundaries, hypoxemia thresholds, and fever detection calibrated from your 100 student records.
+            <p className="text-[11px] text-[#667085]">
+              Detection engine evaluates heart rate, hypoxemia, and fever boundaries calibrated from 100 student records.
             </p>
           </div>
         </div>
@@ -133,32 +129,29 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
           <button
             type="button"
             onClick={() => onNavigateTab('model_training')}
-            className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-purple-900 hover:bg-purple-950 px-3.5 py-2 text-xs font-bold text-white shadow-xs"
+            className="shrink-0 btn-secondary text-xs"
           >
-            <Sparkles className="h-3.5 w-3.5 text-purple-300" />
+            <Sparkles className="h-3.5 w-3.5 text-[#087F8C]" />
             <span>Open Model Studio</span>
           </button>
         )}
       </div>
 
-      <form onSubmit={handleSaveAll} className="space-y-5">
+      <form onSubmit={handleSaveAll} className="space-y-4">
         {localThresholds.map((t) => (
-          <div key={t.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div key={t.id} className="card-panel p-5 rounded-[8px] space-y-4">
+            <div className="flex items-center justify-between border-b border-[#E2E6EB] pb-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 border border-slate-200">
+                <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#F1F3F5] border border-[#E2E6EB]">
                   {getIcon(t.parameter)}
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-slate-900">{t.name}</h3>
-                  <p className="text-xs text-slate-500">{t.description}</p>
+                  <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider">{t.name}</h3>
+                  <p className="text-xs text-[#667085]">{t.description}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold text-slate-500">
-                  {t.enabled ? 'Rule Active' : 'Rule Inactive'}
-                </span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -166,63 +159,51 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
                     onChange={(e) => handleValueChange(t.id, 'enabled', e.target.checked)}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600" />
+                  <div className="w-9 h-5 bg-[#D0D5DD] peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#D0D5DD] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#087F8C]"></div>
                 </label>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
-                  Minimum Normal Boundary ({t.unit})
-                </label>
+                <label className="block font-semibold text-[#17202A] mb-1">Minimum Lower Bound</label>
                 <input
                   type="number"
-                  step={t.parameter === 'temperature' ? '0.1' : '1'}
-                  value={t.minimum_value}
-                  onChange={(e) => handleValueChange(t.id, 'minimum_value', Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-300 p-2.5 text-xs font-mono font-bold text-slate-900 focus:border-purple-500 focus:outline-hidden"
+                  step="0.1"
+                  value={t.minimum_value ?? ''}
+                  onChange={(e) => handleValueChange(t.id, 'minimum_value', parseFloat(e.target.value))}
+                  className="form-input font-mono"
                 />
-                <span className="text-[10px] text-slate-400 mt-1 block">
-                  Readings below this trigger a Warning or Abnormal alert.
-                </span>
               </div>
 
               <div>
-                <label className="block text-slate-700 font-semibold mb-1">
-                  Maximum Normal Boundary ({t.unit})
-                </label>
+                <label className="block font-semibold text-[#17202A] mb-1">Maximum Upper Bound</label>
                 <input
                   type="number"
-                  step={t.parameter === 'temperature' ? '0.1' : '1'}
-                  value={t.maximum_value}
-                  onChange={(e) => handleValueChange(t.id, 'maximum_value', Number(e.target.value))}
-                  className="w-full rounded-xl border border-slate-300 p-2.5 text-xs font-mono font-bold text-slate-900 focus:border-purple-500 focus:outline-hidden"
+                  step="0.1"
+                  value={t.maximum_value ?? ''}
+                  onChange={(e) => handleValueChange(t.id, 'maximum_value', parseFloat(e.target.value))}
+                  className="form-input font-mono"
                 />
-                <span className="text-[10px] text-slate-400 mt-1 block">
-                  Readings above this trigger an Abnormal physiological alert.
-                </span>
               </div>
             </div>
           </div>
         ))}
 
-        {/* Action bar */}
         <div className="flex items-center justify-between pt-2">
           {saveSuccess ? (
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-2 rounded-xl border border-emerald-200">
-              <CheckCircle className="w-4 h-4" /> Threshold rules deployed live across all nodes!
-            </span>
+            <div className="flex items-center gap-1.5 text-xs font-bold text-[#16805C] bg-[#16805C]/10 px-3 py-2 rounded-[6px] border border-[#16805C]/20">
+              <CheckCircle className="w-4 h-4" /> Rules saved successfully!
+            </div>
           ) : (
             <div />
           )}
 
           <button
             type="submit"
-            className="inline-flex items-center gap-2 rounded-xl bg-purple-600 px-6 py-2.5 text-xs font-bold text-white shadow-md hover:bg-purple-700 transition-colors"
+            className="btn-primary text-xs"
           >
-            <Save className="h-4 w-4" />
-            <span>Save & Apply Thresholds</span>
+            Save Calibrations
           </button>
         </div>
       </form>

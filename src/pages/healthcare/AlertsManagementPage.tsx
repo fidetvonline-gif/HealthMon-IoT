@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import {
   AlertTriangle,
-  Filter,
   Search,
-  CheckCircle,
   Clock,
-  ShieldAlert,
   Eye,
   Check,
   X,
@@ -71,40 +68,40 @@ export const AlertsManagementPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Page Header */}
-      <div className="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="border-b border-[#E2E6EB] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-            <AlertTriangle className="h-6 w-6 text-rose-600" />
-            <span>Abnormal Physiological Condition Alerts</span>
+          <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-[#C24141]" />
+            <span>Physiological Condition Alerts</span>
           </h2>
-          <p className="text-xs text-slate-500">
-            Features 10 & 11 — Central Clinical Alert Management, Review & Resolution Pipeline
+          <p className="text-xs text-[#667085]">
+            Clinical alert management, review, and resolution workflow
           </p>
         </div>
 
         <div className="flex items-center gap-2 text-xs font-semibold">
-          <span className="rounded-full bg-rose-100 text-rose-800 px-3 py-1 font-bold">
+          <span className="rounded-[4px] bg-[#C24141]/10 text-[#C24141] px-2.5 py-1 border border-[#C24141]/20">
             {alerts.filter((a) => a.status === 'ACTIVE').length} Active
           </span>
-          <span className="rounded-full bg-amber-100 text-amber-800 px-3 py-1 font-bold">
+          <span className="rounded-[4px] bg-[#B7791F]/10 text-[#B7791F] px-2.5 py-1 border border-[#B7791F]/20">
             {alerts.filter((a) => a.status === 'REVIEWED').length} In Review
           </span>
-          <span className="rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 font-bold">
+          <span className="rounded-[4px] bg-[#16805C]/10 text-[#16805C] px-2.5 py-1 border border-[#16805C]/20">
             {alerts.filter((a) => a.status === 'RESOLVED').length} Resolved
           </span>
         </div>
       </div>
 
-      {/* Filter and Search Bar */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* Filter and Search Controls */}
+      <div className="card-panel p-4 rounded-[8px] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-[#667085]" />
           <input
             type="text"
             placeholder="Search by student name or condition..."
             value={searchFilter}
             onChange={(e) => setSearchFilter(e.target.value)}
-            className="w-full rounded-xl border border-slate-300 bg-white pl-9 pr-3 py-2 text-xs font-medium text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:outline-hidden"
+            className="form-input pl-9 text-xs"
           />
         </div>
 
@@ -112,7 +109,7 @@ export const AlertsManagementPage: React.FC = () => {
           <select
             value={severityFilter}
             onChange={(e) => setSeverityFilter(e.target.value)}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 focus:border-blue-500 focus:outline-hidden"
+            className="form-select text-xs w-auto"
           >
             <option value="ALL">All Severities</option>
             <option value="CRITICAL">Critical</option>
@@ -124,7 +121,7 @@ export const AlertsManagementPage: React.FC = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800 focus:border-blue-500 focus:outline-hidden"
+            className="form-select text-xs w-auto"
           >
             <option value="ALL">All Statuses</option>
             <option value="ACTIVE">Active (Unresolved)</option>
@@ -134,10 +131,10 @@ export const AlertsManagementPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Feature 11: Alerts Feed List */}
+      {/* Alerts Feed */}
       <div className="space-y-3">
         {filteredAlerts.length === 0 ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center text-slate-400 text-xs">
+          <div className="card-panel p-12 text-center text-[#98A2B3] text-xs rounded-[8px]">
             No alerts match the selected filter criteria.
           </div>
         ) : (
@@ -145,71 +142,50 @@ export const AlertsManagementPage: React.FC = () => {
             <div
               key={alt.id}
               onClick={() => setSelectedAlert(alt)}
-              className={`rounded-2xl border bg-white p-5 shadow-xs hover:shadow-md cursor-pointer transition-all ${
+              className={`card-panel p-4 rounded-[8px] cursor-pointer transition-colors ${
                 alt.status === 'ACTIVE'
-                  ? 'border-rose-300 bg-rose-50/20'
+                  ? 'border-[#C24141]/40 bg-[#C24141]/5'
                   : alt.status === 'REVIEWED'
-                  ? 'border-amber-200'
-                  : 'border-slate-200'
+                  ? 'border-[#B7791F]/40 bg-[#B7791F]/5'
+                  : ''
               }`}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E6EB] pb-3">
                 <div className="flex items-center gap-3">
                   <StatusBadge status={alt.severity} />
                   <div>
-                    <h4 className="text-sm font-extrabold text-slate-900">{alt.student_name || 'Student'}</h4>
-                    <span className="text-xs text-slate-500 font-medium">{alt.alert_type}</span>
+                    <h4 className="text-xs font-bold text-[#17202A]">{alt.student_name || 'Student'}</h4>
+                    <span className="text-[11px] text-[#667085]">{alt.alert_type}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <StatusBadge status={alt.status} size="sm" />
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-[#667085] font-mono">
                     {new Date(alt.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 py-3 text-xs">
-                <div>
-                  <span className="text-slate-400 text-[11px] block">Parameter</span>
-                  <span className="font-semibold text-slate-800">{alt.parameter}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 text-[11px] block">Recorded Reading</span>
-                  <span className="font-mono font-bold text-rose-600 text-sm">{alt.value}</span>
-                </div>
-                <div>
-                  <span className="text-slate-400 text-[11px] block">Configured Threshold</span>
-                  <span className="font-mono text-slate-600">{alt.threshold}</span>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
-                <p className="text-slate-600 truncate max-w-md">{alt.message}</p>
-                <div className="flex items-center gap-2">
-                  {alt.status === 'ACTIVE' && (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleReview(alt);
-                      }}
-                      className="px-3 py-1 rounded-lg border border-slate-300 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700"
-                    >
-                      [Review]
-                    </button>
-                  )}
                   <button
                     type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedAlert(alt);
-                    }}
-                    className="px-3 py-1 rounded-lg bg-blue-600 text-white hover:bg-blue-700 text-xs font-semibold"
+                    className="btn-secondary text-xs py-1 px-2.5 min-h-[32px]"
                   >
-                    View Details
+                    <Eye className="w-3.5 h-3.5 text-[#087F8C]" />
+                    <span>Inspect</span>
                   </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 text-xs">
+                <div>
+                  <span className="text-[#667085] text-[11px] block">Parameter</span>
+                  <span className="font-semibold text-[#17202A]">{alt.parameter}</span>
+                </div>
+                <div>
+                  <span className="text-[#667085] text-[11px] block">Recorded Value</span>
+                  <span className="font-mono font-bold text-[#C24141] text-xs">{alt.value}</span>
+                </div>
+                <div>
+                  <span className="text-[#667085] text-[11px] block">Threshold</span>
+                  <span className="font-mono text-[#334155]">{alt.threshold}</span>
                 </div>
               </div>
             </div>
@@ -217,123 +193,95 @@ export const AlertsManagementPage: React.FC = () => {
         )}
       </div>
 
-      {/* Feature 11: Section 21 ALERT DETAILS MODAL */}
+      {/* Alert Detail Modal */}
       {selectedAlert && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 p-4 backdrop-blur-xs">
-          <div className="relative w-full max-w-lg rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden">
-            <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-6 py-4">
+        <div className="fixed inset-0 z-50 bg-[#0B1726]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="card-panel bg-white rounded-[8px] max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-[#E2E6EB] pb-3">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-rose-600" />
-                <h3 className="text-base font-extrabold text-slate-900">ALERT DETAILS (Section 21)</h3>
+                <StatusBadge status={selectedAlert.severity} />
+                <h3 className="text-sm font-bold text-[#17202A]">{selectedAlert.alert_type}</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedAlert(null)}
-                className="rounded-lg p-1 text-slate-400 hover:bg-slate-200"
+                className="p-1 rounded text-[#667085] hover:text-[#17202A]"
               >
-                <X className="h-5 w-5" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-6 space-y-4 text-xs">
-              <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200/70">
-                <div>
-                  <span className="text-slate-500 block text-[11px]">Student:</span>
-                  <span className="font-extrabold text-slate-900 text-sm">{selectedAlert.student_name || 'Student'}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[11px]">Severity:</span>
-                  <StatusBadge status={selectedAlert.severity} />
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[11px]">Parameter:</span>
-                  <span className="font-semibold text-slate-800">{selectedAlert.parameter}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[11px]">Value:</span>
-                  <span className="font-mono font-bold text-rose-600 text-sm">{selectedAlert.value}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[11px]">Threshold:</span>
-                  <span className="font-mono text-slate-700">{selectedAlert.threshold}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[11px]">Detected:</span>
-                  <span className="font-mono text-slate-700">
-                    {new Date(selectedAlert.created_at).toLocaleTimeString()}
-                  </span>
-                </div>
+            <div className="space-y-2 text-xs">
+              <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Student:</span>
+                <span className="font-bold text-[#17202A]">{selectedAlert.student_name}</span>
               </div>
-
-              <div>
-                <span className="text-slate-500 font-semibold block mb-1">Threshold Violation Summary:</span>
-                <p className="rounded-xl border border-slate-200 bg-white p-3 text-slate-700 leading-relaxed">
-                  {selectedAlert.message}
-                </p>
+              <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Monitored Parameter:</span>
+                <span className="font-semibold text-[#17202A]">{selectedAlert.parameter}</span>
               </div>
-
-              {/* Status and Notes */}
-              <div>
-                <span className="text-slate-500 font-semibold block mb-1">Current Status:</span>
-                <StatusBadge status={selectedAlert.status} size="md" />
+              <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Recorded Sensor Value:</span>
+                <span className="font-mono font-bold text-[#C24141] text-sm">{selectedAlert.value}</span>
               </div>
-
-              {selectedAlert.resolution_notes && (
-                <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-emerald-900">
-                  <span className="font-bold block mb-0.5">Clinical Resolution Notes ({selectedAlert.resolved_by}):</span>
-                  <p>{selectedAlert.resolution_notes}</p>
-                </div>
-              )}
-
-              {selectedAlert.status !== 'RESOLVED' && (
-                <div className="space-y-2 pt-2 border-t border-slate-100">
-                  <label className="block text-xs font-semibold text-slate-700">
-                    Enter Clinical Assessment Notes (Required for Resolution):
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={resolutionNotes}
-                    onChange={(e) => setResolutionNotes(e.target.value)}
-                    placeholder="e.g. Advised student to rest, administered hydration, vitals re-stabilized."
-                    className="w-full rounded-xl border border-slate-300 p-2.5 text-xs focus:border-blue-500 focus:outline-hidden"
-                  />
-                </div>
-              )}
+              <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+                <span className="text-[#667085]">Threshold Limit:</span>
+                <span className="font-mono text-[#334155]">{selectedAlert.threshold}</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-[#667085]">Timestamp:</span>
+                <span className="font-mono text-[#334155]">{new Date(selectedAlert.created_at).toLocaleString()}</span>
+              </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-center justify-between border-t border-slate-100 bg-slate-50 px-6 py-3">
-              <div>
-                {selectedAlert.status === 'ACTIVE' && (
-                  <button
-                    type="button"
-                    onClick={() => handleReview(selectedAlert)}
-                    className="rounded-xl border border-slate-300 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100"
-                  >
-                    [Mark as Reviewed]
-                  </button>
-                )}
-              </div>
+            <div className="rounded-[6px] bg-[#F1F3F5] p-3 text-xs text-[#334155]">
+              <span className="font-bold text-[#17202A]">Message: </span>
+              {selectedAlert.message}
+            </div>
 
-              <div className="flex items-center gap-2">
+            {selectedAlert.status === 'ACTIVE' && (
+              <button
+                type="button"
+                onClick={() => handleReview(selectedAlert)}
+                className="btn-secondary w-full justify-center text-xs"
+              >
+                <Clock className="w-4 h-4 text-[#B7791F]" />
+                <span>Mark as Reviewed</span>
+              </button>
+            )}
+
+            {selectedAlert.status !== 'RESOLVED' && (
+              <div className="space-y-2 pt-2 border-t border-[#E2E6EB]">
+                <label className="block text-xs font-bold text-[#17202A]">
+                  Resolution Notes & Clinical Assessment
+                </label>
+                <textarea
+                  rows={3}
+                  value={resolutionNotes}
+                  onChange={(e) => setResolutionNotes(e.target.value)}
+                  placeholder="Enter medical observations or instructions..."
+                  className="form-textarea text-xs"
+                />
                 <button
                   type="button"
-                  onClick={() => setSelectedAlert(null)}
-                  className="rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-100"
+                  onClick={() => handleResolve(selectedAlert)}
+                  className="btn-primary w-full justify-center text-xs"
                 >
-                  Close
+                  <Check className="w-4 h-4" />
+                  <span>Resolve Alert</span>
                 </button>
-                {selectedAlert.status !== 'RESOLVED' && (
-                  <button
-                    type="button"
-                    onClick={() => handleResolve(selectedAlert)}
-                    className="rounded-xl bg-emerald-600 px-4 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-emerald-700"
-                  >
-                    [Resolve Alert]
-                  </button>
-                )}
               </div>
-            </div>
+            )}
+
+            {selectedAlert.status === 'RESOLVED' && selectedAlert.resolution_notes && (
+              <div className="rounded-[6px] bg-[#16805C]/10 border border-[#16805C]/20 p-3 text-xs text-[#16805C]">
+                <div className="font-bold mb-1">
+                  Resolved by {selectedAlert.resolved_by || 'Clinic Staff'} at{' '}
+                  {selectedAlert.resolved_at ? new Date(selectedAlert.resolved_at).toLocaleTimeString() : 'N/A'}
+                </div>
+                <p className="text-[#334155]">{selectedAlert.resolution_notes}</p>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, ShieldAlert, CheckCircle, Clock, Info, HeartPulse } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, CheckCircle, Clock } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
 import { StatusBadge } from '../../components/common/StatusBadge';
@@ -17,77 +17,74 @@ export const StudentAlerts: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Title */}
-      <div className="border-b border-slate-200 pb-4">
-        <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-          <AlertTriangle className="h-6 w-6 text-amber-500" />
+      {/* Title Header */}
+      <div className="border-b border-[#E2E6EB] pb-4">
+        <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
+          <AlertTriangle className="h-5 w-5 text-[#B7791F]" />
           <span>Abnormal Condition Alerts</span>
         </h2>
-        <p className="text-xs text-slate-500">
-          Features 10 & 11 — Real-Time Alert Engine Notifications & Clinical Review Status
+        <p className="text-xs text-[#667085]">
+          Real-Time Alert Engine Notifications & Clinical Review Status
         </p>
       </div>
 
-      {/* Summary Metrics */}
+      {/* Summary Metric Blocks */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="rounded-2xl border border-rose-200 bg-rose-50/70 p-4">
-          <div className="flex items-center justify-between text-xs font-bold text-rose-800 mb-1">
+        <div className="card-panel p-4 rounded-[8px] border-[#C24141]/30 bg-[#C24141]/5">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#C24141] uppercase tracking-wider mb-1">
             <span>ACTIVE ALERTS</span>
-            <ShieldAlert className="h-4 w-4 text-rose-600" />
+            <ShieldAlert className="h-4 w-4 text-[#C24141]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-rose-950">{activeCount}</span>
-          <p className="text-[11px] text-rose-700 mt-1">Requiring monitoring or clinical check</p>
+          <span className="text-2xl font-bold text-[#C24141] font-mono">{activeCount}</span>
+          <p className="text-[11px] text-[#C24141] mt-0.5">Requiring clinical monitoring</p>
         </div>
 
-        <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-4">
-          <div className="flex items-center justify-between text-xs font-bold text-amber-800 mb-1">
+        <div className="card-panel p-4 rounded-[8px] border-[#B7791F]/30 bg-[#B7791F]/5">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#B7791F] uppercase tracking-wider mb-1">
             <span>CLINIC REVIEWED</span>
-            <Clock className="h-4 w-4 text-amber-600" />
+            <Clock className="h-4 w-4 text-[#B7791F]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-amber-950">{reviewedCount}</span>
-          <p className="text-[11px] text-amber-700 mt-1">Acknowledged by healthcare staff</p>
+          <span className="text-2xl font-bold text-[#B7791F] font-mono">{reviewedCount}</span>
+          <p className="text-[11px] text-[#B7791F] mt-0.5">Acknowledged by healthcare staff</p>
         </div>
 
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4">
-          <div className="flex items-center justify-between text-xs font-bold text-emerald-800 mb-1">
+        <div className="card-panel p-4 rounded-[8px] border-[#16805C]/30 bg-[#16805C]/5">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#16805C] uppercase tracking-wider mb-1">
             <span>RESOLVED</span>
-            <CheckCircle className="h-4 w-4 text-emerald-600" />
+            <CheckCircle className="h-4 w-4 text-[#16805C]" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black text-emerald-950">{resolvedCount}</span>
-          <p className="text-[11px] text-emerald-700 mt-1">Stabilized within normal thresholds</p>
+          <span className="text-2xl font-bold text-[#16805C] font-mono">{resolvedCount}</span>
+          <p className="text-[11px] text-[#16805C] mt-0.5">Stabilized within normal thresholds</p>
         </div>
       </div>
 
       {/* Alerts Feed */}
       <div className="space-y-4">
         {studentAlerts.length === 0 ? (
-          <div className="rounded-2xl border border-slate-200 bg-white p-12 text-center">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 mb-3">
-              <CheckCircle className="h-6 w-6" />
+          <div className="card-panel rounded-[8px] p-12 text-center">
+            <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-[6px] bg-[#16805C]/10 text-[#16805C] mb-3">
+              <CheckCircle className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-bold text-slate-900">No Physiological Alerts</h3>
-            <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
+            <h3 className="text-sm font-bold text-[#17202A]">No Physiological Alerts</h3>
+            <p className="mt-1 text-xs text-[#667085] max-w-sm mx-auto">
               All monitored physiological parameters are currently within normal baseline thresholds.
             </p>
           </div>
         ) : (
           studentAlerts.map((alt) => {
-            const isCritical = alt.severity === 'CRITICAL' || alt.severity === 'HIGH';
             return (
               <div
                 key={alt.id}
-                className={`rounded-2xl border bg-white p-5 shadow-xs transition-all ${
-                  isCritical ? 'border-rose-200 hover:border-rose-300' : 'border-slate-200 hover:border-slate-300'
-                }`}
+                className="card-panel p-4 rounded-[8px]"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E6EB] pb-3">
                   <div className="flex items-center gap-2.5">
                     <StatusBadge status={alt.severity} />
-                    <h3 className="text-sm font-bold text-slate-900">{alt.alert_type}</h3>
+                    <h3 className="text-xs font-bold text-[#17202A]">{alt.alert_type}</h3>
                   </div>
                   <div className="flex items-center gap-2">
                     <StatusBadge status={alt.status} size="sm" />
-                    <span className="text-xs text-slate-400 font-mono">
+                    <span className="text-xs text-[#667085] font-mono">
                       {new Date(alt.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
@@ -95,27 +92,27 @@ export const StudentAlerts: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 py-3 text-xs">
                   <div>
-                    <span className="text-slate-500 block text-[11px]">Monitored Parameter</span>
-                    <span className="font-semibold text-slate-800">{alt.parameter}</span>
+                    <span className="text-[#667085] block text-[11px]">Monitored Parameter</span>
+                    <span className="font-semibold text-[#17202A]">{alt.parameter}</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 block text-[11px]">Recorded Value</span>
-                    <span className="font-mono font-bold text-rose-600 text-sm">{alt.value}</span>
+                    <span className="text-[#667085] block text-[11px]">Recorded Value</span>
+                    <span className="font-mono font-bold text-[#C24141] text-xs">{alt.value}</span>
                   </div>
                   <div>
-                    <span className="text-slate-500 block text-[11px]">Configured Upper/Lower Limit</span>
-                    <span className="font-mono text-slate-600">{alt.threshold}</span>
+                    <span className="text-[#667085] block text-[11px]">Configured Upper/Lower Limit</span>
+                    <span className="font-mono text-[#334155]">{alt.threshold}</span>
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-slate-50 p-3 text-xs text-slate-700 mb-2">
-                  <span className="font-semibold text-slate-900">System Message: </span>
+                <div className="rounded-[6px] bg-[#F1F3F5] p-3 text-xs text-[#334155] mb-2">
+                  <span className="font-semibold text-[#17202A]">System Message: </span>
                   {alt.message}
                 </div>
 
                 {alt.resolution_notes && (
-                  <div className="rounded-xl bg-blue-50 border border-blue-100 p-3 text-xs text-blue-900">
-                    <span className="font-bold text-blue-950">
+                  <div className="rounded-[6px] bg-[#2764A5]/10 border border-[#2764A5]/20 p-3 text-xs text-[#2764A5]">
+                    <span className="font-bold">
                       Clinic Staff Notes ({alt.reviewed_by || 'Healthcare RN'}):{' '}
                     </span>
                     {alt.resolution_notes}

@@ -2,15 +2,8 @@ import React, { useState } from 'react';
 import {
   History,
   Download,
-  Filter,
   Search,
-  Calendar,
-  Heart,
-  Droplets,
-  Thermometer,
   Activity,
-  ArrowUpDown,
-  CheckCircle2,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -21,13 +14,10 @@ import {
   Tooltip,
   CartesianGrid,
   Legend,
-  AreaChart,
-  Area,
 } from 'recharts';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
 import { StatusBadge } from '../../components/common/StatusBadge';
-import { HealthStatus } from '../../types';
 
 export const StudentHistory: React.FC = () => {
   const { user } = useAuth();
@@ -54,10 +44,10 @@ export const StudentHistory: React.FC = () => {
     return true;
   });
 
-  // Prepare chart data (chronological order)
+  // Prepare chart data
   const chartData = [...studentReadings]
     .reverse()
-    .slice(-30) // last 30 data points
+    .slice(-30)
     .map((r, idx) => {
       const time = new Date(r.recorded_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
       return {
@@ -99,43 +89,43 @@ export const StudentHistory: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Page Title & Export */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-            <History className="h-6 w-6 text-blue-600" />
+          <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
+            <History className="h-5 w-5 text-[#087F8C]" />
             <span>Health History & Analytics</span>
           </h2>
-          <p className="text-xs text-slate-500">
-            Features 7 & 8 — Sensor Telemetry Logs & Physiological Trend Visualization
+          <p className="text-xs text-[#667085]">
+            Telemetry logs and physiological trends
           </p>
         </div>
 
         <button
           type="button"
           onClick={handleExportCSV}
-          className="inline-flex items-center gap-2 rounded-xl bg-slate-900 text-white px-4 py-2 text-xs font-bold hover:bg-slate-800 transition-colors shadow-xs"
+          className="btn-secondary text-xs"
         >
-          <Download className="h-4 w-4" />
+          <Download className="h-3.5 w-3.5" />
           <span>Export CSV</span>
         </button>
       </div>
 
-      {/* Feature 8: Health Analytics Charts */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      {/* Health Analytics Chart */}
+      <div className="card-panel p-5 rounded-[8px]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
-            <h3 className="text-sm font-bold text-slate-900">Physiological Parameter Trend Visualizer</h3>
-            <p className="text-xs text-slate-500">Continuous telemetry plot from MAX30102 and MLX90614 sensors</p>
+            <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider">Telemetry Trend Plot</h3>
+            <p className="text-xs text-[#667085]">Continuous PPG, SpO₂ and Temperature Signals</p>
           </div>
 
           {/* Metric Selector Tabs */}
-          <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1 text-xs font-semibold">
+          <div className="flex items-center gap-1 rounded-[6px] bg-[#F1F3F5] p-1 text-xs font-medium">
             <button
               type="button"
               onClick={() => setSelectedMetric('all')}
-              className={`px-3 py-1 rounded-lg transition-all ${
-                selectedMetric === 'all' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-1 rounded-[4px] transition-all ${
+                selectedMetric === 'all' ? 'bg-white text-[#17202A] font-bold shadow-xs' : 'text-[#667085]'
               }`}
             >
               All Signals
@@ -143,60 +133,60 @@ export const StudentHistory: React.FC = () => {
             <button
               type="button"
               onClick={() => setSelectedMetric('hr')}
-              className={`px-3 py-1 rounded-lg transition-all ${
-                selectedMetric === 'hr' ? 'bg-white text-rose-600 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-1 rounded-[4px] transition-all ${
+                selectedMetric === 'hr' ? 'bg-white text-[#C24141] font-bold shadow-xs' : 'text-[#667085]'
               }`}
             >
-              Heart Rate (BPM)
+              Heart Rate
             </button>
             <button
               type="button"
               onClick={() => setSelectedMetric('spo2')}
-              className={`px-3 py-1 rounded-lg transition-all ${
-                selectedMetric === 'spo2' ? 'bg-white text-blue-600 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-1 rounded-[4px] transition-all ${
+                selectedMetric === 'spo2' ? 'bg-white text-[#2764A5] font-bold shadow-xs' : 'text-[#667085]'
               }`}
             >
-              SpO₂ (%)
+              SpO₂
             </button>
             <button
               type="button"
               onClick={() => setSelectedMetric('temp')}
-              className={`px-3 py-1 rounded-lg transition-all ${
-                selectedMetric === 'temp' ? 'bg-white text-amber-600 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              className={`px-3 py-1 rounded-[4px] transition-all ${
+                selectedMetric === 'temp' ? 'bg-white text-[#B7791F] font-bold shadow-xs' : 'text-[#667085]'
               }`}
             >
-              Temp (°C)
+              Temperature
             </button>
           </div>
         </div>
 
         {/* Recharts Container */}
-        <div className="h-72 w-full">
+        <div className="h-64 w-full">
           {chartData.length === 0 ? (
-            <div className="flex h-full items-center justify-center text-xs text-slate-400">
+            <div className="flex h-full items-center justify-center text-xs text-[#98A2B3]">
               No reading telemetry available for plotting.
             </div>
           ) : (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="time" tick={{ fontSize: 11, fill: '#64748b' }} stroke="#cbd5e1" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E2E6EB" />
+                <XAxis dataKey="time" tick={{ fontSize: 10, fill: '#667085' }} stroke="#D0D5DD" />
                 <YAxis
                   yAxisId="left"
                   domain={['dataMin - 5', 'dataMax + 5']}
-                  tick={{ fontSize: 11, fill: '#64748b' }}
-                  stroke="#cbd5e1"
+                  tick={{ fontSize: 10, fill: '#667085' }}
+                  stroke="#D0D5DD"
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderRadius: '12px',
-                    border: 'none',
-                    color: '#fff',
-                    fontSize: '12px',
+                    backgroundColor: '#0B1726',
+                    borderRadius: '6px',
+                    border: '1px solid #12263A',
+                    color: '#FFF',
+                    fontSize: '11px',
                   }}
                 />
-                <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
 
                 {(selectedMetric === 'all' || selectedMetric === 'hr') && (
                   <Line
@@ -204,10 +194,9 @@ export const StudentHistory: React.FC = () => {
                     type="monotone"
                     dataKey="heart_rate"
                     name="Heart Rate (BPM)"
-                    stroke="#f43f5e"
-                    strokeWidth={2.5}
-                    dot={{ r: 3, fill: '#f43f5e' }}
-                    activeDot={{ r: 6 }}
+                    stroke="#C24141"
+                    strokeWidth={2}
+                    dot={{ r: 2.5, fill: '#C24141' }}
                   />
                 )}
 
@@ -216,11 +205,10 @@ export const StudentHistory: React.FC = () => {
                     yAxisId="left"
                     type="monotone"
                     dataKey="spo2"
-                    name="SpO2 (%)"
-                    stroke="#3b82f6"
-                    strokeWidth={2.5}
-                    dot={{ r: 3, fill: '#3b82f6' }}
-                    activeDot={{ r: 6 }}
+                    name="SpO₂ (%)"
+                    stroke="#2764A5"
+                    strokeWidth={2}
+                    dot={{ r: 2.5, fill: '#2764A5' }}
                   />
                 )}
 
@@ -230,10 +218,9 @@ export const StudentHistory: React.FC = () => {
                     type="monotone"
                     dataKey="temperature"
                     name="Body Temp (°C)"
-                    stroke="#f59e0b"
-                    strokeWidth={2.5}
-                    dot={{ r: 3, fill: '#f59e0b' }}
-                    activeDot={{ r: 6 }}
+                    stroke="#B7791F"
+                    strokeWidth={2}
+                    dot={{ r: 2.5, fill: '#B7791F' }}
                   />
                 )}
               </LineChart>
@@ -242,35 +229,32 @@ export const StudentHistory: React.FC = () => {
         </div>
       </div>
 
-      {/* Feature 7: Historical Health Readings Table */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-xs overflow-hidden">
-        {/* Table Filters & Search */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border-b border-slate-100 bg-slate-50/70">
+      {/* Historical Health Readings Table */}
+      <div className="card-panel rounded-[8px] overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border-b border-[#E2E6EB] bg-[#F1F3F5]">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-bold text-slate-700">Health Records Table</span>
-            <span className="rounded-full bg-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-700">
+            <span className="text-xs font-bold text-[#17202A] uppercase tracking-wider">Health Records</span>
+            <span className="rounded-[4px] bg-[#E2E6EB] px-2 py-0.5 text-[10px] font-semibold text-[#334155]">
               {filteredReadings.length} records
             </span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {/* Search Input */}
             <div className="relative">
-              <Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-slate-400" />
+              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#667085]" />
               <input
                 type="text"
                 placeholder="Search activity or status..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="rounded-xl border border-slate-300 bg-white pl-8 pr-3 py-1.5 text-xs font-medium text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:outline-hidden"
+                className="form-input pl-8 py-1.5 text-xs max-w-[200px]"
               />
             </div>
 
-            {/* Status Filter */}
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 focus:border-blue-500 focus:outline-hidden"
+              className="form-select py-1.5 text-xs w-auto"
             >
               <option value="ALL">All Statuses</option>
               <option value="Normal">Normal</option>
@@ -280,24 +264,24 @@ export const StudentHistory: React.FC = () => {
           </div>
         </div>
 
-        {/* Table Body */}
+        {/* Enterprise Table */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-100/70 text-[11px] font-bold uppercase tracking-wider text-slate-600">
-                <th className="py-3 px-4">Date & Time</th>
-                <th className="py-3 px-4">Heart Rate</th>
-                <th className="py-3 px-4">SpO₂</th>
-                <th className="py-3 px-4">Temperature</th>
-                <th className="py-3 px-4">Activity</th>
-                <th className="py-3 px-4">Battery</th>
-                <th className="py-3 px-4">Status</th>
+              <tr>
+                <th>Date & Time</th>
+                <th>Heart Rate</th>
+                <th>SpO₂</th>
+                <th>Temperature</th>
+                <th>Activity</th>
+                <th>Battery</th>
+                <th>Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
+            <tbody>
               {filteredReadings.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400">
+                  <td colSpan={7} className="py-8 text-center text-[#98A2B3]">
                     No readings found matching criteria.
                   </td>
                 </tr>
@@ -308,34 +292,34 @@ export const StudentHistory: React.FC = () => {
                   const timeStr = dateObj.toLocaleTimeString();
 
                   return (
-                    <tr key={r.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-4 font-mono text-slate-500">
+                    <tr key={r.id}>
+                      <td className="font-mono text-[#667085]">
                         <div>{timeStr}</div>
-                        <div className="text-[10px] text-slate-400">{dateStr}</div>
+                        <div className="text-[10px] text-[#98A2B3]">{dateStr}</div>
                       </td>
-                      <td className="py-3 px-4">
-                        <span className={`font-mono font-bold ${r.heart_rate > 100 || r.heart_rate < 60 ? 'text-rose-600' : 'text-slate-900'}`}>
+                      <td>
+                        <span className={`font-mono font-bold ${r.heart_rate > 100 || r.heart_rate < 60 ? 'text-[#C24141]' : 'text-[#17202A]'}`}>
                           {r.heart_rate} BPM
                         </span>
                       </td>
-                      <td className="py-3 px-4">
-                        <span className={`font-mono font-bold ${r.spo2 < 95 ? 'text-rose-600' : 'text-slate-900'}`}>
+                      <td>
+                        <span className={`font-mono font-bold ${r.spo2 < 95 ? 'text-[#C24141]' : 'text-[#17202A]'}`}>
                           {r.spo2}%
                         </span>
                       </td>
-                      <td className="py-3 px-4">
-                        <span className={`font-mono font-bold ${r.temperature > 37.5 ? 'text-rose-600' : 'text-slate-900'}`}>
+                      <td>
+                        <span className={`font-mono font-bold ${r.temperature > 37.5 ? 'text-[#C24141]' : 'text-[#17202A]'}`}>
                           {r.temperature.toFixed(1)}°C
                         </span>
                       </td>
-                      <td className="py-3 px-4">
-                        <span className="inline-flex items-center gap-1">
-                          <Activity className="h-3.5 w-3.5 text-slate-400" />
+                      <td>
+                        <span className="inline-flex items-center gap-1 text-[#334155]">
+                          <Activity className="h-3.5 w-3.5 text-[#667085]" />
                           <span>{r.activity}</span>
                         </span>
                       </td>
-                      <td className="py-3 px-4 font-mono text-slate-500">{r.battery_level ?? 82}%</td>
-                      <td className="py-3 px-4">
+                      <td className="font-mono text-[#667085]">{r.battery_level ?? 82}%</td>
+                      <td>
                         <StatusBadge status={r.status} />
                       </td>
                     </tr>

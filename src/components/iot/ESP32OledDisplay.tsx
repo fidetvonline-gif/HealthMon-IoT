@@ -6,16 +6,32 @@ interface ESP32OledDisplayProps {
   reading?: HealthReading;
   device?: IoTDevice;
   compact?: boolean;
+  hr?: number;
+  spo2?: number;
+  temp?: number;
+  activity?: string;
+  battery?: number;
+  wifiStatus?: boolean;
 }
 
-export const ESP32OledDisplay: React.FC<ESP32OledDisplayProps> = ({ reading, device, compact = false }) => {
-  const hr = reading?.heart_rate ?? 78;
-  const spo2 = reading?.spo2 ?? 98;
-  const temp = reading?.temperature ?? 36.7;
-  const status = reading?.status ?? 'Normal';
-  const activity = reading?.activity ?? 'Sitting';
-  const battery = device?.battery_level ?? reading?.battery_level ?? 82;
-  const isOnline = device?.status === 'ONLINE' || true;
+export const ESP32OledDisplay: React.FC<ESP32OledDisplayProps> = ({
+  reading,
+  device,
+  compact = false,
+  hr: customHr,
+  spo2: customSpo2,
+  temp: customTemp,
+  activity: customActivity,
+  battery: customBattery,
+  wifiStatus: customWifi,
+}) => {
+  const hr = customHr ?? reading?.heart_rate ?? 78;
+  const spo2 = customSpo2 ?? reading?.spo2 ?? 98;
+  const temp = customTemp ?? reading?.temperature ?? 36.7;
+  const status = reading?.status ?? (hr > 100 || spo2 < 95 || temp > 37.5 ? 'Abnormal' : 'Normal');
+  const activity = customActivity ?? reading?.activity ?? 'Sitting';
+  const battery = customBattery ?? device?.battery_level ?? reading?.battery_level ?? 82;
+  const isOnline = customWifi ?? (device?.status === 'ONLINE' || true);
   const isAbnormal = status === 'Abnormal';
 
   return (
@@ -40,12 +56,10 @@ export const ESP32OledDisplay: React.FC<ESP32OledDisplayProps> = ({ reading, dev
         </div>
 
         <div className="flex items-center gap-2">
-          {/* WiFi icon */}
           <div className="flex items-center gap-0.5" title={`Wi-Fi: ${isOnline ? 'Connected' : 'Disconnected'}`}>
             <Wifi className={`w-3 h-3 ${isOnline ? 'text-cyan-400' : 'text-slate-600'}`} />
           </div>
 
-          {/* Battery gauge */}
           <div className="flex items-center gap-0.5" title={`Battery: ${battery}%`}>
             {battery <= 20 ? (
               <BatteryWarning className="w-3.5 h-3.5 text-rose-400 animate-pulse" />

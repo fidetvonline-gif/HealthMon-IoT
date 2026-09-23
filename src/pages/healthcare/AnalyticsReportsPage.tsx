@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import {
   BarChart3,
-  Download,
-  Filter,
-  Search,
-  Users,
   FileSpreadsheet,
-  CheckCircle,
-  AlertTriangle,
-  TrendingUp,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -18,7 +11,6 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Legend,
   PieChart,
   Pie,
   Cell,
@@ -28,7 +20,7 @@ import { useAuth } from '../../context/AuthContext';
 import { StatusBadge } from '../../components/common/StatusBadge';
 
 export const AnalyticsReportsPage: React.FC = () => {
-  const { readings, alerts } = useHealthData();
+  const { readings } = useHealthData();
   const { availableUsers } = useAuth();
 
   const students = availableUsers.filter((u) => u.role === 'STUDENT');
@@ -47,9 +39,9 @@ export const AnalyticsReportsPage: React.FC = () => {
 
   // Calculate status counts for Pie Chart
   const statusCounts = [
-    { name: 'Normal', value: readings.filter((r) => r.status === 'Normal').length, color: '#10b981' },
-    { name: 'Warning', value: readings.filter((r) => r.status === 'Warning').length, color: '#f59e0b' },
-    { name: 'Abnormal', value: readings.filter((r) => r.status === 'Abnormal').length, color: '#f43f5e' },
+    { name: 'Normal', value: readings.filter((r) => r.status === 'Normal').length, color: '#16805C' },
+    { name: 'Warning', value: readings.filter((r) => r.status === 'Warning').length, color: '#B7791F' },
+    { name: 'Abnormal', value: readings.filter((r) => r.status === 'Abnormal').length, color: '#C24141' },
   ];
 
   // Activity breakdown for Bar Chart
@@ -62,7 +54,7 @@ export const AnalyticsReportsPage: React.FC = () => {
     count: activityMap[k],
   }));
 
-  // Export CSV function matching Section 43 format
+  // Export CSV function
   const handleExportCSV = () => {
     if (filteredReadings.length === 0) return;
     const headers = ['student_id', 'heart_rate', 'spo2', 'temperature', 'activity', 'status', 'time'];
@@ -93,37 +85,37 @@ export const AnalyticsReportsPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Title and Export */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
-            <BarChart3 className="h-6 w-6 text-blue-600" />
-            <span>Health Analytics & Reporting (Feature 8 & 43)</span>
+          <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
+            <BarChart3 className="h-5 w-5 text-[#087F8C]" />
+            <span>Health Analytics & CSV Exports</span>
           </h2>
-          <p className="text-xs text-slate-500">
-            Statistical aggregation across student cohorts, sensor distributions and CSV dataset exports
+          <p className="text-xs text-[#667085]">
+            Cohort statistics, parameter breakdown, and dataset exports
           </p>
         </div>
 
         <button
           type="button"
           onClick={handleExportCSV}
-          className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-emerald-700 transition-colors"
+          className="btn-primary text-xs"
         >
-          <FileSpreadsheet className="h-4 w-4" />
+          <FileSpreadsheet className="h-3.5 w-3.5" />
           <span>Export CSV Dataset</span>
         </button>
       </div>
 
-      {/* Aggregate Charts Grid */}
+      {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Status Distribution Pie Chart */}
-        <div className="lg:col-span-5 rounded-2xl border border-slate-200 bg-white p-5 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-5 card-panel p-5 rounded-[8px] flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 mb-1">Cohort Physiological Health Status</h3>
-            <p className="text-xs text-slate-500 mb-4">Percentage of readings classified by Threshold Engine</p>
+            <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider mb-1">Cohort Health Distribution</h3>
+            <p className="text-xs text-[#667085] mb-4">Percentage of readings classified by Threshold Engine</p>
 
-            <div className="h-56 w-full flex items-center justify-center">
+            <div className="h-48 w-full flex items-center justify-center">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -132,25 +124,25 @@ export const AnalyticsReportsPage: React.FC = () => {
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    innerRadius={50}
-                    outerRadius={75}
-                    paddingAngle={4}
+                    innerRadius={45}
+                    outerRadius={70}
+                    paddingAngle={3}
                   >
                     {statusCounts.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip contentStyle={{ backgroundColor: '#0B1726', color: '#FFF', borderRadius: '6px', fontSize: '11px' }} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 text-center text-xs">
+          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-[#E2E6EB] text-center text-xs">
             {statusCounts.map((s) => (
-              <div key={s.name} className="p-2 rounded-xl bg-slate-50">
-                <span className="text-[11px] text-slate-500 block">{s.name}</span>
-                <span className="font-bold text-sm" style={{ color: s.color }}>
+              <div key={s.name} className="p-2 rounded-[4px] bg-[#F1F3F5]">
+                <span className="text-[10px] text-[#667085] block uppercase font-bold">{s.name}</span>
+                <span className="font-bold font-mono text-sm" style={{ color: s.color }}>
                   {s.value}
                 </span>
               </div>
@@ -158,117 +150,87 @@ export const AnalyticsReportsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Activity Motion Histogram */}
-        <div className="lg:col-span-7 rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <h3 className="text-sm font-bold text-slate-900 mb-1">MPU6050 Activity Classification Breakdown</h3>
-          <p className="text-xs text-slate-500 mb-4">Sample volume grouped by detected physical motion state</p>
+        {/* Activity Breakdown Bar Chart */}
+        <div className="lg:col-span-7 card-panel p-5 rounded-[8px]">
+          <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider mb-1">Activity Classification Distribution</h3>
+          <p className="text-xs text-[#667085] mb-4">MPU6050 classifier event occurrences</p>
 
-          <div className="h-64 w-full">
+          <div className="h-60 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={activityData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-                <XAxis dataKey="activity" tick={{ fontSize: 11 }} stroke="#94a3b8" />
-                <YAxis tick={{ fontSize: 11 }} stroke="#94a3b8" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#0f172a',
-                    borderRadius: '12px',
-                    border: 'none',
-                    color: '#fff',
-                    fontSize: '12px',
-                  }}
-                />
-                <Bar dataKey="count" name="Sample Count" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+              <BarChart data={activityData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#E2E6EB" />
+                <XAxis dataKey="activity" tick={{ fontSize: 10, fill: '#667085' }} />
+                <YAxis tick={{ fontSize: 10, fill: '#667085' }} />
+                <Tooltip contentStyle={{ backgroundColor: '#0B1726', color: '#FFF', borderRadius: '6px', fontSize: '11px' }} />
+                <Bar dataKey="count" name="Readings" fill="#087F8C" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
 
-      {/* Filter and Export Table */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-xs overflow-hidden">
-        <div className="p-4 border-b border-slate-100 bg-slate-50/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="text-xs font-bold text-slate-700">
-            Filtered Telemetry Records ({filteredReadings.length} results)
-          </div>
+      {/* Filtered Dataset Table */}
+      <div className="card-panel rounded-[8px] overflow-hidden">
+        <div className="p-4 border-b border-[#E2E6EB] bg-[#F1F3F5] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider">Cohort Telemetry Log</h3>
 
           <div className="flex flex-wrap items-center gap-2">
-            {/* Student Filter */}
             <select
               value={selectedStudentId}
               onChange={(e) => setSelectedStudentId(e.target.value)}
-              className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800"
+              className="form-select text-xs w-auto"
             >
-              <option value="ALL">All Monitored Students</option>
-              {students.map((st) => (
-                <option key={st.id} value={st.id}>
-                  {st.full_name} ({st.student_id})
+              <option value="ALL">All Students</option>
+              {students.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.full_name}
                 </option>
               ))}
             </select>
 
-            {/* Status Filter */}
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800"
+              className="form-select text-xs w-auto"
             >
               <option value="ALL">All Statuses</option>
               <option value="Normal">Normal</option>
               <option value="Warning">Warning</option>
               <option value="Abnormal">Abnormal</option>
             </select>
-
-            {/* Activity Filter */}
-            <select
-              value={selectedActivity}
-              onChange={(e) => setSelectedActivity(e.target.value)}
-              className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-800"
-            >
-              <option value="ALL">All Activities</option>
-              <option value="Sitting">Sitting</option>
-              <option value="Standing">Standing</option>
-              <option value="Walking">Walking</option>
-              <option value="Running">Running</option>
-              <option value="Possible Fall">Possible Fall</option>
-            </select>
           </div>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-100/70 text-[11px] font-bold uppercase tracking-wider text-slate-600">
-                <th className="py-3 px-4">Student</th>
-                <th className="py-3 px-4">Heart Rate</th>
-                <th className="py-3 px-4">SpO₂</th>
-                <th className="py-3 px-4">Temperature</th>
-                <th className="py-3 px-4">Activity</th>
-                <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4">Time</th>
+              <tr>
+                <th>Student</th>
+                <th>Heart Rate</th>
+                <th>SpO₂</th>
+                <th>Temp</th>
+                <th>Activity</th>
+                <th>Status</th>
+                <th>Recorded Time</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
-              {filteredReadings.slice(0, 15).map((r) => {
-                const student = students.find((s) => s.id === r.student_id);
+            <tbody>
+              {filteredReadings.slice(0, 50).map((r) => {
+                const st = students.find((s) => s.id === r.student_id);
                 return (
-                  <tr key={r.id} className="hover:bg-slate-50">
-                    <td className="py-3 px-4">
-                      <span className="font-bold text-slate-900">{student?.full_name || 'Student'}</span>
-                      <span className="text-[11px] text-slate-500 font-mono ml-1.5">
-                        ({student?.student_id || r.student_id})
-                      </span>
+                  <tr key={r.id}>
+                    <td>
+                      <div className="font-bold text-[#17202A] text-xs">{st?.full_name || 'Student'}</div>
+                      <div className="text-[10px] text-[#667085] font-mono">{st?.student_id || r.student_id}</div>
                     </td>
-                    <td className="py-3 px-4 font-mono font-bold">{r.heart_rate} BPM</td>
-                    <td className="py-3 px-4 font-mono font-bold">{r.spo2}%</td>
-                    <td className="py-3 px-4 font-mono font-bold">{r.temperature.toFixed(1)}°C</td>
-                    <td className="py-3 px-4">{r.activity}</td>
-                    <td className="py-3 px-4">
-                      <StatusBadge status={r.status} />
+                    <td className="font-mono font-bold text-[#17202A]">{r.heart_rate} BPM</td>
+                    <td className="font-mono font-bold text-[#17202A]">{r.spo2}%</td>
+                    <td className="font-mono font-bold text-[#17202A]">{r.temperature.toFixed(1)}°C</td>
+                    <td className="text-[#334155]">{r.activity}</td>
+                    <td>
+                      <StatusBadge status={r.status} size="sm" />
                     </td>
-                    <td className="py-3 px-4 font-mono text-slate-500">
-                      {new Date(r.recorded_at).toLocaleTimeString()}
-                    </td>
+                    <td className="font-mono text-[#667085] text-[11px]">{new Date(r.recorded_at).toLocaleTimeString()}</td>
                   </tr>
                 );
               })}

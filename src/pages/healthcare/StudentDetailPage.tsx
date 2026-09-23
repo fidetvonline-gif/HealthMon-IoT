@@ -12,7 +12,6 @@ import {
   AlertTriangle,
   Clock,
   ShieldAlert,
-  Send,
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -35,7 +34,7 @@ interface StudentDetailPageProps {
   onNavigateTab: (tab: string) => void;
 }
 
-export const StudentDetailPage: React.FC<StudentDetailPageProps> = ({ student, onBack, onNavigateTab }) => {
+export const StudentDetailPage: React.FC<StudentDetailPageProps> = ({ student, onBack }) => {
   const { readings, deviceForStudent, alerts, reviewAlert, resolveAlert } = useHealthData();
 
   const device = deviceForStudent(student.id);
@@ -77,308 +76,245 @@ export const StudentDetailPage: React.FC<StudentDetailPageProps> = ({ student, o
   return (
     <div className="space-y-6">
       {/* Back Button & Title */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+      <div className="flex items-center justify-between border-b border-[#E2E6EB] pb-4">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-xs"
+          className="btn-secondary text-xs"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-3.5 w-3.5" />
           <span>Back to Live Dashboard</span>
         </button>
 
         <StatusBadge status={status} size="md" />
       </div>
 
-      {/* Feature 6: Section 13 STUDENT PROFILE & DEVICE CARD */}
+      {/* Student Profile & Device Specs */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
         {/* Student Profile Info */}
-        <div className="md:col-span-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-          <div className="flex items-center gap-3 border-b border-slate-100 pb-3 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-700 font-bold">
-              <User className="h-5 w-5" />
+        <div className="md:col-span-6 card-panel p-5 rounded-[8px]">
+          <div className="flex items-center gap-3 border-b border-[#E2E6EB] pb-3 mb-4">
+            <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#087F8C]/10 text-[#087F8C] font-bold">
+              <User className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="text-base font-extrabold text-slate-900">{student.full_name}</h3>
-              <p className="text-xs text-slate-500 font-mono">Student ID: {student.student_id || 'UY/CS/2026/001'}</p>
+              <h3 className="text-sm font-bold text-[#17202A]">{student.full_name}</h3>
+              <p className="text-xs text-[#667085] font-mono">Student ID: {student.student_id || 'UY/CS/2026/001'}</p>
             </div>
           </div>
 
-          <div className="space-y-2.5 text-xs">
-            <div className="flex justify-between py-1 border-b border-slate-50">
-              <span className="text-slate-500">Department:</span>
-              <span className="font-semibold text-slate-900">{student.department || 'Computer Science'}</span>
+          <div className="space-y-2 text-xs">
+            <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+              <span className="text-[#667085]">Department:</span>
+              <span className="font-semibold text-[#17202A]">{student.department || 'Computer Science'}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-slate-50">
-              <span className="text-slate-500">Faculty:</span>
-              <span className="font-semibold text-slate-900">{student.faculty || 'Computing Science'}</span>
+            <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+              <span className="text-[#667085]">Faculty:</span>
+              <span className="font-semibold text-[#17202A]">{student.faculty || 'Computing Science'}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-slate-50">
-              <span className="text-slate-500">Contact Phone:</span>
-              <span className="font-mono text-slate-800">{student.phone || '+234 803 123 4567'}</span>
+            <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+              <span className="text-[#667085]">Contact Phone:</span>
+              <span className="font-mono text-[#334155]">{student.phone || '+234 803 123 4567'}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-slate-50">
-              <span className="text-slate-500">Emergency Next of Kin:</span>
-              <span className="font-semibold text-rose-700">{student.emergency_contact_name || 'Sarah Doe (Mother)'}</span>
+            <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
+              <span className="text-[#667085]">Emergency Next of Kin:</span>
+              <span className="font-semibold text-[#C24141]">{student.emergency_contact_name || 'Sarah Doe (Mother)'}</span>
             </div>
             <div className="flex justify-between py-1">
-              <span className="text-slate-500">Kin Phone:</span>
-              <span className="font-mono text-slate-800">{student.emergency_contact_phone || '+234 803 987 6543'}</span>
+              <span className="text-[#667085]">Kin Phone:</span>
+              <span className="font-mono text-[#334155]">{student.emergency_contact_phone || '+234 803 987 6543'}</span>
             </div>
           </div>
         </div>
 
         {/* Assigned Device Info */}
-        <div className="md:col-span-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+        <div className="md:col-span-6 card-panel p-5 rounded-[8px] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <div className="flex items-center justify-between border-b border-[#E2E6EB] pb-3 mb-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-100 text-purple-700 font-bold">
-                  <Cpu className="h-5 w-5" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#0B1726] text-white font-bold">
+                  <Cpu className="h-4 w-4" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900">
+                  <h3 className="text-sm font-bold text-[#17202A]">
                     {device?.device_uid || 'HM-ESP32-001'}
                   </h3>
-                  <p className="text-xs text-slate-500">ESP32-S3 IoT Wrist Wearable Unit</p>
+                  <p className="text-xs text-[#667085]">ESP32 Wearable Unit</p>
                 </div>
               </div>
               <StatusBadge status={device?.status || 'ONLINE'} pulse />
             </div>
 
             <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="rounded-xl bg-slate-50 p-3 border border-slate-200/70">
-                <span className="text-slate-500 text-[11px] block">Battery Capacity</span>
-                <span className="font-mono font-bold text-sm text-slate-900 flex items-center gap-1">
-                  <Battery className="w-3.5 h-3.5 text-blue-600" /> {battery}%
+              <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
+                <span className="text-[#667085] text-[11px] block">Battery Capacity</span>
+                <span className="font-mono font-bold text-xs text-[#17202A] flex items-center gap-1">
+                  <Battery className="w-3.5 h-3.5 text-[#087F8C]" /> {battery}%
                 </span>
               </div>
-              <div className="rounded-xl bg-slate-50 p-3 border border-slate-200/70">
-                <span className="text-slate-500 text-[11px] block">Wi-Fi Connection</span>
-                <span className="font-mono font-bold text-sm text-emerald-600 flex items-center gap-1">
+              <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
+                <span className="text-[#667085] text-[11px] block">Wi-Fi Connection</span>
+                <span className="font-mono font-bold text-xs text-[#16805C] flex items-center gap-1">
                   <Wifi className="w-3.5 h-3.5" /> -58 dBm
-                </span>
-              </div>
-              <div className="rounded-xl bg-slate-50 p-3 border border-slate-200/70">
-                <span className="text-slate-500 text-[11px] block">Firmware</span>
-                <span className="font-mono text-slate-700 font-semibold">{device?.firmware_version || 'v1.2.4'}</span>
-              </div>
-              <div className="rounded-xl bg-slate-50 p-3 border border-slate-200/70">
-                <span className="text-slate-500 text-[11px] block">Last Seen</span>
-                <span className="font-mono text-slate-700">
-                  {device?.last_seen ? new Date(device.last_seen).toLocaleTimeString() : 'Just now'}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Hardware Sensors: MAX30102, MLX90614, MPU6050</span>
-            <span className="text-emerald-600 font-bold">All Calibrated</span>
+          <div className="mt-4 pt-3 border-t border-[#E2E6EB] text-xs text-[#667085]">
+            Firmware: <span className="font-mono font-semibold text-[#17202A]">{device?.firmware_version || 'v1.2.4-esp32s3'}</span>
           </div>
         </div>
       </div>
 
-      {/* Feature 6: CURRENT READINGS 4-Card Grid */}
+      {/* Real-Time Vital Signs Block */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* HR */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-            <span className="flex items-center gap-1 text-rose-600">
-              <Heart className="h-4 w-4 fill-rose-500" />
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
+            <span className="flex items-center gap-1.5">
+              <Heart className="h-4 w-4 text-[#C24141]" />
               HEART RATE
             </span>
             <StatusBadge status={hr > 100 || hr < 60 ? 'Abnormal' : 'Normal'} />
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 font-mono">{hr}</span>
-            <span className="text-xs font-semibold text-slate-500">BPM</span>
-          </div>
-          <div className="mt-2 text-[11px] text-slate-400">Normal Range: 60 - 100 BPM</div>
+          <div className="text-2xl font-bold font-mono text-[#17202A]">{hr} <span className="text-xs font-normal text-[#667085]">BPM</span></div>
         </div>
 
         {/* SpO2 */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-            <span className="flex items-center gap-1 text-blue-600">
-              <Droplets className="h-4 w-4 fill-blue-500" />
-              SpO₂
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
+            <span className="flex items-center gap-1.5">
+              <Droplets className="h-4 w-4 text-[#2764A5]" />
+              SpO₂ SATURATION
             </span>
             <StatusBadge status={spo2 < 95 ? 'Abnormal' : 'Normal'} />
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 font-mono">{spo2}</span>
-            <span className="text-xs font-semibold text-slate-500">%</span>
-          </div>
-          <div className="mt-2 text-[11px] text-slate-400">Safe Baseline: &gt;= 95%</div>
+          <div className="text-2xl font-bold font-mono text-[#17202A]">{spo2} <span className="text-xs font-normal text-[#667085]">%</span></div>
         </div>
 
-        {/* Temperature */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-            <span className="flex items-center gap-1 text-amber-600">
-              <Thermometer className="h-4 w-4" />
+        {/* Temp */}
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
+            <span className="flex items-center gap-1.5">
+              <Thermometer className="h-4 w-4 text-[#B7791F]" />
               TEMPERATURE
             </span>
-            <StatusBadge status={temp > 37.5 || temp < 36.5 ? 'Abnormal' : 'Normal'} />
+            <StatusBadge status={temp > 37.5 ? 'Abnormal' : 'Normal'} />
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-black text-slate-900 font-mono">{temp.toFixed(1)}</span>
-            <span className="text-xs font-semibold text-slate-500">°C</span>
-          </div>
-          <div className="mt-2 text-[11px] text-slate-400">Baseline: 36.5 - 37.5°C</div>
+          <div className="text-2xl font-bold font-mono text-[#17202A]">{temp.toFixed(1)} <span className="text-xs font-normal text-[#667085]">°C</span></div>
         </div>
 
         {/* Activity */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-            <span className="flex items-center gap-1 text-purple-600">
-              <Activity className="h-4 w-4" />
-              ACTIVITY
+        <div className="card-panel p-4 rounded-[8px]">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
+            <span className="flex items-center gap-1.5">
+              <Activity className="h-4 w-4 text-[#087F8C]" />
+              ACTIVITY STATE
             </span>
             <StatusBadge status={activity === 'Possible Fall' ? 'Abnormal' : 'Normal'} />
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-black text-slate-900">{activity}</span>
-          </div>
-          <div className="mt-2 text-[11px] text-slate-400">MPU6050 Motion Classifier</div>
+          <div className="text-xl font-bold text-[#17202A]">{activity}</div>
         </div>
       </div>
 
-      {/* Realtime Chart Telemetry */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-        <h3 className="text-sm font-bold text-slate-900 mb-1">Live Telemetry Trend Plot</h3>
-        <p className="text-xs text-slate-500 mb-4">Real-time signal feed ingested via Supabase Realtime</p>
+      {/* Chart & OLED Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-8 card-panel p-5 rounded-[8px]">
+          <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider mb-3">Live Telemetry Plot</h3>
+          <div className="h-60 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#E2E6EB" />
+                <XAxis dataKey="time" tick={{ fontSize: 10 }} stroke="#D0D5DD" />
+                <YAxis tick={{ fontSize: 10 }} stroke="#D0D5DD" />
+                <Tooltip contentStyle={{ backgroundColor: '#0B1726', color: '#FFF', borderRadius: '6px', fontSize: '11px' }} />
+                <Legend wrapperStyle={{ fontSize: '11px' }} />
+                <Line type="monotone" dataKey="heart_rate" name="Heart Rate" stroke="#C24141" strokeWidth={2} dot={{ r: 2 }} />
+                <Line type="monotone" dataKey="spo2" name="SpO₂" stroke="#2764A5" strokeWidth={2} dot={{ r: 2 }} />
+                <Line type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#B7791F" strokeWidth={2} dot={{ r: 2 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
 
-        <div className="h-64 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis dataKey="time" tick={{ fontSize: 11 }} stroke="#94a3b8" />
-              <YAxis domain={['dataMin - 5', 'dataMax + 5']} tick={{ fontSize: 11 }} stroke="#94a3b8" />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: '#0f172a',
-                  borderRadius: '12px',
-                  border: 'none',
-                  color: '#fff',
-                  fontSize: '12px',
-                }}
-              />
-              <Legend wrapperStyle={{ fontSize: '12px' }} />
-              <Line type="monotone" dataKey="heart_rate" name="Heart Rate (BPM)" stroke="#f43f5e" strokeWidth={2} dot={{ r: 3 }} />
-              <Line type="monotone" dataKey="spo2" name="SpO2 (%)" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} />
-              <Line type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="lg:col-span-4 card-panel p-5 rounded-[8px] flex flex-col items-center justify-center">
+          <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider mb-3">Wrist OLED Mirror</h3>
+          <ESP32OledDisplay reading={currentReading} device={device} />
         </div>
       </div>
 
-      {/* Student Abnormal Alerts History & Clinical Triage */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-          <div>
-            <h3 className="text-base font-extrabold text-slate-900">Student Abnormal Condition Alerts</h3>
-            <p className="text-xs text-slate-500">Threshold violations recorded for {student.full_name}</p>
-          </div>
-          <span className="text-xs font-semibold text-slate-600">Total: {studentAlerts.length}</span>
-        </div>
+      {/* Clinical Alerts Section */}
+      <div className="card-panel p-5 rounded-[8px] space-y-4">
+        <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider border-b border-[#E2E6EB] pb-2 flex items-center gap-2">
+          <ShieldAlert className="w-4 h-4 text-[#C24141]" />
+          <span>Clinical Alerts & Triage Notes</span>
+        </h3>
 
-        <div className="space-y-3">
-          {studentAlerts.length === 0 ? (
-            <div className="py-6 text-center text-xs text-slate-400">
-              No abnormal alerts on record for this student.
-            </div>
-          ) : (
-            studentAlerts.map((alt) => (
-              <div key={alt.id} className="rounded-xl border border-slate-200 p-4 bg-slate-50/50">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/60 pb-2 mb-2">
+        {studentAlerts.length === 0 ? (
+          <p className="text-xs text-[#98A2B3]">No active or historical alerts recorded for this student.</p>
+        ) : (
+          <div className="space-y-3">
+            {studentAlerts.map((a) => (
+              <div key={a.id} className="p-3.5 rounded-[6px] border border-[#E2E6EB] bg-[#F1F3F5] space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-[#17202A]">{a.alert_type} ({a.parameter}: {a.value})</span>
                   <div className="flex items-center gap-2">
-                    <StatusBadge status={alt.severity} />
-                    <span className="font-bold text-xs text-slate-900">{alt.alert_type}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-xs">
-                    <StatusBadge status={alt.status} size="sm" />
-                    <span className="text-slate-400 font-mono">{new Date(alt.created_at).toLocaleTimeString()}</span>
+                    <StatusBadge status={a.status} size="sm" />
+                    <span className="text-[11px] text-[#667085] font-mono">{new Date(a.created_at).toLocaleTimeString()}</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs mb-2">
-                  <div>
-                    <span className="text-slate-400 text-[11px]">Parameter:</span> {alt.parameter}
-                  </div>
-                  <div>
-                    <span className="text-slate-400 text-[11px]">Value:</span>{' '}
-                    <span className="font-mono font-bold text-rose-600">{alt.value}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 text-[11px]">Threshold:</span> {alt.threshold}
-                  </div>
-                </div>
+                <p className="text-xs text-[#334155]">{a.message}</p>
 
-                <p className="text-xs text-slate-600 mb-3">{alt.message}</p>
-
-                {/* Resolution Notes */}
-                {alt.resolution_notes && (
-                  <div className="rounded-lg bg-blue-50 border border-blue-100 p-2.5 text-xs text-blue-900 mb-2">
-                    <strong>Clinic Action ({alt.reviewed_by || 'Staff'}):</strong> {alt.resolution_notes}
+                {a.status === 'ACTIVE' && (
+                  <div className="pt-2 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleReviewAlert(a.id)}
+                      className="btn-secondary text-xs py-1 px-3 min-h-[32px]"
+                    >
+                      <Clock className="w-3.5 h-3.5 text-[#B7791F]" />
+                      <span>Acknowledge</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedAlertForNotes(a.id)}
+                      className="btn-primary text-xs py-1 px-3 min-h-[32px]"
+                    >
+                      <span>Add Notes & Resolve</span>
+                    </button>
                   </div>
                 )}
 
-                {/* Healthcare Action Buttons */}
-                {alt.status !== 'RESOLVED' && (
-                  <div className="pt-2 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-2">
-                    {alt.status === 'ACTIVE' && (
-                      <button
-                        type="button"
-                        onClick={() => handleReviewAlert(alt.id)}
-                        className="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100"
-                      >
-                        Mark as Reviewed
-                      </button>
-                    )}
+                {selectedAlertForNotes === a.id && (
+                  <div className="mt-2 space-y-2 pt-2 border-t border-[#E2E6EB]">
+                    <textarea
+                      placeholder="Enter clinical assessment notes..."
+                      value={clinicalNotes}
+                      onChange={(e) => setClinicalNotes(e.target.value)}
+                      className="form-textarea text-xs"
+                      rows={2}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleResolveAlert(a.id)}
+                      className="btn-primary text-xs"
+                    >
+                      Confirm Resolution
+                    </button>
+                  </div>
+                )}
 
-                    {selectedAlertForNotes === alt.id ? (
-                      <div className="w-full mt-2 space-y-2">
-                        <textarea
-                          placeholder="Enter clinical assessment notes or intervention taken..."
-                          value={clinicalNotes}
-                          onChange={(e) => setClinicalNotes(e.target.value)}
-                          className="w-full rounded-xl border border-slate-300 bg-white p-2.5 text-xs focus:border-blue-500 focus:outline-hidden"
-                          rows={2}
-                        />
-                        <div className="flex justify-end gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setSelectedAlertForNotes(null)}
-                            className="px-3 py-1 rounded-lg border border-slate-200 text-xs font-medium text-slate-600"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleResolveAlert(alt.id)}
-                            className="px-3 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-700"
-                          >
-                            Save & Resolve Alert
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => setSelectedAlertForNotes(alt.id)}
-                        className="rounded-lg bg-emerald-600 text-white px-3 py-1 text-xs font-bold hover:bg-emerald-700 shadow-xs"
-                      >
-                        Resolve Alert With Notes
-                      </button>
-                    )}
+                {a.resolution_notes && (
+                  <div className="text-xs bg-white p-2 rounded border border-[#E2E6EB] text-[#334155]">
+                    <strong>Staff Notes ({a.reviewed_by}):</strong> {a.resolution_notes}
                   </div>
                 )}
               </div>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

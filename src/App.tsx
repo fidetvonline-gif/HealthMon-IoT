@@ -27,7 +27,7 @@ import { AdminAuditLogsPage } from './pages/admin/AdminAuditLogsPage';
 import { DatasetTrainingModule } from './components/training/DatasetTrainingModule';
 
 import { UserProfile } from './types';
-import { AlertOctagon, Volume2, VolumeX } from 'lucide-react';
+import { AlertOctagon, Volume2, VolumeX, ArrowLeft } from 'lucide-react';
 
 const MainApp: React.FC = () => {
   const { user } = useAuth();
@@ -48,7 +48,6 @@ const MainApp: React.FC = () => {
     setSelectedStudentForDetail(null);
   }, [user?.role]);
 
-  // Audio alert tone generator for abnormal condition detection (Section 19: "Audible alert plays")
   const playAlertBuzzer = () => {
     try {
       const audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
@@ -56,8 +55,8 @@ const MainApp: React.FC = () => {
       const gain = audioCtx.createGain();
 
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(880, audioCtx.currentTime); // 880 Hz beep
-      osc.frequency.setValueAtTime(440, audioCtx.currentTime + 0.15); // drop to 440 Hz
+      osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(440, audioCtx.currentTime + 0.15);
 
       gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
@@ -68,11 +67,10 @@ const MainApp: React.FC = () => {
       osc.start();
       osc.stop(audioCtx.currentTime + 0.3);
     } catch {
-      // Audio context might be restricted before user gesture
+      // Audio context might be restricted
     }
   };
 
-  // Watch for new abnormal alerts
   useEffect(() => {
     if (alerts.length > prevAlertsCount.current) {
       const newest = alerts[0];
@@ -94,10 +92,18 @@ const MainApp: React.FC = () => {
     setSelectedStudentForDetail(null);
   };
 
+  const handleReturnToDashboard = () => {
+    setActiveTab('dashboard');
+    setSelectedStudentForDetail(null);
+  };
+
+  const isNonDashboardView = activeTab !== 'dashboard' || selectedStudentForDetail !== null;
+
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#F7F8FA] flex flex-col font-sans text-[#17202A] antialiased">
       {/* Global Header */}
       <Header
+        activeTab={activeTab}
         onOpenSimulator={() => setIsSimulatorOpen(true)}
         onOpenFirmware={() => setIsFirmwareOpen(true)}
         onNavigateTab={(tab) => {
@@ -106,12 +112,12 @@ const MainApp: React.FC = () => {
         }}
       />
 
-      {/* Abnormal Condition Notification Ticker (Feature 10) */}
+      {/* Abnormal Condition Ticker */}
       {latestAbnormalBanner && (
-        <div className="bg-rose-600 text-white px-4 py-2 text-xs font-bold flex items-center justify-between shadow-md animate-pulse">
+        <div className="bg-[#C24141] text-white px-4 py-2 text-xs font-bold flex items-center justify-between shadow-md">
           <div className="flex items-center gap-2">
-            <AlertOctagon className="w-4 h-4 text-rose-200 shrink-0" />
-            <span>CRITICAL CLINICAL ALERT: {latestAbnormalBanner}</span>
+            <AlertOctagon className="w-4 h-4 text-white shrink-0" />
+            <span>CRITICAL ALERT: {latestAbnormalBanner}</span>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -120,7 +126,7 @@ const MainApp: React.FC = () => {
                 setAudioEnabled(!audioEnabled);
                 if (!audioEnabled) playAlertBuzzer();
               }}
-              className="inline-flex items-center gap-1 bg-rose-700 hover:bg-rose-800 px-2 py-0.5 rounded text-[11px]"
+              className="inline-flex items-center gap-1 bg-[#0B1726] hover:bg-[#12263A] px-2 py-0.5 rounded text-[11px]"
             >
               {audioEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
               <span>{audioEnabled ? 'Alarm Sound: ON' : 'Alarm Sound: OFF'}</span>
@@ -128,7 +134,7 @@ const MainApp: React.FC = () => {
             <button
               type="button"
               onClick={() => setLatestAbnormalBanner(null)}
-              className="text-white hover:text-rose-200 text-xs px-1.5"
+              className="text-white hover:text-white/80 text-xs px-1.5"
             >
               ✕
             </button>
@@ -137,7 +143,7 @@ const MainApp: React.FC = () => {
       )}
 
       {/* Main Layout Body */}
-      <div className="flex-1 flex max-w-7xl w-full mx-auto p-4 sm:p-6 gap-6">
+      <div className="flex-1 flex max-w-7xl w-full mx-auto p-3 sm:p-6 gap-6">
         {/* Sidebar Navigation */}
         <Sidebar
           activeTab={selectedStudentForDetail ? 'dashboard' : activeTab}
@@ -148,7 +154,25 @@ const MainApp: React.FC = () => {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 min-w-0">
+        <main className="flex-1 min-w-0 space-y-4">
+          {/* Universal 1-Tap "Back to Dashboard" Bar when on non-dashboard views */}
+          {isNonDashboardView && (
+            <div className="flex items-center justify-between bg-white p-2.5 px-3 rounded-[6px] border border-[#E2E6EB]">
+              <button
+                type="button"
+                onClick={handleReturnToDashboard}
+                className="btn-secondary text-xs"
+              >
+                <ArrowLeft className="h-4 w-4 text-[#087F8C]" />
+                <span>Return to Main Dashboard</span>
+              </button>
+
+              <span className="text-xs font-bold text-[#667085] uppercase tracking-wider hidden sm:inline">
+                Section: <span className="text-[#17202A]">{activeTab.replace('_', ' ')}</span>
+              </span>
+            </div>
+          )}
+
           {activeTab === 'model_training' && <DatasetTrainingModule />}
 
           {/* STUDENT ROLE PAGES */}
@@ -219,12 +243,12 @@ const MainApp: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-4 px-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-[#E2E6EB] bg-white py-4 px-6 text-center text-xs text-[#667085]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>
-            VitaTrack IoT • Student Health Monitoring & Abnormal Condition Detection System • ESP32-S3
+            VitaTrack IoT • University Student Health Monitoring & Abnormal Condition Detection • ESP32-S3
           </span>
-          <span className="font-mono text-[11px] text-slate-400">
+          <span className="font-mono text-[11px] text-[#98A2B3]">
             MAX30102 (PPG/SpO₂) • MLX90614 (IR Temp) • MPU6050 (IMU) • SSD1306 (OLED)
           </span>
         </div>

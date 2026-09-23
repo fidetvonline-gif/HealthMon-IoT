@@ -12,15 +12,15 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm', p
 
   const normalized = status.toUpperCase();
   const isSm = size === 'sm';
-  const sizeClasses = isSm ? 'px-2.5 py-0.5 text-xs' : 'px-3 py-1 text-sm';
+  const sizeClasses = isSm ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-1 text-xs';
 
   // Normal / Online / Resolved
   if (['NORMAL', 'ONLINE', 'RESOLVED'].includes(normalized)) {
     return (
       <span
-        className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 ${sizeClasses}`}
+        className={`inline-flex items-center gap-1.5 font-semibold rounded-[4px] bg-[#16805C]/10 text-[#16805C] border border-[#16805C]/20 ${sizeClasses}`}
       >
-        <span className={`h-1.5 w-1.5 rounded-full bg-emerald-500 ${pulse ? 'animate-ping' : ''}`} />
+        <span className={`h-1.5 w-1.5 rounded-full bg-[#16805C] ${pulse ? 'animate-ping' : ''}`} />
         {status}
       </span>
     );
@@ -30,9 +30,9 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm', p
   if (['WARNING', 'CONNECTING', 'REVIEWED'].includes(normalized)) {
     return (
       <span
-        className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-amber-50 text-amber-700 border border-amber-200 ${sizeClasses}`}
+        className={`inline-flex items-center gap-1.5 font-semibold rounded-[4px] bg-[#B7791F]/10 text-[#B7791F] border border-[#B7791F]/20 ${sizeClasses}`}
       >
-        <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#B7791F]" />
         {status}
       </span>
     );
@@ -43,13 +43,13 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm', p
     const isCritical = ['CRITICAL', 'ABNORMAL', 'HIGH'].includes(normalized);
     return (
       <span
-        className={`inline-flex items-center gap-1.5 font-medium rounded-full ${
+        className={`inline-flex items-center gap-1.5 font-semibold rounded-[4px] ${
           isCritical
-            ? 'bg-rose-50 text-rose-700 border border-rose-200'
-            : 'bg-slate-100 text-slate-700 border border-slate-200'
+            ? 'bg-[#C24141]/10 text-[#C24141] border border-[#C24141]/20'
+            : 'bg-[#F1F3F5] text-[#334155] border border-[#E2E6EB]'
         } ${sizeClasses}`}
       >
-        <span className={`h-1.5 w-1.5 rounded-full ${isCritical ? 'bg-rose-500 animate-pulse' : 'bg-slate-400'}`} />
+        <span className={`h-1.5 w-1.5 rounded-full ${isCritical ? 'bg-[#C24141]' : 'bg-[#98A2B3]'}`} />
         {status}
       </span>
     );
@@ -59,9 +59,9 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm', p
   if (normalized === 'INFO') {
     return (
       <span
-        className={`inline-flex items-center gap-1.5 font-medium rounded-full bg-blue-50 text-blue-700 border border-blue-200 ${sizeClasses}`}
+        className={`inline-flex items-center gap-1.5 font-semibold rounded-[4px] bg-[#2764A5]/10 text-[#2764A5] border border-[#2764A5]/20 ${sizeClasses}`}
       >
-        <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[#2764A5]" />
         {status}
       </span>
     );
@@ -69,7 +69,7 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'sm', p
 
   return (
     <span
-      className={`inline-flex items-center font-medium rounded-full bg-slate-100 text-slate-700 border border-slate-200 ${sizeClasses}`}
+      className={`inline-flex items-center font-medium rounded-[4px] bg-[#F1F3F5] text-[#334155] border border-[#E2E6EB] ${sizeClasses}`}
     >
       {status}
     </span>

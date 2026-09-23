@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Copy, Check, Code, Cpu, Download } from 'lucide-react';
+import { X, Copy, Check, Cpu, ArrowLeft } from 'lucide-react';
 
 interface ESP32FirmwareModalProps {
   isOpen: boolean;
@@ -102,17 +102,13 @@ void setup() {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("\nWi-Fi Connected. IP: " + WiFi.localIP().toString());
+  Serial.println("\\nWi-Fi Connected. IP: " + WiFi.localIP().toString());
 }
 
 void loop() {
-  // 1. Read Sensors
   readSensors();
-
-  // 2. Update Local OLED
   updateOLED();
 
-  // 3. Send Telemetry to Supabase via Wi-Fi
   if (millis() - lastSendTime >= SEND_INTERVAL) {
     transmitTelemetry();
     lastSendTime = millis();
@@ -122,11 +118,9 @@ void loop() {
 }
 
 void readSensors() {
-  // Read Temperature from MLX90614
   bodyTemp = mlx.readObjectTempC();
   if (isnan(bodyTemp) || bodyTemp < 25.0) bodyTemp = 36.7;
 
-  // Read Motion from MPU6050
   int16_t ax, ay, az, gx, gy, gz;
   mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
   float totalAccel = sqrt((float)ax*ax + (float)ay*ay + (float)az*az) / 16384.0;
@@ -149,10 +143,10 @@ void updateOLED() {
   display.drawLine(0, 10, 128, 10, SSD1306_WHITE);
 
   display.setCursor(0, 16);
-  display.printf("HR:   %d BPM\n", heartRate);
+  display.printf("HR:   %d BPM\\n", heartRate);
   display.printf("SpO2: %d %%\n", spo2);
-  display.printf("TEMP: %.1f C\n", bodyTemp);
-  display.printf("ACT:  %s\n", activityStatus.c_str());
+  display.printf("TEMP: %.1f C\\n", bodyTemp);
+  display.printf("ACT:  %s\\n", activityStatus.c_str());
 
   display.drawLine(0, 52, 128, 52, SSD1306_WHITE);
   display.setCursor(0, 55);
@@ -164,7 +158,7 @@ void transmitTelemetry() {
   if (WiFi.status() != WL_CONNECTED) return;
 
   WiFiClientSecure client;
-  client.setInsecure(); // For educational/dev SSL bypass
+  client.setInsecure();
   HTTPClient http;
 
   if (http.begin(client, SUPABASE_URL)) {
@@ -196,48 +190,62 @@ void transmitTelemetry() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 p-4 backdrop-blur-xs overflow-y-auto">
-      <div className="relative w-full max-w-3xl rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden my-8">
-        <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-6 py-4">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#0B1726]/80 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto pt-10 sm:pt-14">
+      <div className="relative w-full max-w-3xl rounded-[8px] bg-white shadow-xl border border-[#E2E6EB] overflow-hidden my-auto max-h-[90vh] flex flex-col">
+        {/* Sticky Modal Top Bar with Safe Padding */}
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#E2E6EB] bg-[#F1F3F5] px-4 py-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-cyan-400">
-              <Cpu className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-slate-900">ESP32-S3 C++ / Arduino Firmware</h3>
-              <p className="text-xs text-slate-500">
-                Production-ready embedded code for MAX30102, MLX90614, MPU6050, OLED & Supabase REST API
-              </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="btn-secondary text-xs"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Back to App</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#0B1726] text-white font-mono text-xs font-bold">
+                C++
+              </div>
+              <div>
+                <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider">
+                  ESP32-S3 Firmware Source Code
+                </h3>
+                <p className="text-[11px] text-[#667085]">
+                  Embedded C++ for MAX30102, MLX90614, MPU6050 & SSD1306
+                </p>
+              </div>
             </div>
           </div>
+
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 shadow-xs"
+              className="btn-primary text-xs"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Copied' : 'Copy Code'}</span>
+              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              <span>{copied ? 'Copied' : 'Copy C++'}</span>
             </button>
+
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+              className="btn-secondary text-xs bg-[#C24141]/10 text-[#C24141] border-[#C24141]/20 hover:bg-[#C24141]/20"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
+              <span>Close</span>
             </button>
           </div>
         </div>
 
-        <div className="p-6">
-          <div className="mb-3 flex items-center justify-between text-xs text-slate-600 bg-blue-50 p-2.5 rounded-lg border border-blue-100">
-            <span>
-              💡 <strong>Evaluation Note:</strong> This firmware compiles directly in Arduino IDE or PlatformIO for
-              the ESP32-S3 microcontroller board.
-            </span>
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1">
+          <div className="mb-3 text-xs text-[#17202A] bg-[#087F8C]/10 p-3 rounded-[6px] border border-[#087F8C]/20">
+            <strong>Deployment Note:</strong> Compiles natively in Arduino IDE or PlatformIO for ESP32-S3 microcontrollers with Wire/I2C enabled.
           </div>
 
-          <pre className="max-h-[500px] overflow-y-auto rounded-xl bg-slate-950 p-4 font-mono text-xs text-slate-300 leading-relaxed border border-slate-800 shadow-inner">
+          <pre className="max-h-[480px] overflow-y-auto rounded-[6px] bg-[#0B1726] p-4 font-mono text-xs text-[#087F8C] border border-[#12263A]">
             <code>{firmwareCode}</code>
           </pre>
         </div>

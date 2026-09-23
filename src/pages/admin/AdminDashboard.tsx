@@ -5,12 +5,9 @@ import {
   Cpu,
   Sliders,
   FileText,
-  Activity,
-  Server,
   Database,
   Radio,
-  Clock,
-  ArrowUpRight,
+  Server,
   Code2,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -33,151 +30,148 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
   const studentsCount = availableUsers.filter((u) => u.role === 'STUDENT').length;
   const healthStaffCount = availableUsers.filter((u) => u.role === 'HEALTHCARE').length;
-  const adminCount = availableUsers.filter((u) => u.role === 'ADMIN').length;
   const onlineDevicesCount = devices.filter((d) => d.status === 'ONLINE').length;
 
   return (
     <div className="space-y-6">
       {/* Top Banner */}
-      <div className="rounded-3xl bg-slate-900 p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-semibold backdrop-blur-xs mb-3 border border-purple-500/30">
-            <ShieldCheck className="h-3.5 w-3.5 text-purple-400" />
-            <span>Root System Operations • Full Privilege</span>
+      <div className="card-panel bg-[#0B1726] text-white p-6 rounded-[8px] border border-[#12263A]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#087F8C] text-xs font-semibold mb-2 border border-[#334155]/40">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#087F8C]" />
+              <span>Root System Operations</span>
+            </div>
+            <h1 className="text-2xl font-bold tracking-tight text-white">VitaTrack System Administration</h1>
+            <p className="mt-1 text-xs text-[#98A2B3]">
+              Hardware fleet orchestration, clinical threshold rules, user provisioning, and audit logs.
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight">VitaTrack IoT Administration</h1>
-          <p className="mt-1 text-xs sm:text-sm text-slate-300">
-            Hardware fleet orchestration, clinical threshold calibration, role-based access & system telemetry logs.
-          </p>
-        </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={onOpenFirmware}
-            className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-2.5 text-xs font-bold text-white hover:bg-white/20 transition-all border border-white/20"
-          >
-            <Code2 className="h-4 w-4" />
-            <span>ESP32 C++ Firmware</span>
-          </button>
-          <button
-            type="button"
-            onClick={onOpenSimulator}
-            className="inline-flex items-center gap-2 rounded-2xl bg-blue-600 px-4 py-2.5 text-xs font-bold text-white hover:bg-blue-500 transition-all shadow-md"
-          >
-            <Radio className="h-4 w-4" />
-            <span>Hardware Test Bench</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={onOpenFirmware}
+              className="btn-secondary text-xs"
+            >
+              <Code2 className="h-3.5 w-3.5" />
+              <span>ESP32 Firmware</span>
+            </button>
+            <button
+              type="button"
+              onClick={onOpenSimulator}
+              className="btn-primary text-xs"
+            >
+              <Radio className="h-3.5 w-3.5" />
+              <span>IoT Test Bench</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* High-Level Fleet Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div
           onClick={() => onNavigateTab('users')}
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-blue-300 cursor-pointer transition-all"
+          className="card-panel p-4 rounded-[8px] cursor-pointer hover:border-[#087F8C] transition-colors"
         >
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
             <span>Registered Users</span>
-            <Users className="h-4 w-4 text-blue-600" />
+            <Users className="h-4 w-4 text-[#087F8C]" />
           </div>
-          <span className="text-3xl font-black text-slate-900 font-mono">{availableUsers.length}</span>
-          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
-            <span>{studentsCount} Students • {healthStaffCount} Staff</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" />
+          <span className="text-2xl font-bold text-[#17202A] font-mono">{availableUsers.length}</span>
+          <div className="mt-2 text-[11px] text-[#667085]">
+            {studentsCount} Students • {healthStaffCount} Staff
           </div>
         </div>
 
         <div
           onClick={() => onNavigateTab('devices')}
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-emerald-300 cursor-pointer transition-all"
+          className="card-panel p-4 rounded-[8px] cursor-pointer hover:border-[#16805C] transition-colors"
         >
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
             <span>Hardware Nodes</span>
-            <Cpu className="h-4 w-4 text-emerald-600" />
+            <Cpu className="h-4 w-4 text-[#16805C]" />
           </div>
-          <span className="text-3xl font-black text-emerald-700 font-mono">
+          <span className="text-2xl font-bold text-[#16805C] font-mono">
             {onlineDevicesCount} / {devices.length}
           </span>
-          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Online ESP32-S3 Wearables</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" />
+          <div className="mt-2 text-[11px] text-[#667085]">
+            Online ESP32 Wearables
           </div>
         </div>
 
         <div
           onClick={() => onNavigateTab('thresholds')}
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-purple-300 cursor-pointer transition-all"
+          className="card-panel p-4 rounded-[8px] cursor-pointer hover:border-[#2764A5] transition-colors"
         >
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
-            <span>Threshold Engine</span>
-            <Sliders className="h-4 w-4 text-purple-600" />
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
+            <span>Threshold Rules</span>
+            <Sliders className="h-4 w-4 text-[#2764A5]" />
           </div>
-          <span className="text-3xl font-black text-purple-900 font-mono">4 Rules</span>
-          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
-            <span>HR, SpO₂, Temp, MPU Motion</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" />
+          <span className="text-2xl font-bold text-[#2764A5] font-mono">4 Rules</span>
+          <div className="mt-2 text-[11px] text-[#667085]">
+            HR, SpO₂, Temp, Motion
           </div>
         </div>
 
         <div
           onClick={() => onNavigateTab('logs')}
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-amber-300 cursor-pointer transition-all"
+          className="card-panel p-4 rounded-[8px] cursor-pointer hover:border-[#B7791F] transition-colors"
         >
-          <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-1">
-            <span>Telemetry & Audit Logs</span>
-            <FileText className="h-4 w-4 text-amber-600" />
+          <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
+            <span>Audit Trail</span>
+            <FileText className="h-4 w-4 text-[#B7791F]" />
           </div>
-          <span className="text-3xl font-black text-slate-900 font-mono">{logs.length}</span>
-          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Hardware & System Events</span>
-            <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" />
+          <span className="text-2xl font-bold text-[#17202A] font-mono">{logs.length}</span>
+          <div className="mt-2 text-[11px] text-[#667085]">
+            System Log Entries
           </div>
         </div>
       </div>
 
-      {/* System Infrastructure Health & Ingestion Pipeline */}
+      {/* System Infrastructure Health & Telemetry Stream */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div className="lg:col-span-7 card-panel p-5 rounded-[8px] space-y-4">
+          <div className="flex items-center justify-between border-b border-[#E2E6EB] pb-3">
             <div>
-              <h3 className="text-sm font-bold text-slate-900">VitaTrack IoT Subsystem Status</h3>
-              <p className="text-xs text-slate-500">Real-time status of microcontrollers, database and message channels</p>
+              <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider">IoT Infrastructure Status</h3>
+              <p className="text-xs text-[#667085]">Database, API routes, and realtime synchronization</p>
             </div>
-            <span className="rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5">
-              100% OPERATIONAL
+            <span className="rounded-[4px] bg-[#16805C]/10 text-[#16805C] text-[11px] font-bold px-2 py-0.5 border border-[#16805C]/20">
+              OPERATIONAL
             </span>
           </div>
 
-          <div className="space-y-3 text-xs">
-            <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/70 bg-slate-50">
+          <div className="space-y-2.5 text-xs">
+            <div className="flex items-center justify-between p-3 rounded-[6px] border border-[#E2E6EB] bg-[#F1F3F5]">
               <div className="flex items-center gap-3">
-                <Database className="h-5 w-5 text-blue-600" />
+                <Database className="h-4 w-4 text-[#087F8C]" />
                 <div>
-                  <div className="font-bold text-slate-900">Supabase PostgreSQL 15 & Realtime WebSocket</div>
-                  <div className="text-[11px] text-slate-500">Connected • Row Level Security (RLS) Enforced</div>
+                  <div className="font-bold text-[#17202A]">Supabase Database & Realtime Channel</div>
+                  <div className="text-[11px] text-[#667085]">PostgreSQL 15 • RLS Policies Enforced</div>
                 </div>
               </div>
               <StatusBadge status="ONLINE" />
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/70 bg-slate-50">
+            <div className="flex items-center justify-between p-3 rounded-[6px] border border-[#E2E6EB] bg-[#F1F3F5]">
               <div className="flex items-center gap-3">
-                <Radio className="h-5 w-5 text-purple-600" />
+                <Radio className="h-4 w-4 text-[#2764A5]" />
                 <div>
-                  <div className="font-bold text-slate-900">BroadcastChannel & Cross-Tab Synchronization</div>
-                  <div className="text-[11px] text-slate-500">Low-latency event bus between student and clinic views</div>
+                  <div className="font-bold text-[#17202A]">BroadcastChannel Event Bus</div>
+                  <div className="text-[11px] text-[#667085]">Low-latency sync between student and healthcare views</div>
                 </div>
               </div>
               <StatusBadge status="ONLINE" />
             </div>
 
-            <div className="flex items-center justify-between p-3 rounded-xl border border-slate-200/70 bg-slate-50">
+            <div className="flex items-center justify-between p-3 rounded-[6px] border border-[#E2E6EB] bg-[#F1F3F5]">
               <div className="flex items-center gap-3">
-                <Server className="h-5 w-5 text-amber-600" />
+                <Server className="h-4 w-4 text-[#B7791F]" />
                 <div>
-                  <div className="font-bold text-slate-900">ESP32 REST Telemetry Ingestion Endpoint</div>
-                  <div className="text-[11px] text-slate-500">HTTP POST /api/v1/telemetry • JSON Payload Validator</div>
+                  <div className="font-bold text-[#17202A]">ESP32 Ingestion Router (GET /api/data)</div>
+                  <div className="text-[11px] text-[#667085]">REST Endpoint for on-device polling</div>
                 </div>
               </div>
               <StatusBadge status="ONLINE" />
@@ -185,49 +179,44 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </div>
         </div>
 
-        {/* Live Simulator & Ingestion Controls */}
-        <div className="lg:col-span-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-xs flex flex-col justify-between">
+        {/* Live Simulator Stream Controls */}
+        <div className="lg:col-span-5 card-panel p-5 rounded-[8px] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <div className="flex items-center justify-between border-b border-[#E2E6EB] pb-3 mb-3">
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Live Hardware Telemetry Stream</h3>
-                <p className="text-xs text-slate-500">Automated 3-second heartbeat generator</p>
+                <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider">Automated Telemetry Stream</h3>
+                <p className="text-xs text-[#667085]">3-second heart-beat sensor simulator</p>
               </div>
               <span
                 className={`h-2.5 w-2.5 rounded-full ${
-                  isAutoStreaming ? 'bg-emerald-500 animate-ping' : 'bg-slate-300'
+                  isAutoStreaming ? 'bg-[#16805C]' : 'bg-[#98A2B3]'
                 }`}
               />
             </div>
 
-            <p className="text-xs text-slate-600 mb-4 leading-relaxed">
-              When enabled, the application simulates live continuous incoming sensor packets from physical ESP32 wrist
-              units across enrolled students, keeping dashboards and charts updated in real time.
+            <p className="text-xs text-[#334155] mb-4 leading-relaxed">
+              When active, VitaTrack generates live sensor telemetry across student wrist devices, keeping charts and triage lists updated continuously.
             </p>
 
-            <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200 mb-4 text-xs space-y-1">
+            <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB] mb-4 text-xs space-y-1">
               <div className="flex justify-between">
-                <span className="text-slate-500">Total Telemetry Ingested:</span>
-                <span className="font-mono font-bold text-slate-900">{readings.length} packets</span>
+                <span className="text-[#667085]">Total Telemetry Ingested:</span>
+                <span className="font-mono font-bold text-[#17202A]">{readings.length} packets</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Alerts In Memory:</span>
-                <span className="font-mono font-bold text-rose-600">{alerts.length} alerts</span>
+                <span className="text-[#667085]">Alerts Recorded:</span>
+                <span className="font-mono font-bold text-[#C24141]">{alerts.length} alerts</span>
               </div>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-slate-100">
+          <div className="pt-3 border-t border-[#E2E6EB]">
             <button
               type="button"
               onClick={() => setIsAutoStreaming(!isAutoStreaming)}
-              className={`w-full py-2.5 rounded-xl text-xs font-bold transition-all shadow-xs ${
-                isAutoStreaming
-                  ? 'bg-amber-600 text-white hover:bg-amber-700'
-                  : 'bg-emerald-600 text-white hover:bg-emerald-700'
-              }`}
+              className={isAutoStreaming ? 'btn-danger w-full justify-center text-xs' : 'btn-primary w-full justify-center text-xs'}
             >
-              {isAutoStreaming ? 'Pause Automated Telemetry Stream' : 'Start Automated Telemetry Stream (3s)'}
+              {isAutoStreaming ? 'Pause Telemetry Stream' : 'Start Automated Stream (3s)'}
             </button>
           </div>
         </div>
