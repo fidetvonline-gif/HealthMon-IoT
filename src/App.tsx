@@ -163,7 +163,7 @@ const MainApp: React.FC = () => {
                 onClick={handleReturnToDashboard}
                 className="btn-secondary text-xs"
               >
-                <ArrowLeft className="h-4 w-4 text-[#087F8C]" />
+                <ArrowLeft className="h-4 w-4 text-[#474A2C]" />
                 <span>Return to Main Dashboard</span>
               </button>
 

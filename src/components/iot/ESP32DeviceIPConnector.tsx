@@ -218,7 +218,7 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
       <div className="card-panel bg-[#0B1726] text-white p-6 rounded-[8px] border border-[#12263A]">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-[4px] bg-[#12263A] text-[#087F8C]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-[4px] bg-[#12263A] text-[#474A2C]">
               <Cpu className="h-5 w-5" />
             </div>
             <div>
@@ -226,7 +226,7 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
                 <h2 className="text-lg font-bold text-white">
                   ESP32-C3 Physio Monitor V4 — IP Connector
                 </h2>
-                <span className="rounded-[4px] bg-[#12263A] px-2 py-0.5 text-xs font-mono font-semibold text-[#087F8C] border border-[#334155]/40">
+                <span className="rounded-[4px] bg-[#12263A] px-2 py-0.5 text-xs font-mono font-semibold text-[#474A2C] border border-[#334155]/40">
                   GET /api/data
                 </span>
               </div>
@@ -251,7 +251,7 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div className="lg:col-span-7 card-panel p-5 rounded-[8px] space-y-4">
           <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider flex items-center gap-2">
-            <Wifi className="w-4 h-4 text-[#087F8C]" />
+            <Wifi className="w-4 h-4 text-[#474A2C]" />
             <span>Hardware IP Address & Configuration</span>
           </h3>
 
@@ -268,7 +268,7 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
                 className="form-input font-mono"
               />
               <p className="text-[11px] text-[#667085] mt-1">
-                Found on Serial Monitor. Endpoint: <code className="text-[#087F8C]">/api/data</code>
+                Found on Serial Monitor. Endpoint: <code className="text-[#474A2C]">/api/data</code>
               </p>
             </div>
 
@@ -296,7 +296,7 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
                 type="checkbox"
                 checked={useLocalSimulationFallback}
                 onChange={(e) => setUseLocalSimulationFallback(e.target.checked)}
-                className="rounded border-[#E2E6EB] text-[#087F8C] focus:ring-[#087F8C] h-4 w-4"
+                className="rounded border-[#E2E6EB] text-[#474A2C] focus:ring-[#474A2C] h-4 w-4"
               />
               <span className="text-xs font-semibold text-[#17202A]">
                 Use Local Simulation at this IP
@@ -309,7 +309,7 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
                 onClick={performPoll}
                 className="btn-secondary text-xs"
               >
-                <RefreshCw className="w-3.5 h-3.5 text-[#087F8C]" />
+                <RefreshCw className="w-3.5 h-3.5 text-[#474A2C]" />
                 <span>Test Poll</span>
               </button>
 
@@ -375,8 +375,8 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
             </div>
           </div>
 
-          <div className="rounded-[6px] bg-[#087F8C]/10 border border-[#087F8C]/20 p-3 text-xs">
-            <span className="font-bold text-[#087F8C] block mb-1">Target Student Account:</span>
+          <div className="rounded-[6px] bg-[#474A2C]/10 border border-[#474A2C]/20 p-3 text-xs">
+            <span className="font-bold text-[#474A2C] block mb-1">Target Student Account:</span>
             <div className="text-[#17202A] font-semibold">
               {assignedStudent?.full_name} ({assignedStudent?.student_id})
             </div>
@@ -389,7 +389,7 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#087F8C]" />
+              <Activity className="w-4 h-4 text-[#474A2C]" />
               <span>Live Telemetry Response</span>
             </h3>
             <span className="text-xs font-mono text-[#667085]">
@@ -456,13 +456,13 @@ export const ESP32DeviceIPConnector: React.FC<ESP32DeviceIPConnectorProps> = () 
 
             <div className="card-panel bg-[#0B1726] border border-[#12263A] p-4 rounded-[8px] space-y-2 text-white">
               <div className="flex items-center justify-between text-xs text-[#98A2B3]">
-                <span className="flex items-center gap-1.5 font-mono text-[#087F8C]">
+                <span className="flex items-center gap-1.5 font-mono text-[#474A2C]">
                   <Terminal className="w-3.5 h-3.5" />
                   GET http://{liveData.ip}/api/data
                 </span>
                 <span className="font-mono text-[10px]">Cache-Control: no-store</span>
               </div>
-              <pre className="rounded-[4px] bg-[#12263A] p-3 text-[11px] font-mono text-[#087F8C] overflow-x-auto max-h-40">
+              <pre className="rounded-[4px] bg-[#12263A] p-3 text-[11px] font-mono text-[#474A2C] overflow-x-auto max-h-40">
                 {JSON.stringify(liveData, null, 2)}
               </pre>
             </div>

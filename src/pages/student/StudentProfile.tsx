@@ -33,7 +33,7 @@ export const StudentProfile: React.FC = () => {
     <div className="max-w-3xl space-y-6">
       <div className="border-b border-[#E2E6EB] pb-4">
         <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-          <User className="h-5 w-5 text-[#087F8C]" />
+          <User className="h-5 w-5 text-[#474A2C]" />
           <span>Student Health Profile</span>
         </h2>
         <p className="text-xs text-[#667085]">

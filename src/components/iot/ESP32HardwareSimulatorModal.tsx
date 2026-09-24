@@ -108,7 +108,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#0B1726]/80 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto pt-10 sm:pt-14">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#0B1726]/80 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto pt-14 sm:pt-20">
       <div className="relative w-full max-w-5xl rounded-[8px] bg-white shadow-xl border border-[#E2E6EB] overflow-hidden my-auto max-h-[90vh] flex flex-col">
         {/* Sticky Header with Safe Padding & Back/Close Controls */}
         <div className="sticky top-0 z-10 flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E2E6EB] bg-[#F1F3F5] px-4 py-3 gap-3">
@@ -125,7 +125,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
 
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#0B1726] text-white">
-                <Cpu className="h-4 w-4 text-[#087F8C]" />
+                <Cpu className="h-4 w-4 text-[#474A2C]" />
               </div>
               <div>
                 <h3 className="text-xs font-bold text-[#17202A] uppercase tracking-wider">
@@ -145,7 +145,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
                 onClick={onOpenFirmware}
                 className="btn-secondary text-xs"
               >
-                <Code2 className="h-3.5 w-3.5 text-[#087F8C]" />
+                <Code2 className="h-3.5 w-3.5 text-[#474A2C]" />
                 <span>ESP32 Firmware</span>
               </button>
             )}
@@ -168,7 +168,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
             onClick={() => setActiveModalTab('simulator')}
             className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-colors ${
               activeModalTab === 'simulator'
-                ? 'border-[#087F8C] text-[#087F8C]'
+                ? 'border-[#474A2C] text-[#474A2C]'
                 : 'border-transparent text-[#667085] hover:text-[#17202A]'
             }`}
           >
@@ -179,7 +179,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
             onClick={() => setActiveModalTab('ip_link')}
             className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-colors ${
               activeModalTab === 'ip_link'
-                ? 'border-[#087F8C] text-[#087F8C]'
+                ? 'border-[#474A2C] text-[#474A2C]'
                 : 'border-transparent text-[#667085] hover:text-[#17202A]'
             }`}
           >
@@ -241,7 +241,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="card-panel p-5 rounded-[8px] space-y-4">
                   <h4 className="text-xs font-bold text-[#17202A] uppercase tracking-wider flex items-center gap-2">
-                    <Sliders className="w-4 h-4 text-[#087F8C]" />
+                    <Sliders className="w-4 h-4 text-[#474A2C]" />
                     <span>Sensor Output Sliders</span>
                   </h4>
 
@@ -249,7 +249,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
                     <div>
                       <div className="flex justify-between font-semibold mb-1">
                         <span className="text-[#17202A]">Heart Rate (MAX30102)</span>
-                        <span className="font-mono text-[#087F8C] font-bold">{hr} BPM</span>
+                        <span className="font-mono text-[#474A2C] font-bold">{hr} BPM</span>
                       </div>
                       <input
                         type="range"
@@ -257,7 +257,7 @@ export const ESP32HardwareSimulatorModal: React.FC<ESP32HardwareSimulatorModalPr
                         max="180"
                         value={hr}
                         onChange={(e) => setHr(Number(e.target.value))}
-                        className="w-full h-1.5 bg-[#E2E6EB] rounded-lg appearance-none cursor-pointer accent-[#087F8C]"
+                        className="w-full h-1.5 bg-[#E2E6EB] rounded-lg appearance-none cursor-pointer accent-[#474A2C]"
                       />
                     </div>
 

@@ -94,7 +94,7 @@ export const StudentDetailPage: React.FC<StudentDetailPageProps> = ({ student, o
         {/* Student Profile Info */}
         <div className="md:col-span-6 card-panel p-5 rounded-[8px]">
           <div className="flex items-center gap-3 border-b border-[#E2E6EB] pb-3 mb-4">
-            <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#087F8C]/10 text-[#087F8C] font-bold">
+            <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#474A2C]/10 text-[#474A2C] font-bold">
               <User className="h-4 w-4" />
             </div>
             <div>
@@ -149,7 +149,7 @@ export const StudentDetailPage: React.FC<StudentDetailPageProps> = ({ student, o
               <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
                 <span className="text-[#667085] text-[11px] block">Battery Capacity</span>
                 <span className="font-mono font-bold text-xs text-[#17202A] flex items-center gap-1">
-                  <Battery className="w-3.5 h-3.5 text-[#087F8C]" /> {battery}%
+                  <Battery className="w-3.5 h-3.5 text-[#474A2C]" /> {battery}%
                 </span>
               </div>
               <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
@@ -209,7 +209,7 @@ export const StudentDetailPage: React.FC<StudentDetailPageProps> = ({ student, o
         <div className="card-panel p-4 rounded-[8px]">
           <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
             <span className="flex items-center gap-1.5">
-              <Activity className="h-4 w-4 text-[#087F8C]" />
+              <Activity className="h-4 w-4 text-[#474A2C]" />
               ACTIVITY STATE
             </span>
             <StatusBadge status={activity === 'Possible Fall' ? 'Abnormal' : 'Normal'} />

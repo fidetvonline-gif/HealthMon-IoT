@@ -105,7 +105,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
         {/* User Identity Card */}
         <div className="rounded-[6px] bg-[#12263A] p-3 border border-[#334155]/40">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#087F8C] text-white shrink-0">
+            <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#474A2C] text-white shrink-0">
               {role === 'STUDENT' ? (
                 <GraduationCap className="h-4 w-4" />
               ) : role === 'HEALTHCARE' ? (
@@ -116,7 +116,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
             </div>
             <div className="min-w-0 flex-1">
               <h4 className="truncate text-xs font-bold text-white">{user?.full_name}</h4>
-              <p className="text-[10px] font-semibold text-[#087F8C] uppercase tracking-wider">{role}</p>
+              <p className="text-[10px] font-semibold text-[#474A2C] uppercase tracking-wider">{role}</p>
             </div>
           </div>
           {user?.student_id && (
@@ -143,7 +143,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
                     onClick={() => setActiveTab(item.id)}
                     className={`w-full flex items-center justify-between px-2.5 py-2 rounded-[6px] text-xs font-medium transition-colors ${
                       isActive
-                        ? 'bg-[#087F8C] text-white font-semibold'
+                        ? 'bg-[#474A2C] text-white font-semibold'
                         : 'text-[#98A2B3] hover:bg-[#12263A] hover:text-white'
                     }`}
                   >
@@ -154,7 +154,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
                     {item.badge !== undefined && (
                       <span
                         className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
-                          isActive ? 'bg-white text-[#087F8C]' : 'bg-[#C24141] text-white'
+                          isActive ? 'bg-white text-[#474A2C]' : 'bg-[#C24141] text-white'
                         }`}
                       >
                         {item.badge}

@@ -168,7 +168,7 @@ export const AlertsManagementPage: React.FC = () => {
                     type="button"
                     className="btn-secondary text-xs py-1 px-2.5 min-h-[32px]"
                   >
-                    <Eye className="w-3.5 h-3.5 text-[#087F8C]" />
+                    <Eye className="w-3.5 h-3.5 text-[#474A2C]" />
                     <span>Inspect</span>
                   </button>
                 </div>

@@ -44,7 +44,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
           <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-            <Cpu className="h-5 w-5 text-[#087F8C]" />
+            <Cpu className="h-5 w-5 text-[#474A2C]" />
             <span>Connected Wearable Hardware</span>
           </h2>
           <p className="text-xs text-[#667085]">
@@ -67,7 +67,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
             onClick={onOpenSimulator}
             className="btn-secondary text-xs"
           >
-            <Sliders className="h-3.5 w-3.5 text-[#087F8C]" />
+            <Sliders className="h-3.5 w-3.5 text-[#474A2C]" />
             <span>Test Bench</span>
           </button>
         </div>
@@ -107,7 +107,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
           onClick={() => setActiveTab('ip_connect')}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 text-xs font-semibold rounded-[4px] transition-colors ${
             activeTab === 'ip_connect'
-              ? 'bg-white text-[#087F8C] shadow-xs'
+              ? 'bg-white text-[#474A2C] shadow-xs'
               : 'text-[#667085] hover:text-[#17202A]'
           }`}
         >
@@ -120,7 +120,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
         <div className="card-panel p-5 rounded-[8px] space-y-4">
           <div className="border-b border-[#E2E6EB] pb-3">
             <h3 className="text-sm font-bold text-[#17202A] flex items-center gap-2">
-              <Network className="h-4 w-4 text-[#087F8C]" />
+              <Network className="h-4 w-4 text-[#474A2C]" />
               <span>Connect Physical ESP32 Wearable via Local IP</span>
             </h3>
             <p className="text-xs text-[#667085] mt-1">
@@ -151,7 +151,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
                 <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
                   <span className="text-[#667085] text-[11px] block">Battery Capacity</span>
                   <span className={`font-mono font-bold text-xs flex items-center gap-1.5 ${battery <= 20 ? 'text-[#C24141]' : 'text-[#17202A]'}`}>
-                    <Battery className="w-3.5 h-3.5 text-[#087F8C]" />
+                    <Battery className="w-3.5 h-3.5 text-[#474A2C]" />
                     {battery}% LiPo
                   </span>
                 </div>
@@ -222,7 +222,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
                 {/* MPU6050 */}
                 <div className="flex items-center justify-between p-3 rounded-[6px] border border-[#E2E6EB] bg-[#F1F3F5]">
                   <div className="flex items-center gap-2.5">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-[4px] bg-[#087F8C]/10 text-[#087F8C]">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-[4px] bg-[#474A2C]/10 text-[#474A2C]">
                       <Activity className="h-4 w-4" />
                     </div>
                     <div>

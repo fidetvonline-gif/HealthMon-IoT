@@ -81,7 +81,7 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
       <div className="card-panel bg-[#0B1726] text-white p-6 rounded-[8px] border border-[#12263A]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#087F8C] text-xs font-semibold mb-2 border border-[#334155]/40">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#474A2C] text-xs font-semibold mb-2 border border-[#334155]/40">
               <Radio className="h-3.5 w-3.5 text-[#16805C]" />
               <span>Campus Healthcare Triage Hub</span>
             </div>
@@ -118,7 +118,7 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
         <div className="card-panel p-4 rounded-[8px]">
           <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
             <span>Total Enrolled</span>
-            <Users className="h-4 w-4 text-[#087F8C]" />
+            <Users className="h-4 w-4 text-[#474A2C]" />
           </div>
           <span className="text-2xl font-bold text-[#17202A] font-mono">
             {students.length > 4 ? students.length : 245}
@@ -326,7 +326,7 @@ export const HealthcareDashboard: React.FC<HealthcareDashboardProps> = ({
                           }}
                           className="btn-secondary text-xs py-1 px-2.5 min-h-[32px]"
                         >
-                          <Eye className="w-3.5 h-3.5 text-[#087F8C]" />
+                          <Eye className="w-3.5 h-3.5 text-[#474A2C]" />
                           <span>Inspect</span>
                         </button>
                       </td>

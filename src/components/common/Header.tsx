@@ -105,13 +105,13 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => handleNavClick('dashboard')}
             className="flex items-center gap-2 cursor-pointer group"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-[6px] bg-[#087F8C] text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-[6px] bg-[#474A2C] text-white">
               <HeartPulse className="h-5 w-5" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="text-base font-bold tracking-tight text-[#0B1726]">VitaTrack</span>
-                <span className="rounded-[4px] bg-[#F1F3F5] px-1.5 py-0.5 text-[10px] font-bold text-[#087F8C] uppercase border border-[#E2E6EB]">
+                <span className="rounded-[4px] bg-[#F1F3F5] px-1.5 py-0.5 text-[10px] font-bold text-[#474A2C] uppercase border border-[#E2E6EB]">
                   IoT
                 </span>
               </div>
@@ -138,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="hidden sm:inline-flex items-center gap-1.5 btn-secondary text-xs"
             title="Open ESP32 Hardware Test Bench"
           >
-            <Cpu className="h-3.5 w-3.5 text-[#087F8C]" />
+            <Cpu className="h-3.5 w-3.5 text-[#474A2C]" />
             <span>IoT Test Bench</span>
           </button>
 
@@ -181,7 +181,7 @@ export const Header: React.FC<HeaderProps> = ({
                       setShowAlertsMenu(false);
                       handleNavClick('alerts');
                     }}
-                    className="text-xs font-semibold text-[#087F8C] hover:underline"
+                    className="text-xs font-semibold text-[#474A2C] hover:underline"
                   >
                     View All
                   </button>
@@ -255,14 +255,14 @@ export const Header: React.FC<HeaderProps> = ({
                           handleNavClick('dashboard');
                         }}
                         className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-[4px] text-left text-xs ${
-                          isCurrent ? 'bg-[#087F8C]/10 text-[#087F8C] font-bold' : 'hover:bg-[#F1F3F5] text-[#17202A]'
+                          isCurrent ? 'bg-[#474A2C]/10 text-[#474A2C] font-bold' : 'hover:bg-[#F1F3F5] text-[#17202A]'
                         }`}
                       >
                         <div>
                           <div className="font-semibold text-[#17202A]">{u.full_name}</div>
                           <div className="text-[10px] text-[#667085]">{u.role}</div>
                         </div>
-                        {isCurrent && <Check className="h-3.5 w-3.5 text-[#087F8C]" />}
+                        {isCurrent && <Check className="h-3.5 w-3.5 text-[#474A2C]" />}
                       </button>
                     );
                   })}
@@ -289,16 +289,16 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* MOBILE DRAWER OVERLAY */}
       {showMobileDrawer && (
-        <div className="fixed inset-0 z-50 bg-[#0B1726]/80 backdrop-blur-xs flex flex-col md:hidden">
+        <div className="fixed inset-0 z-50 bg-[#0B1726]/80 backdrop-blur-xs flex flex-col md:hidden pt-12 sm:pt-16">
           {/* Top Header inside Drawer with Safe Padding */}
-          <div className="bg-[#0B1726] border-b border-[#12263A] p-4 pt-10 flex items-center justify-between text-white">
+          <div className="bg-[#0B1726] border-b border-[#12263A] p-4 flex items-center justify-between text-white">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#087F8C] text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#474A2C] text-white">
                 <HeartPulse className="h-5 w-5" />
               </div>
               <div>
                 <div className="font-bold text-sm text-white">VitaTrack Navigation</div>
-                <div className="text-[10px] text-[#087F8C] uppercase font-bold">{role} Role</div>
+                <div className="text-[10px] text-[#474A2C] uppercase font-bold">{role} Role</div>
               </div>
             </div>
 
@@ -308,17 +308,17 @@ export const Header: React.FC<HeaderProps> = ({
               className="btn-secondary text-xs bg-[#12263A] text-white border-[#334155]/50 flex items-center gap-1.5"
             >
               <X className="h-4 w-4" />
-              <span>Close</span>
+              <span>Cancel / Close</span>
             </button>
           </div>
 
           {/* Drawer Body */}
-          <div className="flex-1 bg-[#0B1726] p-4 overflow-y-auto space-y-6 text-white">
+          <div className="flex-1 bg-[#0B1726] p-4 overflow-y-auto space-y-6 text-white pb-12">
             {/* Quick Back to Dashboard Button */}
             <button
               type="button"
               onClick={() => handleNavClick('dashboard')}
-              className="w-full btn-primary text-xs justify-center py-2.5"
+              className="w-full btn-primary text-xs justify-center py-3"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back to Main Dashboard</span>
@@ -338,7 +338,7 @@ export const Header: React.FC<HeaderProps> = ({
                     type="button"
                     onClick={() => handleNavClick(item.id)}
                     className={`w-full flex items-center justify-between px-3 py-3 rounded-[6px] text-xs font-semibold transition-colors ${
-                      isActive ? 'bg-[#087F8C] text-white' : 'text-[#98A2B3] hover:bg-[#12263A]'
+                      isActive ? 'bg-[#474A2C] text-white' : 'text-[#98A2B3] hover:bg-[#12263A]'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -368,7 +368,7 @@ export const Header: React.FC<HeaderProps> = ({
                 }}
                 className="w-full btn-secondary text-xs bg-[#12263A] text-white border-[#334155]/40 justify-start"
               >
-                <Cpu className="h-4 w-4 text-[#087F8C]" />
+                <Cpu className="h-4 w-4 text-[#474A2C]" />
                 <span>IoT Test Bench Simulator</span>
               </button>
 

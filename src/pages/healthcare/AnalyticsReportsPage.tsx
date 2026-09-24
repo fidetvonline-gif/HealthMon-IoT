@@ -89,7 +89,7 @@ export const AnalyticsReportsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
           <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-            <BarChart3 className="h-5 w-5 text-[#087F8C]" />
+            <BarChart3 className="h-5 w-5 text-[#474A2C]" />
             <span>Health Analytics & CSV Exports</span>
           </h2>
           <p className="text-xs text-[#667085]">
@@ -162,7 +162,7 @@ export const AnalyticsReportsPage: React.FC = () => {
                 <XAxis dataKey="activity" tick={{ fontSize: 10, fill: '#667085' }} />
                 <YAxis tick={{ fontSize: 10, fill: '#667085' }} />
                 <Tooltip contentStyle={{ backgroundColor: '#0B1726', color: '#FFF', borderRadius: '6px', fontSize: '11px' }} />
-                <Bar dataKey="count" name="Readings" fill="#087F8C" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="count" name="Readings" fill="#474A2C" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

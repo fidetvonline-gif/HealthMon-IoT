@@ -43,7 +43,7 @@ export const AdminAuditLogsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
           <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-            <Terminal className="h-5 w-5 text-[#087F8C]" />
+            <Terminal className="h-5 w-5 text-[#474A2C]" />
             <span>Hardware Telemetry & Audit Logs</span>
           </h2>
           <p className="text-xs text-[#667085]">
@@ -125,7 +125,7 @@ export const AdminAuditLogsPage: React.FC = () => {
                   >
                     {l.event_type}
                   </span>
-                  <span className="text-[#087F8C] font-semibold text-[11px] shrink-0">[{l.device_id}]</span>
+                  <span className="text-[#474A2C] font-semibold text-[11px] shrink-0">[{l.device_id}]</span>
                   <span className={isAlert ? 'text-[#C24141]' : 'text-[#E2E6EB]'}>{l.message}</span>
                 </div>
               );

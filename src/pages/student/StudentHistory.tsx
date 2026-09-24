@@ -93,7 +93,7 @@ export const StudentHistory: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
           <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-            <History className="h-5 w-5 text-[#087F8C]" />
+            <History className="h-5 w-5 text-[#474A2C]" />
             <span>Health History & Analytics</span>
           </h2>
           <p className="text-xs text-[#667085]">

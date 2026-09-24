@@ -47,7 +47,7 @@ export const AdminUsersPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
           <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-            <Users className="h-5 w-5 text-[#087F8C]" />
+            <Users className="h-5 w-5 text-[#474A2C]" />
             <span>User & Access Management</span>
           </h2>
           <p className="text-xs text-[#667085]">
@@ -116,7 +116,7 @@ export const AdminUsersPage: React.FC = () => {
 
                     <td>
                       {u.role === 'STUDENT' && (
-                        <span className="inline-flex items-center gap-1 rounded-[4px] bg-[#087F8C]/10 px-2 py-0.5 text-[11px] font-semibold text-[#087F8C] border border-[#087F8C]/20">
+                        <span className="inline-flex items-center gap-1 rounded-[4px] bg-[#474A2C]/10 px-2 py-0.5 text-[11px] font-semibold text-[#474A2C] border border-[#474A2C]/20">
                           <GraduationCap className="w-3 h-3" /> Student
                         </span>
                       )}
@@ -145,7 +145,7 @@ export const AdminUsersPage: React.FC = () => {
 
                     <td>
                       {assignedDevice ? (
-                        <span className="font-mono text-xs font-bold text-[#087F8C]">
+                        <span className="font-mono text-xs font-bold text-[#474A2C]">
                           {assignedDevice.device_uid}
                         </span>
                       ) : (

@@ -190,7 +190,7 @@ void transmitTelemetry() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#0B1726]/80 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto pt-10 sm:pt-14">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-start bg-[#0B1726]/80 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto pt-14 sm:pt-20">
       <div className="relative w-full max-w-3xl rounded-[8px] bg-white shadow-xl border border-[#E2E6EB] overflow-hidden my-auto max-h-[90vh] flex flex-col">
         {/* Sticky Modal Top Bar with Safe Padding */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#E2E6EB] bg-[#F1F3F5] px-4 py-3">
@@ -241,11 +241,11 @@ void transmitTelemetry() {
         </div>
 
         <div className="p-4 sm:p-6 overflow-y-auto flex-1">
-          <div className="mb-3 text-xs text-[#17202A] bg-[#087F8C]/10 p-3 rounded-[6px] border border-[#087F8C]/20">
+          <div className="mb-3 text-xs text-[#17202A] bg-[#474A2C]/10 p-3 rounded-[6px] border border-[#474A2C]/20">
             <strong>Deployment Note:</strong> Compiles natively in Arduino IDE or PlatformIO for ESP32-S3 microcontrollers with Wire/I2C enabled.
           </div>
 
-          <pre className="max-h-[480px] overflow-y-auto rounded-[6px] bg-[#0B1726] p-4 font-mono text-xs text-[#087F8C] border border-[#12263A]">
+          <pre className="max-h-[480px] overflow-y-auto rounded-[6px] bg-[#0B1726] p-4 font-mono text-xs text-[#474A2C] border border-[#12263A]">
             <code>{firmwareCode}</code>
           </pre>
         </div>

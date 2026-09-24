@@ -59,7 +59,7 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
       case 'temperature':
         return <Thermometer className="h-4 w-4 text-[#B7791F]" />;
       case 'fall_detection':
-        return <Activity className="h-4 w-4 text-[#087F8C]" />;
+        return <Activity className="h-4 w-4 text-[#474A2C]" />;
       default:
         return <Sliders className="h-4 w-4 text-[#667085]" />;
     }
@@ -71,7 +71,7 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
           <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-            <Sliders className="h-5 w-5 text-[#087F8C]" />
+            <Sliders className="h-5 w-5 text-[#474A2C]" />
             <span>Threshold Calibration Rules</span>
           </h2>
           <p className="text-xs text-[#667085]">
@@ -110,7 +110,7 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
       <div className="card-panel rounded-[8px] p-4 bg-[#F1F3F5] border border-[#E2E6EB] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[4px] bg-[#0B1726] text-white">
-            <Brain className="h-4 w-4 text-[#087F8C]" />
+            <Brain className="h-4 w-4 text-[#474A2C]" />
           </div>
           <div>
             <h4 className="text-xs font-bold text-[#17202A] flex items-center gap-2">
@@ -131,7 +131,7 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
             onClick={() => onNavigateTab('model_training')}
             className="shrink-0 btn-secondary text-xs"
           >
-            <Sparkles className="h-3.5 w-3.5 text-[#087F8C]" />
+            <Sparkles className="h-3.5 w-3.5 text-[#474A2C]" />
             <span>Open Model Studio</span>
           </button>
         )}
@@ -159,7 +159,7 @@ export const AdminThresholdsPage: React.FC<AdminThresholdsPageProps> = ({ onNavi
                     onChange={(e) => handleValueChange(t.id, 'enabled', e.target.checked)}
                     className="sr-only peer"
                   />
-                  <div className="w-9 h-5 bg-[#D0D5DD] peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#D0D5DD] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#087F8C]"></div>
+                  <div className="w-9 h-5 bg-[#D0D5DD] peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#D0D5DD] after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#474A2C]"></div>
                 </label>
               </div>
             </div>

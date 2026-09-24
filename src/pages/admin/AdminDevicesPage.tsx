@@ -72,7 +72,7 @@ export const AdminDevicesPage: React.FC<AdminDevicesPageProps> = ({ onOpenSimula
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E6EB] pb-4">
         <div>
           <h2 className="text-xl font-bold text-[#17202A] flex items-center gap-2">
-            <Cpu className="h-5 w-5 text-[#087F8C]" />
+            <Cpu className="h-5 w-5 text-[#474A2C]" />
             <span>ESP32 Hardware Fleet Registry</span>
           </h2>
           <p className="text-xs text-[#667085]">
@@ -86,7 +86,7 @@ export const AdminDevicesPage: React.FC<AdminDevicesPageProps> = ({ onOpenSimula
             onClick={onOpenSimulator}
             className="btn-secondary text-xs"
           >
-            <Sliders className="h-3.5 w-3.5 text-[#087F8C]" />
+            <Sliders className="h-3.5 w-3.5 text-[#474A2C]" />
             <span>Hardware Test Bench</span>
           </button>
           <button
@@ -148,7 +148,7 @@ export const AdminDevicesPage: React.FC<AdminDevicesPageProps> = ({ onOpenSimula
                 <div className="flex justify-between py-1 border-b border-[#F1F3F5]">
                   <span className="text-[#667085]">Battery Level:</span>
                   <span className={`font-mono font-bold ${dev.battery_level <= 20 ? 'text-[#C24141]' : 'text-[#17202A]'}`}>
-                    <Battery className="inline h-3.5 w-3.5 mr-1 text-[#087F8C]" />
+                    <Battery className="inline h-3.5 w-3.5 mr-1 text-[#474A2C]" />
                     {dev.battery_level}% LiPo
                   </span>
                 </div>

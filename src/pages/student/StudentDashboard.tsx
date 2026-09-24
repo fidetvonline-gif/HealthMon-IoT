@@ -51,7 +51,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
       <div className="card-panel bg-[#0B1726] text-white p-6 rounded-[8px] border border-[#12263A]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#087F8C] text-xs font-semibold mb-2 border border-[#334155]/40">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#474A2C] text-xs font-semibold mb-2 border border-[#334155]/40">
               <span className="h-1.5 w-1.5 rounded-full bg-[#16805C]" />
               <span>IoT Telemetry Pipeline Active</span>
             </div>
@@ -200,7 +200,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
         <div className="card-panel p-4 rounded-[8px]">
           <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-2">
             <span className="flex items-center gap-1.5">
-              <Activity className="h-4 w-4 text-[#087F8C]" />
+              <Activity className="h-4 w-4 text-[#474A2C]" />
               ACTIVITY STATE
             </span>
             <StatusBadge status={activity === 'Possible Fall' ? 'Abnormal' : 'Normal'} />
@@ -251,7 +251,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
                 <div className="flex justify-between items-center text-[#334155] mb-1.5">
                   <span className="font-semibold">Battery Level:</span>
                   <span className="font-mono font-bold text-[#17202A] flex items-center gap-1">
-                    <Battery className="w-3.5 h-3.5 text-[#087F8C]" /> {battery}%
+                    <Battery className="w-3.5 h-3.5 text-[#474A2C]" /> {battery}%
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-[#334155] mb-1.5">
@@ -268,7 +268,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
 
               <div className="rounded-[6px] border border-[#E2E6EB] bg-[#FFFFFF] p-3 text-[#17202A]">
                 <div className="flex items-center gap-1.5 font-bold text-xs mb-1">
-                  <ShieldCheck className="w-4 h-4 text-[#087F8C]" />
+                  <ShieldCheck className="w-4 h-4 text-[#474A2C]" />
                   <span>Data Ingestion Pipeline</span>
                 </div>
                 <p className="text-[11px] text-[#667085] leading-relaxed">
@@ -302,7 +302,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
               </div>
               <div className="flex items-center justify-between py-1 border-b border-[#F1F3F5]">
                 <span className="text-[#667085]">Assigned Device:</span>
-                <span className="font-mono text-[#087F8C] font-bold">{device?.device_uid || 'HM-ESP32-001'}</span>
+                <span className="font-mono text-[#474A2C] font-bold">{device?.device_uid || 'HM-ESP32-001'}</span>
               </div>
               <div className="flex items-center justify-between py-1">
                 <span className="text-[#667085]">Clinic Care Access:</span>
@@ -325,7 +325,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
             <button
               type="button"
               onClick={() => onNavigateTab('history')}
-              className="text-xs font-semibold text-[#087F8C] hover:underline"
+              className="text-xs font-semibold text-[#474A2C] hover:underline"
             >
               Explore Full Records →
             </button>

@@ -38,8 +38,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       <div className="card-panel bg-[#0B1726] text-white p-6 rounded-[8px] border border-[#12263A]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#087F8C] text-xs font-semibold mb-2 border border-[#334155]/40">
-              <ShieldCheck className="h-3.5 w-3.5 text-[#087F8C]" />
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-[#12263A] text-[#474A2C] text-xs font-semibold mb-2 border border-[#334155]/40">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#474A2C]" />
               <span>Root System Operations</span>
             </div>
             <h1 className="text-2xl font-bold tracking-tight text-white">VitaTrack System Administration</h1>
@@ -73,11 +73,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         <div
           onClick={() => onNavigateTab('users')}
-          className="card-panel p-4 rounded-[8px] cursor-pointer hover:border-[#087F8C] transition-colors"
+          className="card-panel p-4 rounded-[8px] cursor-pointer hover:border-[#474A2C] transition-colors"
         >
           <div className="flex items-center justify-between text-[11px] font-bold text-[#667085] uppercase tracking-wider mb-1">
             <span>Registered Users</span>
-            <Users className="h-4 w-4 text-[#087F8C]" />
+            <Users className="h-4 w-4 text-[#474A2C]" />
           </div>
           <span className="text-2xl font-bold text-[#17202A] font-mono">{availableUsers.length}</span>
           <div className="mt-2 text-[11px] text-[#667085]">
@@ -146,7 +146,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <div className="space-y-2.5 text-xs">
             <div className="flex items-center justify-between p-3 rounded-[6px] border border-[#E2E6EB] bg-[#F1F3F5]">
               <div className="flex items-center gap-3">
-                <Database className="h-4 w-4 text-[#087F8C]" />
+                <Database className="h-4 w-4 text-[#474A2C]" />
                 <div>
                   <div className="font-bold text-[#17202A]">Supabase Database & Realtime Channel</div>
                   <div className="text-[11px] text-[#667085]">PostgreSQL 15 • RLS Policies Enforced</div>
