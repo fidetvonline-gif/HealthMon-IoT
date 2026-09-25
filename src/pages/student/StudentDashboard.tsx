@@ -225,8 +225,8 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
         <div className="lg:col-span-7 card-panel p-5 rounded-[8px]">
           <div className="flex items-center justify-between mb-4 border-b border-[#E2E6EB] pb-3">
             <div>
-              <h3 className="text-sm font-bold text-[#17202A]">ESP32 Wearable Device Monitor</h3>
-              <p className="text-xs text-[#667085]">On-Device OLED Telemetry Simulation</p>
+              <h3 className="text-sm font-bold text-[#17202A]">VitaTrack Wearable Device Monitor</h3>
+              <p className="text-xs text-[#667085]">VitaTrack On-Device OLED Telemetry Simulation</p>
             </div>
             <span className="text-xs text-[#667085] font-mono">Updated: {lastRecorded}</span>
           </div>
@@ -241,8 +241,12 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
             <div className="space-y-2.5 text-xs">
               <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
                 <div className="flex justify-between items-center text-[#334155] mb-1.5">
+                  <span className="font-semibold">Device Name:</span>
+                  <span className="font-semibold text-[#474A2C]">{device?.device_name || 'VitaTrack Wearable Monitor Unit 1'}</span>
+                </div>
+                <div className="flex justify-between items-center text-[#334155] mb-1.5">
                   <span className="font-semibold">Device UID:</span>
-                  <span className="font-mono font-bold text-[#17202A]">{device?.device_uid || 'HM-ESP32-001'}</span>
+                  <span className="font-mono font-bold text-[#17202A]">{device?.device_uid || 'VT-ESP32-001'}</span>
                 </div>
                 <div className="flex justify-between items-center text-[#334155] mb-1.5">
                   <span className="font-semibold">Status:</span>
@@ -302,7 +306,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigateTa
               </div>
               <div className="flex items-center justify-between py-1 border-b border-[#F1F3F5]">
                 <span className="text-[#667085]">Assigned Device:</span>
-                <span className="font-mono text-[#474A2C] font-bold">{device?.device_uid || 'HM-ESP32-001'}</span>
+                <span className="font-mono text-[#474A2C] font-bold">{device?.device_uid || 'VT-ESP32-001'}</span>
               </div>
               <div className="flex items-center justify-between py-1">
                 <span className="text-[#667085]">Clinic Care Access:</span>

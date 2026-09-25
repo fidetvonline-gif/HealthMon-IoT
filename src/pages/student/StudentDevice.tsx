@@ -14,6 +14,9 @@ import {
   Heart,
   Thermometer,
   Monitor,
+  Edit2,
+  Check,
+  X,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useHealthData } from '../../context/HealthDataContext';
@@ -27,12 +30,22 @@ interface StudentDeviceProps {
 
 export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator }) => {
   const { user } = useAuth();
-  const { deviceForStudent, latestReadingForStudent } = useHealthData();
+  const { deviceForStudent, latestReadingForStudent, updateDeviceUid } = useHealthData();
 
   const [activeTab, setActiveTab] = useState<'specs' | 'ip_connect'>('specs');
+  const [isEditingUid, setIsEditingUid] = useState(false);
+  const [customUidInput, setCustomUidInput] = useState('');
 
   const studentId = user?.id || 'usr-student-001';
   const device = deviceForStudent(studentId);
+
+  const handleSaveUid = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (device && customUidInput.trim()) {
+      updateDeviceUid(device.id, customUidInput.trim());
+    }
+    setIsEditingUid(false);
+  };
   const reading = latestReadingForStudent(studentId);
 
   const battery = device?.battery_level ?? reading?.battery_level ?? 82;
@@ -82,7 +95,7 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
           <div>
             <h4 className="text-xs font-bold text-[#C24141]">DEVICE BATTERY LOW: {battery}%</h4>
             <p className="text-xs text-[#334155]">
-              {device?.device_uid || 'HM-ESP32-001'} is below 20%. Connect charging cable to maintain continuous telemetry.
+              {device?.device_uid || 'VT-ESP32-001'} is below 20%. Connect charging cable to maintain continuous telemetry.
             </p>
           </div>
         </div>
@@ -144,8 +157,51 @@ export const StudentDevice: React.FC<StudentDeviceProps> = ({ onOpenSimulator })
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">
-                  <span className="text-[#667085] text-[11px] block">Device UID</span>
-                  <span className="font-mono font-bold text-[#17202A] text-xs">{device?.device_uid || 'HM-ESP32-001'}</span>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-[#667085] text-[11px] block">Device UID</span>
+                    {!isEditingUid && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCustomUidInput(device?.device_uid || 'VT-21/SC/CO/1117');
+                          setIsEditingUid(true);
+                        }}
+                        className="text-[10px] font-semibold text-[#474A2C] hover:underline flex items-center gap-1"
+                        title="Update Device UID"
+                      >
+                        <Edit2 className="w-3 h-3" /> Edit
+                      </button>
+                    )}
+                  </div>
+                  {isEditingUid ? (
+                    <form onSubmit={handleSaveUid} className="flex items-center gap-1 mt-1">
+                      <input
+                        type="text"
+                        value={customUidInput}
+                        onChange={(e) => setCustomUidInput(e.target.value)}
+                        className="form-input text-xs py-1 px-2 font-mono"
+                        placeholder="Enter new UID..."
+                        autoFocus
+                      />
+                      <button
+                        type="submit"
+                        className="p-1 rounded bg-[#474A2C] text-white hover:bg-[#3A3D24]"
+                        title="Save Device UID"
+                      >
+                        <Check className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsEditingUid(false)}
+                        className="p-1 rounded bg-slate-200 text-slate-700 hover:bg-slate-300"
+                        title="Cancel"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </form>
+                  ) : (
+                    <span className="font-mono font-bold text-[#17202A] text-xs block">{device?.device_uid || 'VT-21/SC/CO/1117'}</span>
+                  )}
                 </div>
 
                 <div className="rounded-[6px] bg-[#F1F3F5] p-3 border border-[#E2E6EB]">

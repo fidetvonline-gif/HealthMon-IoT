@@ -37,7 +37,7 @@ export const ESP32FirmwareModal: React.FC<ESP32FirmwareModalProps> = ({ isOpen, 
 #include "heartRate.h"
 
 // Configuration
-#define DEVICE_UID "HM-ESP32-001"
+#define DEVICE_UID "VT-ESP32-001"
 #define FIRMWARE_VER "v1.2.4-esp32s3"
 
 const char* WIFI_SSID = "CAMPUS_WIFI";
@@ -78,7 +78,7 @@ void setup() {
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
-  display.println("HEALTHMON IoT");
+  display.println("VITATRACK IoT");
   display.println("Booting ESP32-S3...");
   display.display();
 
@@ -139,7 +139,7 @@ void readSensors() {
 void updateOLED() {
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.println("HEALTHMON [ONLINE]");
+  display.println("VITATRACK [ONLINE]");
   display.drawLine(0, 10, 128, 10, SSD1306_WHITE);
 
   display.setCursor(0, 16);

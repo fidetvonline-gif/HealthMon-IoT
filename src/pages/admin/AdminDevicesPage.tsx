@@ -7,6 +7,8 @@ import {
   Search,
   X,
   Sliders,
+  Edit2,
+  Check,
 } from 'lucide-react';
 import { useHealthData } from '../../context/HealthDataContext';
 import { useAuth } from '../../context/AuthContext';
@@ -18,7 +20,7 @@ interface AdminDevicesPageProps {
 }
 
 export const AdminDevicesPage: React.FC<AdminDevicesPageProps> = ({ onOpenSimulator }) => {
-  const { devices, assignDevice, registerDevice } = useHealthData();
+  const { devices, assignDevice, registerDevice, updateDeviceUid } = useHealthData();
   const { availableUsers } = useAuth();
 
   const students = availableUsers.filter((u) => u.role === 'STUDENT');
@@ -28,9 +30,13 @@ export const AdminDevicesPage: React.FC<AdminDevicesPageProps> = ({ onOpenSimula
   const [selectedStudentToAssign, setSelectedStudentToAssign] = useState<string>('');
   const [isRegistering, setIsRegistering] = useState(false);
 
+  // Edit Device UID state
+  const [editingDeviceId, setEditingDeviceId] = useState<string | null>(null);
+  const [editingUidValue, setEditingUidValue] = useState<string>('');
+
   // New device form state
-  const [newUid, setNewUid] = useState('HM-ESP32-005');
-  const [newName, setNewName] = useState('ESP32 Wrist Unit #5');
+  const [newUid, setNewUid] = useState('VT-ESP32-006');
+  const [newName, setNewName] = useState('VitaTrack Wrist Unit #6');
 
   const filteredDevices = devices.filter((d) => {
     if (searchFilter) {
@@ -128,8 +134,54 @@ export const AdminDevicesPage: React.FC<AdminDevicesPageProps> = ({ onOpenSimula
                     MCU
                   </div>
                   <div>
-                    <h3 className="font-mono font-bold text-[#17202A] text-xs">{dev.device_uid}</h3>
-                    <span className="text-[10px] text-[#667085] font-mono">{dev.mac_address || '24:6F:28:C2:55:01'}</span>
+                    {editingDeviceId === dev.id ? (
+                      <div className="flex items-center gap-1">
+                        <input
+                          type="text"
+                          value={editingUidValue}
+                          onChange={(e) => setEditingUidValue(e.target.value)}
+                          className="form-input text-xs py-0.5 px-1.5 font-mono w-28"
+                          autoFocus
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (editingUidValue.trim()) {
+                              updateDeviceUid(dev.id, editingUidValue.trim());
+                            }
+                            setEditingDeviceId(null);
+                          }}
+                          className="p-1 rounded bg-[#474A2C] text-white hover:bg-[#3A3D24]"
+                          title="Save UID"
+                        >
+                          <Check className="w-3 h-3" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEditingDeviceId(null)}
+                          className="p-1 rounded bg-slate-200 text-slate-700 hover:bg-slate-300"
+                          title="Cancel"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1.5">
+                        <h3 className="font-mono font-bold text-[#17202A] text-xs">{dev.device_uid}</h3>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingDeviceId(dev.id);
+                            setEditingUidValue(dev.device_uid);
+                          }}
+                          className="text-[#667085] hover:text-[#474A2C] p-0.5"
+                          title="Edit Device UID"
+                        >
+                          <Edit2 className="w-3 h-3" />
+                        </button>
+                      </div>
+                    )}
+                    <span className="text-[10px] text-[#667085] font-mono block">{dev.mac_address || '24:6F:28:C2:55:01'}</span>
                   </div>
                 </div>
                 <StatusBadge status={dev.status} pulse />

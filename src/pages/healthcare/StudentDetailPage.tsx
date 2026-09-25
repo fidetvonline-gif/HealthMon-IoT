@@ -137,7 +137,7 @@ export const StudentDetailPage: React.FC<StudentDetailPageProps> = ({ student, o
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-[#17202A]">
-                    {device?.device_uid || 'HM-ESP32-001'}
+                    {device?.device_uid || 'VT-ESP32-001'}
                   </h3>
                   <p className="text-xs text-[#667085]">ESP32 Wearable Unit</p>
                 </div>

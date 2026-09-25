@@ -49,9 +49,9 @@ export const ESP32OledDisplay: React.FC<ESP32OledDisplayProps> = ({
       {/* Screen Frame Header */}
       <div className="flex items-center justify-between border-b border-cyan-950/60 pb-1.5 mb-2 text-xs text-cyan-300/80">
         <div className="flex items-center gap-1.5 font-bold tracking-wider text-[11px] text-yellow-400">
-          <span>HEALTHMON</span>
+          <span>VITATRACK</span>
           <span className="text-[9px] px-1 py-0.2 bg-cyan-950 text-cyan-300 rounded border border-cyan-800">
-            {device?.device_uid || 'ESP32-S3'}
+            {device?.device_uid || 'VT-ESP32-001'}
           </span>
         </div>
 

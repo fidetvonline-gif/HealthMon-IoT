@@ -11,7 +11,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Normal resting adult heart rate range (60 - 100 BPM). Values below 60 indicate bradycardia; above 100 indicate tachycardia.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Alma Brown (System Administrator)',
+    updated_by: 'Grace Mfon (System Administrator)',
   },
   {
     id: 'thresh-2',
@@ -23,7 +23,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Normal oxygen saturation (95% - 100%). Readings below 95% indicate possible mild hypoxemia, below 90% severe hypoxemia.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Alma Brown (System Administrator)',
+    updated_by: 'Grace Mfon (System Administrator)',
   },
   {
     id: 'thresh-3',
@@ -35,7 +35,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Normal physiological human body temperature (36.5°C - 37.5°C). Readings above 37.8°C trigger fever warning.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Alma Brown (System Administrator)',
+    updated_by: 'Grace Mfon (System Administrator)',
   },
   {
     id: 'thresh-4',
@@ -47,7 +47,7 @@ export const INITIAL_THRESHOLDS: ThresholdConfig[] = [
     enabled: true,
     description: 'Detects high-acceleration shock vector from 6-axis accelerometer followed by sudden stillness.',
     updated_at: new Date().toISOString(),
-    updated_by: 'Alma Brown (System Administrator)',
+    updated_by: 'Grace Mfon (System Administrator)',
   },
 ];
 
@@ -126,10 +126,11 @@ export const INITIAL_USERS: UserProfile[] = [
   // Admin
   {
     id: 'usr-admin-001',
-    full_name: 'Alma Brown',
-    email: 'alma.brown@admin.uni.edu',
+    full_name: 'Grace Mfon',
+    email: 'grace.mfon@admin.uni.edu',
     phone: '+234 808 999 3344',
     role: 'ADMIN',
+    student_id: '21/sc/co/1117',
     department: 'IoT & Systems Infrastructure Unit',
     created_at: new Date(Date.now() - 90 * 86400000).toISOString(),
     updated_at: new Date().toISOString(),
@@ -139,10 +140,10 @@ export const INITIAL_USERS: UserProfile[] = [
 export const INITIAL_DEVICES: IoTDevice[] = [
   {
     id: 'dev-001',
-    device_uid: 'HM-ESP32-001',
+    device_uid: 'VT-21/SC/CO/1117',
     student_id: 'usr-student-001',
     student_name: 'Alma Brown',
-    device_name: 'Wrist Health Monitor Unit 1',
+    device_name: 'VitaTrack Wearable Monitor Unit 1',
     status: 'ONLINE',
     battery_level: 82,
     wifi_status: true,
@@ -154,10 +155,10 @@ export const INITIAL_DEVICES: IoTDevice[] = [
   },
   {
     id: 'dev-002',
-    device_uid: 'HM-ESP32-002',
+    device_uid: 'VT-ESP32-002',
     student_id: 'usr-student-002',
     student_name: 'Mary John',
-    device_name: 'Wrist Health Monitor Unit 2',
+    device_name: 'VitaTrack Wearable Monitor Unit 2',
     status: 'ONLINE',
     battery_level: 64,
     wifi_status: true,
@@ -169,10 +170,10 @@ export const INITIAL_DEVICES: IoTDevice[] = [
   },
   {
     id: 'dev-003',
-    device_uid: 'HM-ESP32-003',
+    device_uid: 'VT-ESP32-003',
     student_id: 'usr-student-003',
     student_name: 'Peter Paul',
-    device_name: 'Wrist Health Monitor Unit 3',
+    device_name: 'VitaTrack Wearable Monitor Unit 3',
     status: 'ONLINE',
     battery_level: 45,
     wifi_status: true,
@@ -184,10 +185,10 @@ export const INITIAL_DEVICES: IoTDevice[] = [
   },
   {
     id: 'dev-004',
-    device_uid: 'HM-ESP32-004',
+    device_uid: 'VT-ESP32-004',
     student_id: 'usr-student-004',
     student_name: 'David James',
-    device_name: 'Wrist Health Monitor Unit 4',
+    device_name: 'VitaTrack Wearable Monitor Unit 4',
     status: 'ONLINE',
     battery_level: 21,
     wifi_status: true,
@@ -199,9 +200,9 @@ export const INITIAL_DEVICES: IoTDevice[] = [
   },
   {
     id: 'dev-005',
-    device_uid: 'HM-ESP32-005',
+    device_uid: 'VT-ESP32-005',
     student_id: null,
-    device_name: 'Reserve Unit 5 (Unassigned)',
+    device_name: 'VitaTrack Reserve Unit 5 (Unassigned)',
     status: 'OFFLINE',
     battery_level: 95,
     wifi_status: false,
@@ -359,15 +360,15 @@ export const INITIAL_ALERTS: HealthAlert[] = [
 export const INITIAL_LOGS: DeviceLog[] = [
   {
     id: 'log-001',
-    device_id: 'HM-ESP32-001',
+    device_id: 'VT-ESP32-001',
     event_type: 'DEVICE_ONLINE',
     message: 'ESP32-S3 established Wi-Fi link (SSID: UniWiFi-IoT, IP: 192.168.1.142)',
     created_at: new Date(Date.now() - 3600000).toISOString(),
-    actor: 'HM-ESP32-001 Firmware',
+    actor: 'VT-ESP32-001 Firmware',
   },
   {
     id: 'log-002',
-    device_id: 'HM-ESP32-004',
+    device_id: 'VT-ESP32-004',
     event_type: 'ALERT_CREATED',
     message: 'Abnormal condition detected for David James (HR: 126 BPM, Temp: 38.1°C)',
     created_at: new Date(Date.now() - 600000).toISOString(),
@@ -375,7 +376,7 @@ export const INITIAL_LOGS: DeviceLog[] = [
   },
   {
     id: 'log-003',
-    device_id: 'HM-ESP32-001',
+    device_id: 'VT-ESP32-001',
     event_type: 'READING_RECEIVED',
     message: 'Telemetry packet ingested: HR 78, SpO2 98, Temp 36.7, Sitting',
     created_at: new Date(Date.now() - 15000).toISOString(),

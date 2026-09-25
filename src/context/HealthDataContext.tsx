@@ -40,6 +40,7 @@ interface HealthDataContextType {
   resolveAlert: (alertId: string, resolvedBy: string, notes: string) => void;
   registerDevice: (device: { device_uid: string; device_name: string; firmware_version: string; student_id?: string }) => void;
   assignDevice: (deviceId: string, studentId: string | null, studentName?: string) => void;
+  updateDeviceUid: (deviceId: string, newUid: string) => void;
   updateDeviceStatus: (deviceId: string, status: IoTDevice['status'], battery?: number) => void;
   updateThreshold: (id: string, updates: Partial<ThresholdConfig>) => void;
   clearAllAlerts: () => void;
@@ -67,11 +68,12 @@ export const HealthDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       const saved = localStorage.getItem(STORAGE_KEYS.DEVICES);
       if (saved) {
         const parsed: IoTDevice[] = JSON.parse(saved);
-        return parsed.map((d) =>
-          d.student_name === 'John Doe' || d.student_id === 'usr-student-001'
-            ? { ...d, student_name: 'Alma Brown' }
-            : d
-        );
+        return parsed.map((d) => {
+          if (d.id === 'dev-001' || d.student_id === 'usr-student-001' || d.student_name === 'John Doe') {
+            return { ...d, student_name: 'Alma Brown', device_uid: 'VT-21/SC/CO/1117' };
+          }
+          return d;
+        });
       }
       return INITIAL_DEVICES;
     } catch {
@@ -451,6 +453,27 @@ export const HealthDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     ]);
   };
 
+  // Update Device UID
+  const updateDeviceUid = (deviceId: string, newUid: string) => {
+    const trimmed = newUid.trim();
+    if (!trimmed) return;
+    setDevices((prev) =>
+      prev.map((d) => (d.id === deviceId || d.device_uid === deviceId ? { ...d, device_uid: trimmed, updated_at: new Date().toISOString() } : d))
+    );
+
+    setLogs((prev) => [
+      {
+        id: `log-${Date.now()}`,
+        device_id: trimmed,
+        event_type: 'DEVICE_REGISTERED',
+        message: `Device UID updated to ${trimmed}`,
+        created_at: new Date().toISOString(),
+        actor: 'Admin',
+      },
+      ...prev.slice(0, 99),
+    ]);
+  };
+
   const updateDeviceStatus = (deviceId: string, status: IoTDevice['status'], battery?: number) => {
     setDevices((prev) =>
       prev.map((d) =>
@@ -558,6 +581,7 @@ export const HealthDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         resolveAlert,
         registerDevice,
         assignDevice,
+        updateDeviceUid,
         updateDeviceStatus,
         updateThreshold,
         clearAllAlerts,

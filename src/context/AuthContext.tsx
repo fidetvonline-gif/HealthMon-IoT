@@ -43,11 +43,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               emergency_contact_name: 'Eleanor Brown (Mother)',
             };
           }
-          if (u.id === 'usr-admin-001' || u.role === 'ADMIN' || u.full_name.includes('Marcus Vance')) {
+          if (u.id === 'usr-admin-001' || u.role === 'ADMIN' || u.full_name.includes('Marcus Vance') || u.full_name.includes('Alma Brown')) {
             return {
               ...u,
-              full_name: 'Alma Brown',
-              email: 'alma.brown@admin.uni.edu',
+              full_name: 'Grace Mfon',
+              email: 'grace.mfon@admin.uni.edu',
+              student_id: '21/sc/co/1117',
             };
           }
           return u;
@@ -73,11 +74,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               emergency_contact_name: 'Eleanor Brown (Mother)',
             };
           }
-          if (found.id === 'usr-admin-001' || found.role === 'ADMIN' || found.full_name.includes('Marcus Vance')) {
+          if (found.id === 'usr-admin-001' || found.role === 'ADMIN' || found.full_name.includes('Marcus Vance') || found.full_name.includes('Alma Brown')) {
             return {
               ...found,
-              full_name: 'Alma Brown',
-              email: 'alma.brown@admin.uni.edu',
+              full_name: 'Grace Mfon',
+              email: 'grace.mfon@admin.uni.edu',
+              student_id: '21/sc/co/1117',
             };
           }
           return found;
